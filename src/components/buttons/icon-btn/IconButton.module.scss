@@ -1,9 +1,13 @@
 .root {
-  width: 60px;
-  height: 60px;
+  width: 61px;
+  height: 61px;
   border-radius: 11px;
-  background: linear-gradient(359.95deg, rgba(29, 0, 47, 0.8) 0.34%, rgba(79, 94, 133, 0.8) 50.67%, rgba(255, 200, 198, 0.656) 100%);
+  background:
+          linear-gradient(359.95deg, rgba(29, 0, 47, 0.8) 0.34%, rgba(79, 94, 133, 0.8) 50.67%, rgba(255, 200, 198, 0.656) 100%),
+          rgba(104, 110, 166, 0.6);
+  background-blend-mode: overlay;
   padding: 1px 4px 3px 4px;
+  cursor: pointer;
 }
 
 .image {
@@ -13,6 +17,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1px;
+  object-fit: contain;
 }
 
 .title {
