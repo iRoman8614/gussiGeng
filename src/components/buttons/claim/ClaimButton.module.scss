@@ -1,12 +1,33 @@
 .root {
   background-image: url("/claimBTN.png");
   color: #FFFFFF;
-  font-size: 32px;
   font-weight: 900;
-  width: 177px;
-  height: 69px;
   background-size: cover;
   text-align: center;
   padding-top: 6px;
   cursor: pointer;
+}
+
+@media (max-width: 360px) {
+  .root {
+    width: 163px;
+    height: 63px;
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 361px) and (max-width: 400px) {
+  .root {
+    width: 170px;
+    height: 66px;
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 401px) {
+  .root {
+    width: 177px;
+    height: 69px;
+    font-size: 32px;
+  }
 }

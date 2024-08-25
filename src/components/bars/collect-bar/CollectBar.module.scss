@@ -1,9 +1,9 @@
 .root {
   position: relative;
-  width: 224px;
-  height: 74px;
   border: 5px solid #15193E;
   border-radius: 22px;
+  width: 224px;
+  height: 74px;
   backdrop-filter: blur(7px);
   background: rgba(21, 25, 62, 0.63);
 }
@@ -43,3 +43,33 @@
   height: 66px;
   object-fit: contain;
 }
+//
+//@media (max-width: 360px) {
+//  .root {
+//    width: 204px;
+//    height: 74px;
+//  }
+//  .border {
+//
+//  }
+//}
+//
+//@media (min-width: 361px) and (max-width: 400px) {
+//  .root {
+//    width: 214px;
+//    height: 74px;
+//  }
+//  .border {
+//
+//  }
+//}
+//
+//@media (min-width: 401px) {
+//  .root {
+//    width: 224px;
+//    height: 74px;
+//  }
+//  .border {
+//
+//  }
+//}

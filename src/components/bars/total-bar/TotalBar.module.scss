@@ -1,21 +1,51 @@
 .root {
   backdrop-filter: blur(7px);
   background: rgba(21, 25, 62, 0.63);
-  max-width: 227px;
-  width: 100%;
-  height: 75px;
   color: #FFFFFF;
-  font-size: 27px;
   border-radius: 30px;
 }
 
 .border {
   background-image: url("/totalbar.png");
-  background-size: cover;
-  max-width: 227px;
-  width: 100%;
-  height: 75px;
+  background-repeat: no-repeat;
+  background-size: contain;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 360px) {
+  .root {
+    width: 187px;
+    height: 55px;
+    font-size: 23px;
+  }
+  .border {
+    width: 187px;
+    height: 63px;
+  }
+}
+
+@media (min-width: 361px) and (max-width: 400px) {
+  .root {
+    width: 207px;
+    height: 65px;
+    font-size: 25px;
+  }
+  .border {
+    width: 207px;
+    height: 68px;
+  }
+}
+
+@media (min-width: 401px) {
+  .root {
+    width: 227px;
+    height: 75px;
+    font-size: 27px;
+  }
+  .border {
+    width: 227px;
+    height: 75px;
+  }
 }

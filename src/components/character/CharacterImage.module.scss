@@ -1,6 +1,4 @@
 .root {
-  max-width: 195px;
-  max-height: 297px;
   width: 100%;
   border-radius: 38px;
   background: linear-gradient(359deg, rgba(21,25,62, 0.45) 0%, rgba(56,66,164, 0.45) 100%);
@@ -13,4 +11,40 @@
 .char {
   width: 112px;
   height: 257px;
+}
+
+@media (max-width: 360px) {
+  .root {
+    width: 165px;
+    height: 257px;
+    font-size: 28px;
+  }
+  .char {
+    width: 92px;
+    height: 217px;
+  }
+}
+
+@media (min-width: 361px) and (max-width: 400px) {
+  .root {
+    width: 179px;
+    height: 277px;
+    font-size: 30px;
+  }
+  .char {
+    width: 102px;
+    height: 237px;
+  }
+}
+
+@media (min-width: 401px) {
+  .root {
+    width: 195px;
+    height: 297px;
+    font-size: 32px;
+  }
+  .char {
+    width: 112px;
+    height: 257px;
+  }
 }
