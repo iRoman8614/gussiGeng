@@ -1,6 +1,8 @@
 .root {
-  width: 61px;
-  height: 61px;
+  max-width: 61px;
+  max-height: 61px;
+  width: 100%;
+  height: 100%;
   border-radius: 11px;
   background:
           linear-gradient(359.95deg, rgba(29, 0, 47, 0.8) 0.34%, rgba(79, 94, 133, 0.8) 50.67%, rgba(255, 200, 198, 0.656) 100%),
@@ -25,7 +27,6 @@
   color: #FFFFFF;
   font-size: 12px;
   text-align: center;
-  //background: #686EA6;
   background: rgba(104, 110, 166, 0.6);
   border-radius: 5px;
   height: 16px;

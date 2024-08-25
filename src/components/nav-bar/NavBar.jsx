@@ -9,7 +9,6 @@ import bag from '../../../public/bag.png'
 
 import styles from './NavBar.module.scss'
 
-
 export const NavBar = () => {
     return(
         <div className={styles.root}>

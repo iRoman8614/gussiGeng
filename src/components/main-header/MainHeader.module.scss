@@ -1,7 +1,7 @@
 .root {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
-  grid-template-rows: repeat(2, 75px);
+  grid-template-rows: repeat(2, 1fr);
   justify-items: center;
   align-items: center;
   margin: 0 auto 0 auto;
