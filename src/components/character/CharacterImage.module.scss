@@ -1,0 +1,16 @@
+.root {
+  max-width: 195px;
+  max-height: 297px;
+  width: 100%;
+  border-radius: 38px;
+  background: linear-gradient(359deg, rgba(21,25,62, 0.45) 0%, rgba(56,66,164, 0.45) 100%);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.char {
+  width: 112px;
+  height: 257px;
+}

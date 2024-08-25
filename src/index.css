@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Pricedown';
+    src: url("/fonts/pricedown bl.ttf");
+}
+
+body {
+    margin: 0 auto;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Pricedown', serif
+}
+
