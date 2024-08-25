@@ -8,7 +8,7 @@ export const ClainButton = () => {
 
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
 
         handleCollect();

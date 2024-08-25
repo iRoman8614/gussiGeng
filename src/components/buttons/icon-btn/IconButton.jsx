@@ -4,7 +4,7 @@ import styles from './IconButton.module.scss'
 export const IconButton = ({image, title, alt}) => {
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
     };
     return(

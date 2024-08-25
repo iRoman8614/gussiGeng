@@ -2,9 +2,20 @@ import styles from './BigButton.module.scss'
 
 // eslint-disable-next-line react/prop-types
 export const BigButton = ({image, title, alt}) => {
+    // const handleClick = () => {
+    //     if (window.Telegram?.WebApp?.HapticFeedback) {
+    //         window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+    //     }
+    // };
+
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+            console.log("HapticFeedback доступен");
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+            alert('Вибрация вызвана');
+        } else {
+            console.log("HapticFeedback недоступен");
+            alert('API HapticFeedback недоступен');
         }
     };
 
