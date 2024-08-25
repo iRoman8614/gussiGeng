@@ -5,7 +5,7 @@ export const CoinContext = createContext();
 // eslint-disable-next-line react/prop-types
 export const CoinProvider = ({ children }) => {
     const maxProgress = 3500;
-    const farmRate = 10;
+    const farmRate = 100;
     const farmInterval = 2000;
 
     const [totalCoins, setTotalCoins] = useState(0);
