@@ -1,18 +1,22 @@
-import styles from './ClaimButton.module.scss'
-import ClaimBtn from '../../../assets/claimBTN.svg'
 import {useContext} from "react";
 import {CoinContext} from "../../../context/CoinContext.jsx";
-import { triggerVibration } from '../../../utils/vibrationUtil.js';
+
+import styles from './ClaimButton.module.scss'
 
 export const ClainButton = () => {
     const { handleCollect } = useContext(CoinContext);
 
     const handleClick = () => {
-        triggerVibration(50);
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+        }
+
         handleCollect();
     };
+
     return(
-        <div className={styles.root} style={{'background': `url(${ClaimBtn})`}} onClick={handleClick}>
+        <div className={styles.root}
+             onClick={handleClick}>
             CLaim
         </div>
     )

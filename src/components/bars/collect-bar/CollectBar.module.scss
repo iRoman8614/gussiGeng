@@ -10,7 +10,7 @@
 
 .progressBar {
   top: 0;
-  left: 8px;
+  left: 9px;
   height: 62px;
   position: absolute;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
@@ -36,4 +36,10 @@
   left: -2px;
   width: 216px;
   height: 66px;
+}
+
+.image {
+  width: 216px;
+  height: 66px;
+  object-fit: contain;
 }

@@ -1,12 +1,14 @@
-import styles from './NavBar.module.scss'
-
-import home from '../../assets/home.svg'
-import upgrades from '../../assets/upgrades.svg'
-import hands from '../../assets/hands.svg'
-import friends from '../../assets/friends.svg'
-import bag from '../../assets/bag.svg'
 import {IconButton} from "../buttons/icon-btn/IconButton.jsx";
 import {BigButton} from "../buttons/big-btn/BigButton.jsx";
+
+import home from '../../../public/home.png'
+import upgrades from '../../../public/upgrades.png'
+import hands from '../../../public/hands.png'
+import friends from '../../../public/friends.png'
+import bag from '../../../public/bag.png'
+
+import styles from './NavBar.module.scss'
+
 
 export const NavBar = () => {
     return(

@@ -1,11 +1,13 @@
-import styles from './MainHeader.module.scss'
 import {IconButton} from "../buttons/icon-btn/IconButton.jsx";
-import account from '../../assets/account.svg'
-import gang from '../../assets/gang.svg'
-import settings from '../../assets/settings.svg'
-import boards from '../../assets/boards.svg'
-import wallet from '../../assets/wallet.svg'
 import {TotalBar} from "../bars/total-bar/TotalBar.jsx";
+
+import account from '../../../public/account.png'
+import gang from '../../../public/gang.png'
+import settings from '../../../public/settings.png'
+import boards from '../../../public/boards.png'
+import wallet from '../../../public/wallet.png'
+
+import styles from './MainHeader.module.scss'
 
 export const MainHeader = () => {
     return(
