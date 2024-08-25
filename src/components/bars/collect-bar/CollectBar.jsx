@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import {useContext, useEffect, useState} from "react";
 import { CoinContext } from '../../../context/CoinContext.jsx';
 
 import border from '../../../../public/border.png'
@@ -6,9 +6,28 @@ import border from '../../../../public/border.png'
 import styles from './CollectBar.module.scss';
 export const CollectBar = () => {
     const { progress, maxProgress } = useContext(CoinContext);
-    const maxWidth = 198;
-    const currentWidth = (progress / maxProgress) * maxWidth;
+    const [maxWidth, setMaxWidth] = useState(198);
 
+    useEffect(() => {
+        const updateMaxWidth = () => {
+            const screenWidth = window.innerWidth;
+            if (screenWidth < 400) {
+                setMaxWidth(175);
+            } else {
+                setMaxWidth(198);
+            }
+        };
+
+        updateMaxWidth(); // Вызываем сразу для установки начального значения
+
+        window.addEventListener('resize', updateMaxWidth);
+
+        return () => {
+            window.removeEventListener('resize', updateMaxWidth);
+        };
+    }, []);
+
+    const currentWidth = (progress / maxProgress) * maxWidth;
     return(
         <div className={styles.root}
         >

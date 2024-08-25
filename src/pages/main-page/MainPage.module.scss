@@ -1,7 +1,6 @@
 .root {
   background-image: url("/nightcity.png");
   background-repeat: no-repeat;
-  min-height: 660px;
   height: 100vh;
   min-width: 319px;
   max-width: 450px;
@@ -16,19 +15,19 @@
 
 @media (max-width: 360px) {
   .root {
-    padding: 10px;
+    padding: 0 10px;
   }
 }
 
 @media (min-width: 361px) and (max-width: 400px) {
   .root {
-    padding: 12px;
+    padding: 0 12px;
   }
 }
 
 @media (min-width: 401px) {
   .root {
-    padding: 25px;
+    padding: 0 25px;
   }
 }
 

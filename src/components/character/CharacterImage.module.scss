@@ -13,27 +13,27 @@
   height: 257px;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 360px) or (max-height: 600px){
   .root {
-    width: 165px;
-    height: 257px;
+    width: 140px;
+    height: 200px;
     font-size: 28px;
   }
   .char {
     width: 92px;
-    height: 217px;
+    height: 197px;
   }
 }
 
 @media (min-width: 361px) and (max-width: 400px) {
   .root {
     width: 179px;
-    height: 277px;
+    height: 247px;
     font-size: 30px;
   }
   .char {
     width: 102px;
-    height: 237px;
+    height: 217px;
   }
 }
 
