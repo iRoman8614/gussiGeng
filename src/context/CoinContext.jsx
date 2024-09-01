@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import teamData from '../mock/teamsData';
 
 export const CoinContext = createContext();
 
@@ -10,6 +11,7 @@ export const CoinProvider = ({ children }) => {
 
     const [totalCoins, setTotalCoins] = useState(0);
     const [progress, setProgress] = useState(0);
+    const [teamId, setTeamId] = useState(1)
 
     useEffect(() => {
         const storedTotal = parseInt(localStorage.getItem('totalCoins')) || 0;
@@ -45,7 +47,8 @@ export const CoinProvider = ({ children }) => {
     };
 
     return (
-        <CoinContext.Provider value={{ totalCoins, progress, maxProgress, handleCollect }}>
+        <CoinContext.Provider value={{ totalCoins, progress, maxProgress, handleCollect, teamId,
+            teamData }}>
             {children}
         </CoinContext.Provider>
     );

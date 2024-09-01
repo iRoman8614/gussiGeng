@@ -1,22 +1,24 @@
-import styles from './BigButton.module.scss'
+import styles from './BigButton.module.scss';
 
 // eslint-disable-next-line react/prop-types
-export const BigButton = ({image, title, alt}) => {
+export const BigButton = ({ image, title, alt, onClick }) => {
     const handleClick = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
+        if (onClick) {
+            onClick(); // Вызываем переданную функцию при клике
+        }
     };
 
-
-    return(
+    return (
         <div className={styles.root} onClick={handleClick}>
-            <div >
+            <div>
                 <img className={styles.image} src={image} alt={alt} />
             </div>
             <div className={styles.title}>
                 {title}
             </div>
         </div>
-    )
-}
+    );
+};

@@ -5,6 +5,9 @@
           rgba(104, 110, 166, 0.6);
   background-blend-mode: overlay;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .image {

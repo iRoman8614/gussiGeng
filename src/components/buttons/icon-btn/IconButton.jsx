@@ -12,9 +12,9 @@ export const IconButton = ({image, title, alt}) => {
             <div >
                 <img className={styles.image} src={image} alt={alt} />
             </div>
-            <div className={styles.title}>
+            {title && <div className={styles.title}>
                 {title}
-            </div>
+            </div>}
         </div>
     )
 }

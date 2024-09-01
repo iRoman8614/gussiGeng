@@ -3,9 +3,12 @@
     src: url("/fonts/pricedown bl.ttf");
 }
 
-body {
+html, body {
     margin: 0 auto;
     padding: 0;
+    min-width: 319px;
+    max-width: 450px;
+    width: 100%;
 }
 
 * {

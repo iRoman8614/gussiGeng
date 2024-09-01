@@ -1,4 +1,4 @@
-import purpleChar from '../../../public/purpleChar.png'
+import purpleChar from '../../../public/characters/purpleChar.png'
 
 import styles from './CharacterImage.module.scss'
 

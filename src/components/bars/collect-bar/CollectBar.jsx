@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { CoinContext } from '../../../context/CoinContext.jsx';
 
-import border from '../../../../public/border.png'
+import border from '../../../../public/farm_border.png'
 
 import styles from './CollectBar.module.scss';
 export const CollectBar = () => {
