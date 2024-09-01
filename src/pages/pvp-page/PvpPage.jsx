@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { CoinContext } from "../../context/CoinContext.jsx";
 import { gameOptions } from '../../mock/optionData';
 import { IconButton } from "../../components/buttons/icon-btn/IconButton.jsx";
@@ -9,6 +10,7 @@ import styles from './PvpPage.module.scss';
 
 export const PvpPage = () => {
     const { teamId, teamData } = useContext(CoinContext);
+    const navigate = useNavigate();
 
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
@@ -66,6 +68,7 @@ export const PvpPage = () => {
                     setTimeout(() => {
                         setGameOver(true);
                         alert('Вы выиграли!');
+                        navigate('/');
                     }, 1000);
                 } else {
                     resetRoundAfterDelay();
@@ -79,6 +82,7 @@ export const PvpPage = () => {
                     setTimeout(() => {
                         setGameOver(true);
                         alert('Оппонент выиграл!');
+                        navigate('/');
                     }, 1000);
                 } else {
                     resetRoundAfterDelay();
