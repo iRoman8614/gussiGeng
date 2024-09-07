@@ -11,7 +11,7 @@ export const CoinProvider = ({ children }) => {
 
     const [totalCoins, setTotalCoins] = useState(0);
     const [progress, setProgress] = useState(0);
-    const [teamId, setTeamId] = useState(1)
+    const [teamId, setTeamId] = useState(null)
 
     useEffect(() => {
         const storedTotal = parseInt(localStorage.getItem('totalCoins')) || 0;
