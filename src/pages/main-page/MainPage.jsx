@@ -21,23 +21,28 @@ const userObject = JSON.parse(decodedUserParam);
 const userId = userObject.id || '';
 
 
+
 export const MainPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const { updateTeamData } = useContext(CoinContext);
 
-    useEffect(() => {
-        const fetchData = async (userId) => {
-            try {
-                const response = await axios.get(`/profile/init?profileId=${userId}`);
-                const data = response.data;
-                if (data && data.Group && data.Group.Id) {
-                    updateTeamData(data.Group.Id);
-                }
-                setIsLoading(false);
-            } catch (error) {
-                console.error('Ошибка при получении данных:', error);
-                setIsLoading(false);
+    const fetchData = async (userId) => {
+        try {
+            const response = await axios.get(`/profile/init?profileId=${userId}`);
+            const data = response.data;
+            if (data && data.Group && data.Group.Id) {
+                updateTeamData(data.Group.Id);
             }
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Ошибка при получении данных:', error);
+            setIsLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        if (userId) {
+            fetchData(userId);
         }
         console.log('fetchData', fetchData)
     }), [updateTeamData];
