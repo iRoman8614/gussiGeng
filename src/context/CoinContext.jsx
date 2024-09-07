@@ -9,9 +9,9 @@ export const CoinProvider = ({ children }) => {
     const farmRate = 100;
     const farmInterval = 2000;
 
-    const [totalCoins, setTotalCoins] = useState(1);
+    const [totalCoins, setTotalCoins] = useState(0);
     const [progress, setProgress] = useState(0);
-    const [teamId, setTeamId] = useState(null)
+    const [teamId, setTeamId] = useState('1')
 
     useEffect(() => {
         const storedTotal = parseInt(localStorage.getItem('totalCoins')) || 0;

@@ -9,6 +9,7 @@ import pgborder from "/winPBborder.png"
 import wins from '/wins.png'
 
 import styles from './PvpPage.module.scss';
+import {Loader} from "../../components/loader/Loader.jsx";
 
 export const PvpPage = () => {
     const { teamId, teamData } = useContext(CoinContext);
@@ -22,15 +23,22 @@ export const PvpPage = () => {
     const [playerChoice, setPlayerChoice] = useState(null);
     const [opponentChoice, setOpponentChoice] = useState(null);
     const [gameEnded, setgameEnded] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [opponentTeamId, setOpponentTeamId] = useState(() => {
         return Math.floor(Math.random() * 3) + 1;
     });
 
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+        return () => clearTimeout(timeoutId);
+    }, []);
+
 
     useEffect(() => {
         let timerId;
-
-        if (timer > 0 && !gameOver) {
+        if (!isLoading && timer > 0 && !gameOver) {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
             }, 1000);
@@ -39,7 +47,7 @@ export const PvpPage = () => {
         }
 
         return () => clearTimeout(timerId);
-    }, [timer, gameOver]);
+    }, [isLoading, timer, gameOver]);
 
     useEffect(() => {
         if (teamId !== null) {
@@ -95,7 +103,6 @@ export const PvpPage = () => {
         }
     };
 
-
     const handleRoundEnd = () => {
         if (playerChoice === null) {
             const randomOpponentChoice = getRandomOption();
@@ -127,57 +134,61 @@ export const PvpPage = () => {
     };
 
     return (
-        <div className={styles.root}>
-            {gameEnded && <WinningScreen userName={'user'} />}
-            <div className={styles.oppNickname}>
-                <img className={styles.oppNicknameBorder} src={border} alt={''} />
-                biggie smalls
-            </div>
-            <div className={styles.container}>
-                <div className={styles.optionBg}>
-                    {opponentChoice !== null && <img
-                        className={styles.choose}
-                        src={gameOptions[opponentChoice].logo}
-                        alt={gameOptions[opponentChoice].name}
-                    />}
+        <>
+            {isLoading && <Loader />}
+            <div className={styles.root}>
+                {gameEnded && <WinningScreen userName={'user'} />}
+                <div className={styles.oppNickname}>
+                    <img className={styles.oppNicknameBorder} src={border} alt={''} />
+                    biggie smalls
                 </div>
-                <VictoryCounter score={opponentScore} />
-                <IconButton image={teamData[teamId].logo} alt={'gang'} />
-                <div className={styles.roundTimer}>
-                    <div className={styles.time}>{timer}</div>
+                <div className={styles.container}>
+                    <div className={styles.optionBg}>
+                        {opponentChoice !== null && <img
+                            className={styles.choose}
+                            src={gameOptions[opponentChoice].logo}
+                            alt={gameOptions[opponentChoice].name}
+                        />}
+                    </div>
+                    <VictoryCounter score={opponentScore} />
+                    <IconButton image={teamData[teamId].logo} alt={'gang'} />
+                    <div className={styles.roundTimer}>
+                        <div className={styles.time}>{timer}</div>
+                    </div>
+                    <IconButton image={teamData[opponentTeamId].logo} alt={'gang'} />
+                    <VictoryCounter score={playerScore} />
+                    <div className={styles.optionBg}>
+                        {playerChoice !== null && <img
+                            className={styles.mychoose}
+                            src={gameOptions[playerChoice].logo}
+                            alt={gameOptions[playerChoice].name}
+                        />}
+                    </div>
                 </div>
-                <IconButton image={teamData[opponentTeamId].logo} alt={'gang'} />
-                <VictoryCounter score={playerScore} />
-                <div className={styles.optionBg}>
-                    {playerChoice !== null && <img
-                        className={styles.mychoose}
-                        src={gameOptions[playerChoice].logo}
-                        alt={gameOptions[playerChoice].name}
-                    />}
+                <div className={styles.round}>
+                    <img className={styles.roundBorder} src={border} alt={''} />
+                    round {round}
+                </div>
+                <div className={styles.buttonSet}>
+                    <button className={styles.btn} onClick={() => handlePlayerChoice(1)}>
+                        <img src={border} alt={''} />
+                        <img className={styles.icon} src={'/gussiGeng/game-icons/paperIcon.png'} alt={'paper'} />
+                        <p>Paper</p>
+                    </button>
+                    <button className={styles.btn} onClick={() => handlePlayerChoice(2)}>
+                        <img src={border} alt={''} />
+                        <img className={styles.icon} src={'/gussiGeng/game-icons/rockIcon.png'} alt={'paper'} />
+                        <p>Rock</p>
+                    </button>
+                    <button className={styles.btn} onClick={() => handlePlayerChoice(3)}>
+                        <img src={border} alt={''} />
+                        <img className={styles.icon} src={'/gussiGeng/game-icons/scissorsIcon.png'} alt={'paper'} />
+                        <p>Scissors</p>
+                    </button>
                 </div>
             </div>
-            <div className={styles.round}>
-                <img className={styles.roundBorder} src={border} alt={''} />
-                round {round}
-            </div>
-            <div className={styles.buttonSet}>
-                <button className={styles.btn} onClick={() => handlePlayerChoice(1)}>
-                    <img src={border} alt={''} />
-                    <img className={styles.icon} src={'/gussiGeng/game-icons/paperIcon.png'} alt={'paper'} />
-                    <p>Paper</p>
-                </button>
-                <button className={styles.btn} onClick={() => handlePlayerChoice(2)}>
-                    <img src={border} alt={''} />
-                    <img className={styles.icon} src={'/gussiGeng/game-icons/rockIcon.png'} alt={'paper'} />
-                    <p>Rock</p>
-                </button>
-                <button className={styles.btn} onClick={() => handlePlayerChoice(3)}>
-                    <img src={border} alt={''} />
-                    <img className={styles.icon} src={'/gussiGeng/game-icons/scissorsIcon.png'} alt={'paper'} />
-                    <p>Scissors</p>
-                </button>
-            </div>
-        </div>
+        </>
+
     );
 }
 

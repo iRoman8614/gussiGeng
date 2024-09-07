@@ -12,46 +12,56 @@ import styles from './MainPage.module.scss'
 
 
 //Telegram WebApp Get User
-const search = window.Telegram.WebApp.initData
-const urlParams = new URLSearchParams(search);
-const userParam = urlParams.get('user');
-const decodedUserParam = decodeURIComponent(userParam);
-const userObject = JSON.parse(decodedUserParam);
-// const userTG = userObject.username || '';
-const userId = userObject.id || '';
-
-
+// const search = window.Telegram.WebApp.initData
+// const urlParams = new URLSearchParams(search);
+// const userParam = urlParams.get('user');
+// const decodedUserParam = decodeURIComponent(userParam);
+// const userObject = JSON.parse(decodedUserParam);
+// // const userTG = userObject.username || '';
+// let userId
+// if(userObject !== null) {
+//     userId = userObject.id
+// } else {
+//     userId = 1
+// }
 
 export const MainPage = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const { updateTeamData } = useContext(CoinContext);
-
-    const fetchData = async (userId) => {
-        try {
-            const response = await axios.get(`/profile/init?profileId=${userId}`);
-            const data = response.data;
-            if (data && data.Group && data.Group.Id) {
-                updateTeamData(data.Group.Id);
-            }
-            setIsLoading(false);
-        } catch (error) {
-            console.error('Ошибка при получении данных:', error);
-            setIsLoading(false);
-        }
-    }
+    // const { updateTeamData } = useContext(CoinContext);
+    const [id, setId] = useState(1)
+    // const fetchData = async (userId) => {
+    //     try {
+    //         const response = await axios.get(`/profile/init?profileId=${userId}`);
+    //         const data = response.data;
+    //         if (data && data.Group && data.Group.Id) {
+    //             setId(data.Group.Id);
+    //         }
+    //         setIsLoading(false);
+    //     } catch (error) {
+    //         console.error('Ошибка при получении данных:', error);
+    //         setIsLoading(false);
+    //     }
+    // }
+    // useEffect(() => {
+    //     if (userId) {
+    //         fetchData(userId);
+    //     }
+    //     console.log('fetchData', fetchData)
+    // }), [updateTeamData];
 
     useEffect(() => {
-        if (userId) {
-            fetchData(userId);
-        }
-        console.log('fetchData', fetchData)
-    }), [updateTeamData];
+        const timeoutId = setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+        return () => clearTimeout(timeoutId);
+    }, []);
+
 
     return(
         <>
-            {isLoading && <Loader />}
+            {isLoading === true && <Loader />}
             <div className={styles.root}>
-                <MainHeader />
+                <MainHeader id={id} />
                 <CharacterImage />
                 <CollectBar />
                 <ClainButton />

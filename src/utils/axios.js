@@ -4,7 +4,7 @@ import axios from "axios"
 // стандартный путь для отправки запросов
 const instance = axios.create({
     //url
-    baseURL: "http://94.26.250.179:8000/api/"
+    baseURL: "http://37.1.222.137:8080/"
 })
 
 // добавляет токен в хедер запросов
