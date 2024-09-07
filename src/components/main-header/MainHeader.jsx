@@ -6,17 +6,18 @@ import settings from '../../../public/main-buttons/settings.png'
 import boards from '../../../public/main-buttons/boards.png'
 import wallet from '../../../public/main-buttons/wallet.png'
 import { CoinContext } from '../../context/CoinContext.jsx';
+import teamDate from '../../mock/teamsData.js'
 
 import styles from './MainHeader.module.scss'
 import {useContext} from "react";
 
 export const MainHeader = () => {
-    const { teamId, teamData } = useContext(CoinContext);
+    const { teamId } = useContext(CoinContext);
 
     return(
         <div className={styles.root}>
             <IconButton image={account} alt={'account'} title={'account'} />
-            <IconButton image={teamData[teamId].logo} alt={'gang'} />
+            <IconButton image={teamDate[teamId].logo} alt={'gang'} />
             <IconButton image={settings} alt={'settings'} title={'settings'} />
             <IconButton image={boards} alt={'boards'} title={'board'} />
             <TotalBar />
