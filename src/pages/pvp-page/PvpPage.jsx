@@ -5,6 +5,8 @@ import { gameOptions } from '../../mock/optionData';
 import { IconButton } from "../../components/buttons/icon-btn/IconButton.jsx";
 
 import border from '/farm_border.png'
+import pgborder from "/winPBborder.png"
+import wins from '/wins.png'
 
 import styles from './PvpPage.module.scss';
 
@@ -19,6 +21,7 @@ export const PvpPage = () => {
     const [timer, setTimer] = useState(10);
     const [playerChoice, setPlayerChoice] = useState(null);
     const [opponentChoice, setOpponentChoice] = useState(null);
+    const [gameEnded, setgameEnded] = useState(false);
     const [opponentTeamId, setOpponentTeamId] = useState(() => {
         return Math.floor(Math.random() * 3) + 1;
     });
@@ -65,11 +68,11 @@ export const PvpPage = () => {
             setPlayerScore(prev => {
                 const newScore = prev + 1;
                 if (newScore === 3) {
+                    setgameEnded(true);
                     setTimeout(() => {
                         setGameOver(true);
-                        alert('Вы выиграли!');
                         navigate('/');
-                    }, 1000);
+                    }, 3000);
                 } else {
                     resetRoundAfterDelay();
                 }
@@ -79,11 +82,11 @@ export const PvpPage = () => {
             setOpponentScore(prev => {
                 const newScore = prev + 1;
                 if (newScore === 3) {
+                    setgameEnded(true);
                     setTimeout(() => {
                         setGameOver(true);
-                        alert('Оппонент выиграл!');
                         navigate('/');
-                    }, 1000);
+                    }, 3000);
                 } else {
                     resetRoundAfterDelay();
                 }
@@ -91,6 +94,7 @@ export const PvpPage = () => {
             });
         }
     };
+
 
     const handleRoundEnd = () => {
         if (playerChoice === null) {
@@ -124,11 +128,12 @@ export const PvpPage = () => {
 
     return (
         <div className={styles.root}>
+            {gameEnded && <WinningScreen userName={'user'} />}
             <div className={styles.oppNickname}>
                 <img className={styles.oppNicknameBorder} src={border} alt={''} />
                 biggie smalls
             </div>
-            <div className={styles.playerContainer}>
+            <div className={styles.container}>
                 <div className={styles.optionBg}>
                     {opponentChoice !== null && <img
                         className={styles.choose}
@@ -137,16 +142,11 @@ export const PvpPage = () => {
                     />}
                 </div>
                 <VictoryCounter score={opponentScore} />
-            </div>
-            <div className={styles.middleBar}>
                 <IconButton image={teamData[teamId].logo} alt={'gang'} />
                 <div className={styles.roundTimer}>
-                    <img className={styles.timer} src={border}/>
                     <div className={styles.time}>{timer}</div>
                 </div>
                 <IconButton image={teamData[opponentTeamId].logo} alt={'gang'} />
-            </div>
-            <div className={styles.playerContainer}>
                 <VictoryCounter score={playerScore} />
                 <div className={styles.optionBg}>
                     {playerChoice !== null && <img
@@ -200,10 +200,24 @@ function getRandomTeamIdExceptCurrent(currentTeamId, totalTeams = 3) {
 const VictoryCounter = ({ score }) => {
     return (
         <div className={styles.counter}>
-            <img className={styles.containerBorder} src={border} alt={''} />
+            <img className={styles.containerBorder} src={pgborder} alt={''} />
             <div className={score >= 3 ? styles.lampOn : styles.lampOff}></div>
             <div className={score >= 2 ? styles.lampOn : styles.lampOff}></div>
             <div className={score >= 1 ? styles.lampOn : styles.lampOff}></div>
         </div>
     );
 };
+
+
+// eslint-disable-next-line no-unused-vars,react/prop-types
+const WinningScreen = ({userName}) => {
+    return(
+        <div className={styles.winbg}>
+            <div className={styles.winContainer}>
+                <div className={styles.winnerName}>{userName}</div>
+                <img className={styles.winsImage} src={wins} />
+                <p className={styles.winnerName}>+5% FaRM RaTE </p>
+            </div>
+        </div>
+    )
+}

@@ -46,8 +46,12 @@ export const CoinProvider = ({ children }) => {
         setProgress(0);
     };
 
+    const updateTeamData = (id) => {
+        setTeamId(id);
+    };
+
     return (
-        <CoinContext.Provider value={{ totalCoins, progress, maxProgress, handleCollect, teamId,
+        <CoinContext.Provider value={{ totalCoins, progress, maxProgress, handleCollect, teamId, updateTeamData,
             teamData }}>
             {children}
         </CoinContext.Provider>

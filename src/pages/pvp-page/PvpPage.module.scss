@@ -15,10 +15,12 @@
     padding: 16px;
 }
 
-.playerContainer {
+.container {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 26px;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 4fr 3fr 4fr;
+    align-items: center;
+    justify-items: center;
 }
 
 .optionBg {
@@ -27,7 +29,7 @@
     background: linear-gradient(359deg, rgba(21, 25, 62, 0.45) 0%, rgba(56, 66, 164, 0.45) 100%);
     backdrop-filter: blur(8px);
     width: 150px;
-    max-height: 198px;
+    max-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,13 +57,6 @@
     width: 100%;
 }
 
-.middleBar {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 40px;
-    align-items: center;
-}
-
 .choose {
     width: 92px;
     height: 184px;
@@ -76,29 +71,24 @@
 }
 
 .roundTimer {
-    width: 94px;
-    height: 94px;
-    border: 4px solid #15193E;
-    border-radius: 18px;
-    background: rgba(21, 25, 62, 0.63);
-    position: relative;
-}
-
-.timer {
-    width: 82px;
-    height: 82px;
-    margin: 2px;
-    border-radius: 10px;
+    width: 144px;
+    height: 144px;
+    background: url("/timer.png") no-repeat;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+    padding-right: 5px;
+    margin: auto;
 }
 
 .time {
     width: 30px;
+    height: 34px;
     text-align: center;
     font-size: 34px;
     line-height: 34px;
-    position: absolute;
-    top: 26px;
-    left: 30px;
 }
 
 .round {
@@ -169,7 +159,7 @@
         bottom: 0;
         color: #FFFFFF;
         width: 68px;
-        left: 11px;
+        left: 7px;
         text-align: center;
         background: rgba(104, 110, 166, 0.6);
         border-radius: 5px;
@@ -180,9 +170,11 @@
 .counter {
     display: flex;
     flex-direction: column;
+    gap: 3px;
     justify-content: space-around;
-    height: 183px;
-    width: 58px;
+    max-height: 180px;
+    height: 100%;
+    width: 55px;
     padding: 2px;
     border: 4px solid #15193E;
     border-radius: 18px;
@@ -195,8 +187,9 @@
     width: 100%;
     height: 30%;
     border-radius: 11px;
-    background: linear-gradient(90deg, #00f0ff 0%, #068a72 47%, #06238a 78%);
-    opacity: 80%;
+    background: rgba(26, 241, 255, 0.8);
+    animation: cycleAnimation 5s infinite;
+    overflow: hidden;
 }
 
 .lampOff {
@@ -209,13 +202,81 @@
 
 .containerBorder {
     position: absolute;
-    left: -65px;
     z-index: 10;
-    object-fit: contain;
-    rotate: 90deg;
-    width: 180px;
-    height: 52px;
+    object-fit: fill;
+    height: 100%;
+    width: 100%;
+    left: 0;
 }
+
+.winbg {
+    position: absolute;
+    z-index: 100;
+    top: -10px;
+    width: 100%;
+    height: 110%;
+    filter: blur(0px);
+    background: rgba(18, 22, 38, 0.92);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.winContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 22px;
+    width: 271px;
+    height: 391px;
+    background: url("/winsBG.png") no-repeat;
+    background-size: contain;
+    padding: 40px 10px 40px 10px;
+}
+
+.winnerName {
+    font-weight: 900;
+    font-size: 27px;
+    color: #fff;
+    text-align: center;
+}
+
+.winsImage {
+    width: 204px;
+    height: 151px;
+}
+
+@keyframes initialTransition {
+    0% {
+        border-radius: 11px;
+        background: linear-gradient(360deg, #1d002f 0%, #4f5e85 50.5%, rgba(255, 206, 204, 0.83) 100%);
+        filter: none;
+    }
+    100% {
+        background: rgba(26, 241, 255, 0.8);
+    }
+}
+
+@keyframes cycleAnimation {
+    0% {
+        background: rgba(26, 241, 255, 0.8);
+        filter: blur(5.2px);
+    }
+    50% {
+        background: rgba(26, 241, 255, 0.8);
+        filter: blur(21.9px);
+    }
+    75% {
+        background: rgba(26, 241, 255, 0.74);
+        filter: blur(15.6px);
+    }
+    100% {
+        background: #1af1ff;
+        filter: blur(9.2px);
+    }
+}
+
 
 
 @media (max-width: 360px) {
@@ -227,20 +288,14 @@
         height: 60px;
     }
     .roundTimer {
-        width: 52px;
-        height: 52px;
-        border-radius: 12px;
-    }
-    .timer {
-        width: 45px;
-        height: 45px;
-        padding: 0;
-        margin: 0;
+        width: 100px;
+        height: 100px;
     }
     .time {
-        top: 6px;
-        left: 8px;
-    };
+        height: 24px;
+        font-size: 24px;
+        line-height: 24px;
+    }
     .choose, .mychoose {
         height: 110px;
         object-fit: contain;
@@ -249,15 +304,6 @@
         height: 130px;
         width: 100px;
         border-radius: 18px;
-    }
-    .counter {
-        height: 130px;
-        width: 45px;
-        border-radius: 12px;
-    }
-    .containerBorder {
-        width: 124px;
-        left: -44px;
     }
     .btn {
         height: 70px;
@@ -288,17 +334,14 @@
         height: 80px;
     }
     .roundTimer {
-        width: 72px;
-        height: 72px;
-    }
-    .timer {
-        width: 60px;
-        height: 60px;
+        width: 120px;
+        height: 122px;
     }
     .time {
-        top: 15px;
-        left: 18px;
-    };
+        height: 28px;
+        font-size: 28px;
+        line-height: 28px;
+    }
     .choose, .mychoose {
         height: 130px;
         object-fit: contain;
@@ -306,13 +349,5 @@
     .optionBg {
         height: 150px;
         width: 115px;
-    }
-    .counter {
-        height: 150px;
-        width: 52px;
-    }
-    .containerBorder {
-        width: 144px;
-        left: -50px;
     }
 }

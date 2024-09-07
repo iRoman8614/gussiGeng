@@ -1,0 +1,39 @@
+// proto/farm.proto
+// mkdir ./gen/farm/ && protoc -I proto proto/farm.proto --go_out=./gen/farm/ --go_opt=paths=source_relative --go-grpc_out=./gen/farm/ --go-grpc_opt=paths=source_relative
+
+// Версия ProtoBuf
+syntax = "proto3";
+
+package gangWars;
+
+// Настройки для генерации Go кода.
+option go_package = "gangWars.farm.v1;farm";
+
+// Auth is service for managing permissions and roles.
+service FarmService {
+  // Список свободных ящиков
+  rpc Start (StartRequest) returns (StartResponse);
+  rpc Collect (CollectRequest) returns (CollectResponse);
+
+}
+
+message StartRequest {
+  uint64 profileID = 1;
+}
+
+message StartResponse {
+  uint64 totalCoins = 1;
+  string startTime = 2;
+  uint64 rate = 3;
+}
+
+message CollectRequest {
+  uint64 profileID = 1;
+}
+
+message CollectResponse {
+  uint64 coins = 1;
+  uint64 totalCoins = 2;
+  string startTime = 3;
+  string endTime = 4;
+}
