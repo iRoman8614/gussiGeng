@@ -5,8 +5,7 @@ export const Loader = () => {
     return(
         <div className={styles.root}>
             <img className={styles.video}
-                src={loader} alt="Loading..."
-            />
+                 src={loader} alt="Loading..."/>
         </div>
     )
 }

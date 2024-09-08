@@ -20,8 +20,8 @@ export const PvpPage = () => {
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1)
     const [timer, setTimer] = useState(10);
-    const [playerChoice, setPlayerChoice] = useState(null);
-    const [opponentChoice, setOpponentChoice] = useState(null);
+    const [playerChoice, setPlayerChoice] = useState(2);
+    const [opponentChoice, setOpponentChoice] = useState(2);
     const [gameEnded, setgameEnded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [opponentTeamId, setOpponentTeamId] = useState(() => {
