@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {IconButton} from "../buttons/icon-btn/IconButton.jsx";
 import {BigButton} from "../buttons/big-btn/BigButton.jsx";
 
@@ -6,7 +7,6 @@ import upgrades from '../../../public/main-buttons/upgrades.png'
 import hands from '../../../public/main-buttons/hands.png'
 import friends from '../../../public/main-buttons/friends.png'
 import bag from '../../../public/main-buttons/bag.png'
-import { useNavigate } from 'react-router-dom';
 
 import styles from './NavBar.module.scss'
 

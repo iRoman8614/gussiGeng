@@ -10,7 +10,6 @@ import  {Loader} from '../../components/loader/Loader.jsx'
 
 import styles from './MainPage.module.scss'
 
-
 // Telegram WebApp Get User
 // const search = window.Telegram.WebApp.initData
 // const urlParams = new URLSearchParams(search);
@@ -28,7 +27,7 @@ import styles from './MainPage.module.scss'
 export const MainPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     // const { updateTeamData } = useContext(CoinContext);
-    const [id, setId] = useState(1)
+    const [id, setId] = useState(4)
     // const fetchData = async (userId) => {
     //     try {
     //         const response = await axios.get(`/profile/init?profileId=${userId}`);

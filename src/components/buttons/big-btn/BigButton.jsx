@@ -7,7 +7,7 @@ export const BigButton = ({ image, title, alt, onClick }) => {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
         if (onClick) {
-            onClick(); // Вызываем переданную функцию при клике
+            onClick();
         }
     };
 

@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { CoinContext } from "../../context/CoinContext.jsx";
 import { gameOptions } from '../../mock/optionData';
 import { IconButton } from "../../components/buttons/icon-btn/IconButton.jsx";
+import {Loader} from "../../components/loader/Loader.jsx";
 
 import border from '/farm_border.png'
 import pgborder from "/winPBborder.png"
 import wins from '/wins.png'
 
 import styles from './PvpPage.module.scss';
-import {Loader} from "../../components/loader/Loader.jsx";
 
 export const PvpPage = () => {
     const { teamId, teamData } = useContext(CoinContext);

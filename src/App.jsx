@@ -1,9 +1,10 @@
 import {useEffect} from "react";
 import {HashRouter, Route, Routes} from 'react-router-dom';
 import {MainPage} from "./pages/main-page/MainPage.jsx";
-import { CoinProvider } from './context/CoinContext.jsx';
-import './App.css';
 import {PvpPage} from "./pages/pvp-page/PvpPage.jsx";
+import { CoinProvider } from './context/CoinContext.jsx';
+
+import './App.css';
 
 function App() {
     useEffect(() => {
