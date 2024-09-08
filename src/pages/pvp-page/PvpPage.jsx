@@ -57,6 +57,9 @@ export const PvpPage = () => {
     }, [teamId, teamData]);
 
     const handlePlayerChoice = (choice) => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
         if (gameOver) return;
 
         setPlayerChoice(choice);
