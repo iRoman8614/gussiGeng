@@ -171,17 +171,14 @@ export const PvpPage = () => {
                 </div>
                 <div className={styles.buttonSet}>
                     <button className={styles.btn} onClick={() => handlePlayerChoice(1)}>
-                        <img src={border} alt={''} />
                         <img className={styles.icon} src={'/gussiGeng/game-icons/paperIcon.png'} alt={'paper'} />
                         <p>Paper</p>
                     </button>
                     <button className={styles.btn} onClick={() => handlePlayerChoice(2)}>
-                        <img src={border} alt={''} />
                         <img className={styles.icon} src={'/gussiGeng/game-icons/rockIcon.png'} alt={'paper'} />
                         <p>Rock</p>
                     </button>
                     <button className={styles.btn} onClick={() => handlePlayerChoice(3)}>
-                        <img src={border} alt={''} />
                         <img className={styles.icon} src={'/gussiGeng/game-icons/scissorsIcon.png'} alt={'paper'} />
                         <p>Scissors</p>
                     </button>
