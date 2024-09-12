@@ -28,25 +28,25 @@ export const MainPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const { updateTeamData } = useContext(CoinContext);
     const [id, setId] = useState(4)
-    const fetchData = async (userId) => {
-        try {
-            const response = await axios.get(`/profile/init?profileId=${userId}`);
-            const data = response.data;
-            if (data && data.Group && data.Group.Id) {
-                setId(data.Group.Id);
-            }
-            setIsLoading(false);
-        } catch (error) {
-            console.error('Ошибка при получении данных:', error);
-            setIsLoading(false);
-        }
-    }
-    useEffect(() => {
-        if (userId) {
-            fetchData(userId);
-        }
-        console.log('fetchData', fetchData)
-    }), [updateTeamData];
+    // const fetchData = async (userId) => {
+    //     try {
+    //         const response = await axios.get(`/profile/init?profileId=${userId}`);
+    //         const data = response.data;
+    //         if (data && data.Group && data.Group.Id) {
+    //             setId(data.Group.Id);
+    //         }
+    //         setIsLoading(false);
+    //     } catch (error) {
+    //         console.error('Ошибка при получении данных:', error);
+    //         setIsLoading(false);
+    //     }
+    // }
+    // useEffect(() => {
+    //     if (userId) {
+    //         fetchData(userId);
+    //     }
+    //     console.log('fetchData', fetchData)
+    // }), [updateTeamData];
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {

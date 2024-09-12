@@ -4,7 +4,8 @@ import axios from "axios"
 // стандартный путь для отправки запросов
 const instance = axios.create({
     //url
-    baseURL: "http://37.1.222.137:8080/"
+    //baseURL: "http://37.1.222.137:8080/"
+    baseURL: "https://supavpn.lol"
 })
 
 // добавляет токен в хедер запросов
