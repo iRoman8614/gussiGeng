@@ -14,7 +14,7 @@ const teamData = {
     4: {
         Name: 'Red Razors',
         Description: 'Red Razors',
-        logo: '/gussiGeng/gangs-logos/grey-logo.png' },
+        logo: '/gussiGeng/gangs-logos/red-logo.png' },
 };
 
 export default teamData;

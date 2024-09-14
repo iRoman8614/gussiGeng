@@ -17,7 +17,6 @@ export const NavBar = () => {
         navigate('pvp');
     };
 
-
     return(
         <div className={styles.root}>
             <IconButton image={home} alt={'home'} title={'home'} />

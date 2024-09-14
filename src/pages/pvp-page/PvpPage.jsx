@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { CoinContext } from "../../context/CoinContext.jsx";
 import { gameOptions } from '../../mock/optionData';
 import { IconButton } from "../../components/buttons/icon-btn/IconButton.jsx";
 import {Loader} from "../../components/loader/Loader.jsx";
@@ -12,9 +11,29 @@ import wins from '/wins.png'
 import styles from './PvpPage.module.scss';
 
 export const PvpPage = () => {
-    const { teamId, teamData } = useContext(CoinContext);
     const navigate = useNavigate();
 
+    const teamData = {
+        1: {
+            Name: 'Green Raiders',
+            Description: 'Green Raiders',
+            logo: '/gussiGeng/gangs-logos/green-logo.png' },
+        2: {
+            Name: 'Blue Vipers',
+            Description: 'Blue Vipers',
+            logo: '/gussiGeng/gangs-logos/purple-logo.png' },
+        3: {
+            Name: 'Yellow Flames',
+            Description: 'Yellow Flames',
+            logo: '/gussiGeng/gangs-logos/yellow-logo.png' },
+        4: {
+            Name: 'Red Razors',
+            Description: 'Red Razors',
+            logo: '/gussiGeng/gangs-logos/grey-logo.png' },
+    };
+
+
+    const teamId = 2
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
@@ -31,7 +50,7 @@ export const PvpPage = () => {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             setIsLoading(false);
-        }, 3000);
+        }, 300000);
         return () => clearTimeout(timeoutId);
     }, []);
 

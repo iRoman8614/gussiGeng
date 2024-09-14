@@ -9,7 +9,7 @@ html, body {
     min-width: 319px;
     max-width: 450px;
     width: 100%;
-    height: calc(var(--available-height) * 1px);
+    height: 100%;
 }
 
 * {
