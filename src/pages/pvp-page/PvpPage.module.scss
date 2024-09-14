@@ -63,13 +63,13 @@
     height: 184px;
     object-fit: cover;
     padding: 5px;
+    rotate: 180deg;
 }
 
 .mychoose{
     width: 92px;
     height: 184px;
     object-fit: cover;
-    rotate: 180deg;
     padding: 5px;
 }
 
@@ -165,7 +165,7 @@
 .counter {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
     justify-content: space-around;
     max-height: 180px;
     height: 100%;
@@ -182,9 +182,15 @@
     width: 100%;
     height: 30%;
     border-radius: 11px;
-    background: rgba(26, 241, 255, 0.8);
-    animation: cycleAnimation 5s infinite;
-    overflow: hidden;
+    background: url("/lampOnBG.png") no-repeat;
+    background-size: contain;
+}
+
+.lampGif {
+    width: 230%;
+    object-fit: cover;
+    margin-left: -60%;
+    margin-top: -50%;
 }
 
 .lampOff {
@@ -240,38 +246,6 @@
     width: 204px;
     height: 151px;
 }
-
-@keyframes initialTransition {
-    0% {
-        border-radius: 11px;
-        background: linear-gradient(360deg, #1d002f 0%, #4f5e85 50.5%, rgba(255, 206, 204, 0.83) 100%);
-        filter: none;
-    }
-    100% {
-        background: rgba(26, 241, 255, 0.8);
-    }
-}
-
-@keyframes cycleAnimation {
-    0% {
-        background: rgba(26, 241, 255, 0.8);
-        filter: blur(5.2px);
-    }
-    50% {
-        background: rgba(26, 241, 255, 0.8);
-        filter: blur(21.9px);
-    }
-    75% {
-        background: rgba(26, 241, 255, 0.74);
-        filter: blur(15.6px);
-    }
-    100% {
-        background: #1af1ff;
-        filter: blur(9.2px);
-    }
-}
-
-
 
 @media (max-width: 360px) {
     .root {

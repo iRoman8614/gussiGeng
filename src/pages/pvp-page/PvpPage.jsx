@@ -2,29 +2,38 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { gameOptions } from '../../mock/optionData';
 import { IconButton } from "../../components/buttons/icon-btn/IconButton.jsx";
-import {Loader} from "../../components/loader/Loader.jsx";
+import { Loader } from "../../components/loader/Loader.jsx";
 
-import border from '/farm_border.png'
-import pgborder from "/winPBborder.png"
-import wins from '/wins.png'
+import border from '/farm_border.png';
+import pgborder from "/winPBborder.png";
+import wins from '/wins.png';
 
-import teamData from '../../mock/teamsData.js'
+import start from '/public/game-icons/animation_hand_start.gif';
+import rockAnim from '/public/game-icons/animation_hand_rock.gif';
+import scisAnim from '/public/game-icons/animation_hand_sci.gif';
+import papAnim from '/public/game-icons/animation_hand_pap.gif';
+import pap from '/public/game-icons/hand_pap.png';
+import rock from '/public/game-icons/hand_rock.png';
+import scis from '/public/game-icons/hand_sci.png';
+
+import teamData from '../../mock/teamsData.js';
 
 import styles from './PvpPage.module.scss';
+import { useGifSequence } from "../../utils/useGifSequence.js";
 
 export const PvpPage = () => {
     const navigate = useNavigate();
 
-    const teamId = localStorage.getItem('teamId')
+    const teamId = localStorage.getItem('teamId');
 
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
-    const [round, setRound] = useState(1)
+    const [round, setRound] = useState(1);
     const [timer, setTimer] = useState(10);
-    const [playerChoice, setPlayerChoice] = useState(2);
-    const [opponentChoice, setOpponentChoice] = useState(2);
-    const [gameEnded, setgameEnded] = useState(false);
+    const [playerChoice, setPlayerChoice] = useState(0);  // Изменил с 2 на null
+    const [opponentChoice, setOpponentChoice] = useState(0);  // Изменил с 2 на null
+    const [gameEnded, setGameEnded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [opponentTeamId, setOpponentTeamId] = useState(() => {
         return Math.floor(Math.random() * 3) + 1;
@@ -36,7 +45,6 @@ export const PvpPage = () => {
         }, 3000);
         return () => clearTimeout(timeoutId);
     }, []);
-
 
     useEffect(() => {
         let timerId;
@@ -56,7 +64,7 @@ export const PvpPage = () => {
             const randomOpponentTeamId = getRandomTeamIdExceptCurrent(teamId, Object.keys(teamData).length);
             setOpponentTeamId(randomOpponentTeamId);
         }
-    }, [teamId, teamData]);
+    }, [teamId]);
 
     const handlePlayerChoice = (choice) => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
@@ -81,7 +89,7 @@ export const PvpPage = () => {
             setPlayerScore(prev => {
                 const newScore = prev + 1;
                 if (newScore === 3) {
-                    setgameEnded(true);
+                    setGameEnded(true);
                     setTimeout(() => {
                         setGameOver(true);
                         navigate('/');
@@ -95,7 +103,7 @@ export const PvpPage = () => {
             setOpponentScore(prev => {
                 const newScore = prev + 1;
                 if (newScore === 3) {
-                    setgameEnded(true);
+                    setGameEnded(true);
                     setTimeout(() => {
                         setGameOver(true);
                         navigate('/');
@@ -138,6 +146,20 @@ export const PvpPage = () => {
         setTimer(10);
     };
 
+    // Последовательности для каждого типа анимации/изображения
+    const papers = [pap, start, papAnim, pap];
+    const rocks = [rock, start, rockAnim, rock];
+    const sciss = [scis, start, scisAnim, scis];
+    const interval = 2000;
+
+    // Последовательности анимаций с помощью useGifSequence
+    const activePaper = useGifSequence(papers, interval);
+    const activeRock = useGifSequence(rocks, interval);
+    const activeScis = useGifSequence(sciss, interval);
+
+    // Динамический массив для выбора в игре
+    const choses = [rock, activePaper, activeRock, activeScis];
+
     return (
         <>
             {isLoading && <Loader />}
@@ -149,11 +171,12 @@ export const PvpPage = () => {
                 </div>
                 <div className={styles.container}>
                     <div className={styles.optionBg}>
-                        {opponentChoice !== null && <img
-                            className={styles.choose}
-                            src={gameOptions[opponentChoice].logo}
-                            alt={gameOptions[opponentChoice].name}
-                        />}
+                        {opponentChoice !== null && (
+                            <img
+                                className={styles.choose}
+                                src={choses[opponentChoice]}
+                            />
+                        )}
                     </div>
                     <VictoryCounter score={opponentScore} />
                     <IconButton image={teamData[teamId].logo} alt={'gang'} />
@@ -163,11 +186,12 @@ export const PvpPage = () => {
                     <IconButton image={teamData[opponentTeamId].logo} alt={'gang'} />
                     <VictoryCounter score={playerScore} />
                     <div className={styles.optionBg}>
-                        {playerChoice !== null && <img
-                            className={styles.mychoose}
-                            src={gameOptions[playerChoice].logo}
-                            alt={gameOptions[playerChoice].name}
-                        />}
+                        {playerChoice !== null && (
+                            <img
+                                className={styles.mychoose}
+                                src={choses[playerChoice]}
+                            />
+                        )}
                     </div>
                 </div>
                 <div className={styles.round}>
@@ -180,25 +204,22 @@ export const PvpPage = () => {
                         <p>Paper</p>
                     </button>
                     <button className={styles.btn} onClick={() => handlePlayerChoice(2)}>
-                        <img className={styles.icon} src={'/gussiGeng/game-icons/rockIcon.png'} alt={'paper'} />
+                        <img className={styles.icon} src={'/gussiGeng/game-icons/rockIcon.png'} alt={'rock'} />
                         <p>Rock</p>
                     </button>
                     <button className={styles.btn} onClick={() => handlePlayerChoice(3)}>
-                        <img className={styles.icon} src={'/gussiGeng/game-icons/scissorsIcon.png'} alt={'paper'} />
+                        <img className={styles.icon} src={'/gussiGeng/game-icons/scissorsIcon.png'} alt={'scissors'} />
                         <p>Scissors</p>
                     </button>
                 </div>
             </div>
         </>
-
     );
-}
+};
 
 // Функция для выбора случайного номера от 1 до 3
 function getRandomOption() {
-    const min = 1;
-    const max = 3;
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * 3) + 1;
 }
 
 // Функция для выбора случайного ID команды, отличный от текущего
@@ -209,14 +230,18 @@ function getRandomTeamIdExceptCurrent(currentTeamId, totalTeams = 3) {
     return filteredTeamIds[randomIndex];
 }
 
+
 // eslint-disable-next-line react/prop-types
 const VictoryCounter = ({ score }) => {
     return (
         <div className={styles.counter}>
             <img className={styles.containerBorder} src={pgborder} alt={''} />
-            <div className={score >= 3 ? styles.lampOn : styles.lampOff}></div>
-            <div className={score >= 2 ? styles.lampOn : styles.lampOff}></div>
-            <div className={score >= 1 ? styles.lampOn : styles.lampOff}></div>
+            <div className={score >= 3 ? styles.lampOn : styles.lampOff}>
+            </div>
+            <div className={score >= 2 ? styles.lampOn : styles.lampOff}>
+            </div>
+            <div className={score >= 1 ? styles.lampOn : styles.lampOff}>
+            </div>
         </div>
     );
 };
