@@ -64,6 +64,9 @@ export const MainPage = () => {
     }, [rate, startFarmTime]);
 
     const handleClaimClick = () => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
         const newTotalCoins = totalCoins + currentFarmCoins;
         const newStartTime = Date.now();
         setTotalCoins(newTotalCoins);
