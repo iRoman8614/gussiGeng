@@ -1,18 +1,19 @@
-import border from '../../../../public/farm_border.png'
-
+import border from '../../../../public/farm_border.png';
 import styles from './CollectBar.module.scss';
-export const CollectBar = () => {
-    const maxWidth = 224;
-    const currentWidth = (1000 / 3500) * maxWidth;
 
-    return(
+// eslint-disable-next-line react/prop-types
+export const CollectBar = ({ currentCoins, maxCoins }) => {
+    const maxWidth = 224;
+    const currentWidth = (currentCoins / maxCoins) * maxWidth;
+
+    return (
         <div className={styles.root}>
-            <div className={styles.progressBar} style={{'width': `${currentWidth}px`}}></div>
+            <div className={styles.progressBar} style={{ 'width': `${currentWidth}px` }}></div>
             <div className={styles.title}>
-                {1000} / {3500}
+                {currentCoins} / {maxCoins}
             </div>
-            <div className={styles.border} >
-                <img className={styles.image} src={border} />
+            <div className={styles.border}>
+                <img className={styles.image} src={border} alt="Progress Border"/>
             </div>
         </div>
     );

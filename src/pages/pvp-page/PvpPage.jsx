@@ -8,32 +8,15 @@ import border from '/farm_border.png'
 import pgborder from "/winPBborder.png"
 import wins from '/wins.png'
 
+import teamData from '../../mock/teamsData.js'
+
 import styles from './PvpPage.module.scss';
 
 export const PvpPage = () => {
     const navigate = useNavigate();
 
-    const teamData = {
-        1: {
-            Name: 'Green Raiders',
-            Description: 'Green Raiders',
-            logo: '/gussiGeng/gangs-logos/green-logo.png' },
-        2: {
-            Name: 'Blue Vipers',
-            Description: 'Blue Vipers',
-            logo: '/gussiGeng/gangs-logos/purple-logo.png' },
-        3: {
-            Name: 'Yellow Flames',
-            Description: 'Yellow Flames',
-            logo: '/gussiGeng/gangs-logos/yellow-logo.png' },
-        4: {
-            Name: 'Red Razors',
-            Description: 'Red Razors',
-            logo: '/gussiGeng/gangs-logos/grey-logo.png' },
-    };
+    const teamId = localStorage.getItem('teamId')
 
-
-    const teamId = 2
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
@@ -50,7 +33,7 @@ export const PvpPage = () => {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             setIsLoading(false);
-        }, 300000);
+        }, 3000);
         return () => clearTimeout(timeoutId);
     }, []);
 
