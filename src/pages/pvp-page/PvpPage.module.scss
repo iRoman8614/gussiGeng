@@ -203,7 +203,7 @@
 .counter {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 1px;
     justify-content: space-around;
     align-items: start;
     max-height: 180px;
@@ -219,23 +219,18 @@
 
 .lampOn {
     width: 150%;
-    height: 30%;
+    height: 33%;
     border-radius: 11px;
     background: url("/lampOnBG.png") no-repeat;
     background-size: contain;
 }
 
-.lampGif {
-    width: 230%;
-    object-fit: cover;
-    margin-left: -60%;
-    margin-top: -50%;
-}
 
 .lampOff {
-    width: 100%;
+    width: 90%;
+    margin: 2px;
     height: 30%;
-    border-radius: 11px;
+    border-radius: 8px;
     background: linear-gradient(270deg, #1d002f 0%, #4f5e85 50%, rgba(255, 206, 204, 0.83) 100%);
     opacity: 80%;
 }
@@ -304,7 +299,7 @@
         line-height: 24px;
     }
     .counter {
-        padding: 5px;
+        padding: 8px;
     }
     .choose, .mychoose {
         height: 110px;
@@ -347,6 +342,9 @@
     .middleBar {
         height: 80px;
     }
+    .counter {
+        padding: 5px;
+    }
     .roundTimer {
         width: 120px;
         height: 122px;
@@ -359,9 +357,6 @@
     .choose, .mychoose {
         height: 130px;
         object-fit: contain;
-    }
-    .counter {
-        padding: 5px;
     }
     .optionBg {
         height: 150px;
