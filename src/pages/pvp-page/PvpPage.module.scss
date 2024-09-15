@@ -61,16 +61,14 @@
 .choose {
     width: 92px;
     height: 184px;
-    object-fit: cover;
-    padding: 5px;
+    object-fit: contain;
     rotate: 180deg;
 }
 
 .mychoose{
     width: 92px;
     height: 184px;
-    object-fit: cover;
-    padding: 5px;
+    object-fit: contain;
 }
 
 .roundTimer {
