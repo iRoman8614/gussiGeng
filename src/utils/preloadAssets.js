@@ -47,7 +47,6 @@ export const preloadAssets = () => {
 
 export const preloadLoaders = () => {
     const images = [
-        '/gussiGeng/loading.gif',
         '/gussiGeng/loadingImg.png',
     ];
     return Promise.all(
