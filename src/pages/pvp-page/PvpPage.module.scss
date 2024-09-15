@@ -214,7 +214,7 @@
     background: rgba(21, 25, 62, 0.63);
     backdrop-filter: blur(8px);
     position: relative;
-    padding: 5px;
+    padding: 2px;
 }
 
 .lampOn {
@@ -303,6 +303,9 @@
         font-size: 24px;
         line-height: 24px;
     }
+    .counter {
+        padding: 5px;
+    }
     .choose, .mychoose {
         height: 110px;
         object-fit: contain;
@@ -356,6 +359,9 @@
     .choose, .mychoose {
         height: 130px;
         object-fit: contain;
+    }
+    .counter {
+        padding: 5px;
     }
     .optionBg {
         height: 150px;
