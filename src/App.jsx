@@ -3,7 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { useGetProfileQuery } from "./store/apiSlice.js";
-import {preloadAssets } from './utils/preloadAssets';
+import {preloadAssets, preloadLoaders} from './utils/preloadAssets';
 import { MainPage } from "./pages/main-page/MainPage.jsx";
 import {PvpPage} from "./pages/pvp-page/PvpPage.jsx";
 import {LoaderImage} from "./components/loader/LoaderImage.jsx";
@@ -38,17 +38,20 @@ function App() {
                 setUserId(userObject.id);
             }
         }
-        preloadAssets()
-            .then(() => {
-                setIsLoadingAssets(false);
-            })
-            .catch((error) => {
-                console.error('Error loading assets', error);
-            });
+        preloadLoaders().then(() => {
+            preloadAssets()
+                .then(() => {
+                    setIsLoadingAssets(false);
+                })
+                .catch((error) => {
+                    console.error('Error loading assets', error);
+                });
 
-        return () => {
-            window.removeEventListener('resize', setTelegramHeight);
-        };
+            return () => {
+                window.removeEventListener('resize', setTelegramHeight);
+            };
+        })
+
     }, []);
 
     //надо прокидывать {userId} в MainPageWrapper
