@@ -12,11 +12,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 16px;
+    padding: 5px 15px;
 }
 
 .container {
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     grid-template-rows: 4fr 3fr 4fr;
@@ -37,25 +37,19 @@
 }
 
 .oppNickname {
-    position: relative;
     display: flex;
+    align-items: center;
     justify-content: center;
-    font-size: 27px;
-    line-height: 27px;
-    height: 46px;
-    padding:2px 16px;
-    border: 4px solid #15193E;
-    border-radius: 18px;
-    background: rgba(21, 25, 62, 0.63);
-    backdrop-filter: blur(8px);
-}
-
-.oppNicknameBorder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 36px;
+    background: url("/oppNickNameContainer.png") no-repeat;
+    background-size: 100%;
+    max-width: 202px;
     width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 27px;
+    line-height: 22px;
+    padding:2px 16px;
+    max-height: 52px;
 }
 
 .choose {
@@ -95,28 +89,18 @@
 }
 
 .round {
+    background: url("/roundContainer.png") no-repeat;
+    max-width: 120px;
+    max-height: 52px;
+    background-size: 100%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    line-height: 27px;
+    font-size: 27px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
-    font-size: 27px;
-    line-height: 27px;
-    height: 52px;
-    width: 118px;
-    padding: 2px;
-    border: 4px solid #15193E;
-    border-radius: 18px;
-    background: rgba(21, 25, 62, 0.63);
-    backdrop-filter: blur(8px);
-    position: relative;
-}
-
-.roundBorder {
-    max-height: 44px;
-    max-width: 108px;
-    width: 100%;
-    height: 100%;
-    position: absolute;
 }
 
 .buttonSet {
@@ -175,6 +159,7 @@
     border: 0;
     margin-top: 8px;
 }
+
 .rockBtnActive {
     position: relative;
     border-radius: 11px;
@@ -188,6 +173,7 @@
     border: 0;
     margin-top: 8px;
 }
+
 .paperBtnActive {
     position: relative;
     border-radius: 11px;
@@ -204,53 +190,45 @@
 
 .counter {
     display: flex;
+    gap: 2px;
     flex-direction: column;
-    gap: 1px;
     justify-content: space-around;
-    align-items: start;
-    max-height: 180px;
+    align-items: center;
+    background: url("/progressBar.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+    max-height: 200px;
+    max-width: 67px;
+    width: 100%;
     height: 100%;
-    width: 55px;
-    border: 4px solid #15193E;
-    border-radius: 18px;
-    background: rgba(21, 25, 62, 0.63);
-    backdrop-filter: blur(8px);
-    position: relative;
-    padding: 2px;
+    padding: 6px;
+    justify-self: center;
 }
 
 .lampOn {
-    width: 95%;
-    height: 33%;
+    max-width: 30px;
+    width: 100%;
+    height: 30%;
     border-radius: 11px;
     background: url("/lampOnBG.png") no-repeat;
     background-size: contain;
+    background-position: center;
 }
 
-
 .lampOff {
+    max-width: 30px;
     width: 100%;
-    height: 33%;
+    height: 30%;
     border-radius: 11px;
     background: linear-gradient(270deg, #1d002f 0%, #4f5e85 50%, rgba(255, 206, 204, 0.83) 100%);
     opacity: 80%;
 }
 
-.containerBorder {
-    position: absolute;
-    z-index: 10;
-    object-fit: fill;
-    height: 100%;
-    width: 100%;
-    left: 0;
-}
-
 .winbg {
     position: absolute;
     z-index: 100;
-    top: -10px;
     width: 100%;
-    height: 103%;
+    height: 100%;
     filter: blur(0px);
     background: rgba(18, 22, 38, 0.92);
     display: flex;
@@ -283,10 +261,6 @@
 }
 
 @media (max-width: 360px) {
-    .root {
-        padding: 4px;
-        gap: 4px;
-    }
     .middleBar {
         height: 60px;
     }

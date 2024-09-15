@@ -148,15 +148,12 @@ export const PvpPage = () => {
         setRound(prev => prev + 1);
     };
 
-
-
     return (
         <>
             {isLoading && <LoaderGif />}
+            {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
             <div className={styles.root}>
-                {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
                 <div className={styles.oppNickname}>
-                    <img className={styles.oppNicknameBorder} src={border} alt={''} />
                     biggie smalls
                 </div>
                 <div className={styles.container}>
@@ -301,7 +298,6 @@ export const PvpPage = () => {
                     </div>
                 </div>
                 <div className={styles.round}>
-                    <img className={styles.roundBorder} src={border} alt={''} />
                     round {round}
                 </div>
                 <div className={styles.buttonSet}>
@@ -342,7 +338,6 @@ function getRandomTeamIdExceptCurrent(currentTeamId, totalTeams = 3) {
 // eslint-disable-next-line react/prop-types
 const VictoryCounter = ({ score }) => (
     <div className={styles.counter}>
-        <img className={styles.containerBorder} src={pgborder} alt={''} />
         <div className={score >= 3 ? styles.lampOn : styles.lampOff}></div>
         <div className={score >= 2 ? styles.lampOn : styles.lampOff}></div>
         <div className={score >= 1 ? styles.lampOn : styles.lampOff}></div>
