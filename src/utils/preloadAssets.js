@@ -1,6 +1,7 @@
 export const preloadAssets = () => {
     const images = [
         '/gussiGeng/loading.gif',
+        '/gussiGeng/loadingImg.png',
         '/gussiGeng/backgrounds/backalley.png',
         '/gussiGeng/backgrounds/nightcity.png',
         '/gussiGeng/characters/purpleChar.png',

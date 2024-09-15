@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { gameOptions } from '../../mock/optionData';
 import { IconButton } from "../../components/buttons/icon-btn/IconButton.jsx";
-import {Loader} from "../../components/loader/Loader.jsx";
+import {LoaderGif} from "../../components/loader/LoaderGif.jsx";
 
 import border from '/farm_border.png';
 import pgborder from "/winPBborder.png";
@@ -34,15 +34,15 @@ export const PvpPage = () => {
     const [userName, setUserName] = useState('you');
     const [isRoundUpdating, setIsRoundUpdating] = useState(false);
 
-    useEffect(() => {
-        const search = window.Telegram.WebApp.initData
-        const urlParams = new URLSearchParams(search);
-        const userParam = urlParams.get('user');
-        const decodedUserParam = decodeURIComponent(userParam);
-        const userObject = JSON.parse(decodedUserParam);
-        const userTG = userObject.username
-        setUserName(userTG)
-    }, [])
+    // useEffect(() => {
+    //     const search = window.Telegram.WebApp.initData
+    //     const urlParams = new URLSearchParams(search);
+    //     const userParam = urlParams.get('user');
+    //     const decodedUserParam = decodeURIComponent(userParam);
+    //     const userObject = JSON.parse(decodedUserParam);
+    //     const userTG = userObject.username
+    //     setUserName(userTG)
+    // }, [])
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -152,7 +152,7 @@ export const PvpPage = () => {
 
     return (
         <>
-            {isLoading && <Loader />}
+            {isLoading && <LoaderGif />}
             <div className={styles.root}>
                 {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
                 <div className={styles.oppNickname}>

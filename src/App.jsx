@@ -6,7 +6,7 @@ import { useGetProfileQuery } from "./store/apiSlice.js";
 import {preloadAssets } from './utils/preloadAssets';
 import { MainPage } from "./pages/main-page/MainPage.jsx";
 import {PvpPage} from "./pages/pvp-page/PvpPage.jsx";
-import {Loader} from "./components/loader/Loader.jsx";
+import {LoaderImage} from "./components/loader/LoaderImage.jsx";
 
 import './App.css';
 
@@ -55,7 +55,7 @@ function App() {
     return (
         <Provider store={store}>
             {isLoadingAssets || isLoadingProfile ? (
-                <Loader />
+                <LoaderImage />
             ) : (
                 <HashRouter>
                     <Routes>
