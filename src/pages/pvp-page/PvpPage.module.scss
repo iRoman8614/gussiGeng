@@ -162,6 +162,43 @@
     }
 }
 
+.scicBtnActive {
+    position: relative;
+    border-radius: 11px;
+    width: 90px;
+    height: 90px;
+    background: url("/scisActiveBG.png") no-repeat;
+    background-size: contain;
+    box-shadow: 0 0 20px 10px rgba(199, 102, 8, 1);
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+.rockBtnActive {
+    position: relative;
+    border-radius: 11px;
+    width: 90px;
+    height: 90px;
+    background: url("/rockActiveBG.png") no-repeat;
+    background-size: contain;
+    box-shadow: 0 0 20px 10px rgba(199, 102, 8, 1);
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+.paperBtnActive {
+    position: relative;
+    border-radius: 11px;
+    width: 90px;
+    height: 90px;
+    background: url("/paperActiveBG.png") no-repeat;
+    background-size: contain;
+    box-shadow: 0 0 20px 10px rgba(199, 102, 8, 1);
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
 .counter {
     display: flex;
     flex-direction: column;
@@ -272,6 +309,10 @@
         height: 130px;
         width: 100px;
         border-radius: 18px;
+    }
+    .paperBtnActive, .scisBtnActive, .rockBtnActive {
+        height: 70px;
+        width: 70px;
     }
     .btn {
         height: 70px;

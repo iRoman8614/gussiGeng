@@ -22,8 +22,8 @@ export const PvpPage = () => {
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1)
     const [timer, setTimer] = useState(10);
-    const [playerChoice, setPlayerChoice] = useState(0);
-    const [opponentChoice, setOpponentChoice] = useState(0);
+    const [playerChoice, setPlayerChoice] = useState(3);
+    const [opponentChoice, setOpponentChoice] = useState(3);
     const [gameEnded, setgameEnded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [opponentTeamId, setOpponentTeamId] = useState(() => {
@@ -38,12 +38,10 @@ export const PvpPage = () => {
         if (userParam) {
             const decodedUserParam = decodeURIComponent(userParam);
             const userObject = JSON.parse(decodedUserParam);
-            console.log("User ID from Telegram:", userObject.id);
+            console.log("Username from Telegram:", userObject.username);
             setUserName(userObject.username);
         }
     }
-
-
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -143,8 +141,8 @@ export const PvpPage = () => {
 
     const resetRoundAfterDelay = () => {
         setTimeout(() => {
-            setPlayerChoice(0);
-            setOpponentChoice(0);
+            setPlayerChoice(3);
+            setOpponentChoice(3);
             resetTimer();
         }, 1500);
     };
@@ -190,17 +188,25 @@ export const PvpPage = () => {
                     round {round}
                 </div>
                 <div className={styles.buttonSet}>
-                    <button className={styles.btn} onClick={() => handlePlayerChoice(1)}>
-                        <img className={styles.icon} src={'/gussiGeng/game-icons/paperIcon.png'} alt={'paper'} />
-                        <p>Paper</p>
+                    <button className={playerChoice === 1 ? styles.paperBtnActive : styles.btn} onClick={() => handlePlayerChoice(1)}>
+                        {playerChoice !== 1 && <>
+                            <img className={styles.icon} src={'/gussiGeng/game-icons/paperIcon.png'} alt={'paper'} />
+                            <p>Paper</p>
+                        </>}
                     </button>
-                    <button className={styles.btn} onClick={() => handlePlayerChoice(0)}>
-                        <img className={styles.icon} src={'/gussiGeng/game-icons/rockIcon.png'} alt={'Rock'} />
-                        <p>Rock</p>
+                    <button className={playerChoice === 0 ? styles.rockBtnActive : styles.btn} onClick={() => handlePlayerChoice(0)}>
+                        {playerChoice !== 0 && <>
+                            <img className={styles.icon} src={'/gussiGeng/game-icons/rockIcon.png'} alt={'Rock'} />
+                            <p>Rock</p>
+                        </>}
                     </button>
-                    <button className={styles.btn} onClick={() => handlePlayerChoice(2)}>
-                        <img className={styles.icon} src={'/gussiGeng/game-icons/scissorsIcon.png'} alt={'Scissors'} />
-                        <p>Scissors</p>
+                    <button className={playerChoice === 2 ? styles.scicBtnActive : styles.btn} onClick={() => handlePlayerChoice(2)}>
+                        {playerChoice !== 2 &&
+                            <>
+                                <img className={styles.icon} src={'/gussiGeng/game-icons/scissorsIcon.png'} alt={'Scissors'}/>
+                                <p>Scissors</p>
+                            </>
+                        }
                     </button>
                 </div>
             </div>
@@ -246,7 +252,7 @@ const WinningScreen = ({userName, playerScore}) => {
         <div className={styles.winbg}>
             <div className={styles.winContainer}>
                 <div className={styles.winnerName}>{playerScore === 3 ? {userName} : 'Opponent'}</div>
-                <img className={styles.winsImage} src={wins} />
+                <img className={styles.winsImage} src={wins}  alt={'wins'}/>
                 <p className={styles.winnerName}>+5% FaRM RaTE </p>
             </div>
         </div>
