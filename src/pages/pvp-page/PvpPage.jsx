@@ -75,17 +75,9 @@ export const PvpPage = () => {
         return () => clearTimeout(timerId);
     }, [timer, gameOver, playerChoice, isLoading]);
 
-    const handlePlayerChoice = (choice) => {
-        if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
-        }
-        if (gameOver || playerChoice !== null || isLoading) return;
-        setPlayerChoice(choice);
-    };
-
     const showGifSequence = () => {
         const timeouts = [];
-        const durations = [0, 1000, 1500];
+        const durations = [0, 1000, 1000];
         durations.forEach((duration, index) => {
             timeouts.push(
                 setTimeout(() => {
@@ -96,12 +88,20 @@ export const PvpPage = () => {
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
 
+    const handlePlayerChoice = (choice) => {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        }
+        if (gameOver || playerChoice !== null || isLoading) return;
+        setPlayerChoice(choice);
+    };
+
     const updateScores = (playerMoveIndex, opponentMoveIndex) => {
         const playerMove = gameOptions[playerMoveIndex].name;
         const opponentMove = gameOptions[opponentMoveIndex].name;
 
         if (playerMove === opponentMove) {
-           //ничья
+            // Ничья — обновляем раунд сразу после анимации
         } else if (
             (playerMove === 'paper' && opponentMove === 'rock') ||
             (playerMove === 'rock' && opponentMove === 'scis') ||
@@ -110,11 +110,7 @@ export const PvpPage = () => {
             setPlayerScore(prev => {
                 const newScore = prev + 1;
                 if (newScore === 3) {
-                    setGameEnded(true);
-                    setTimeout(() => {
-                        setGameOver(true);
-                        navigate('/');
-                    }, 3000);
+                    setTimeout(() => handleGameEnd(), 3000);
                 }
                 return newScore;
             });
@@ -122,33 +118,37 @@ export const PvpPage = () => {
             setOpponentScore(prev => {
                 const newScore = prev + 1;
                 if (newScore === 3) {
-                    setGameEnded(true);
-                    setTimeout(() => {
-                        setGameOver(true);
-                        navigate('/');
-                    }, 3000);
+                    setTimeout(() => handleGameEnd(), 3000);
                 }
                 return newScore;
             });
         }
-        resetRoundAfterDelay();
+        if(!gameEnded) {
+            setTimeout(() => {
+                resetRoundAfterDelay();
+            }, 2000);
+        }
+    };
+
+    const handleGameEnd = () => {
+        setGameEnded(true);
+        setTimeout(() => {
+            setGameOver(true);
+        }, 3000);
+        setTimeout(() => {
+            navigate('/');
+        }, 2000);
     };
 
     const resetRoundAfterDelay = () => {
-        if (!isRoundUpdating) {
-            setIsRoundUpdating(true);
-
-            setTimeout(() => {
-                setPlayerChoice(null);
-                setOpponentChoice(null);
-                setTimer(5);
-                setVisibleImage(0);
-
-                setRound(prev => prev + 1);
-                setIsRoundUpdating(false);
-            }, 1500);
-        }
+        setPlayerChoice(null);
+        setOpponentChoice(null);
+        setTimer(5);
+        setVisibleImage(0);
+        setRound(prev => prev + 1);
     };
+
+
 
     return (
         <>
