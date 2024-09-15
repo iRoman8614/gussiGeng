@@ -4,44 +4,36 @@ import { gameOptions } from '../../mock/optionData';
 import { IconButton } from "../../components/buttons/icon-btn/IconButton.jsx";
 import {Loader} from "../../components/loader/Loader.jsx";
 
-import border from '/farm_border.png'
-import pgborder from "/winPBborder.png"
-import wins from '/wins.png'
+import border from '/farm_border.png';
+import pgborder from "/winPBborder.png";
+import wins from '/wins.png';
 
-import teamData from '../../mock/teamsData.js'
+import teamData from '../../mock/teamsData.js';
 
 import styles from './PvpPage.module.scss';
+
+import start from '/public/game-icons/animation_hand_start.gif';
+import rockAnim from '/public/game-icons/animation_hand_rock.gif';
+import scisAnim from '/public/game-icons/animation_hand_sci.gif';
+import papAnim from '/public/game-icons/animation_hand_pap.gif';
 
 export const PvpPage = () => {
     const navigate = useNavigate();
 
-    const teamId = localStorage.getItem('teamId')
-
+    const teamId = localStorage.getItem('teamId');
+    const [visibleImage, setVisibleImage] = useState(0);
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
-    const [round, setRound] = useState(1)
+    const [round, setRound] = useState(1);
     const [timer, setTimer] = useState(10);
-    const [playerChoice, setPlayerChoice] = useState(3);
+    const [playerChoice, setPlayerChoice] = useState(null);
     const [opponentChoice, setOpponentChoice] = useState(3);
-    const [gameEnded, setgameEnded] = useState(false);
+    const [gameEnded, setGameEnded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const [opponentTeamId, setOpponentTeamId] = useState(() => {
-        return Math.floor(Math.random() * 3) + 1;
-    });
-    const[userName, setUserName] = useState('you')
-
-    if (window.Telegram?.WebApp) {
-        const search = window.Telegram.WebApp.initData;
-        const urlParams = new URLSearchParams(search);
-        const userParam = urlParams.get('user');
-        if (userParam) {
-            const decodedUserParam = decodeURIComponent(userParam);
-            const userObject = JSON.parse(decodedUserParam);
-            console.log("Username from Telegram:", userObject.username);
-            setUserName(userObject.username);
-        }
-    }
+    const [opponentTeamId, setOpponentTeamId] = useState(() => Math.floor(Math.random() * 3) + 1);
+    const [userName, setUserName] = useState('you');
+    const [isRoundUpdating, setIsRoundUpdating] = useState(false);
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -50,6 +42,12 @@ export const PvpPage = () => {
         return () => clearTimeout(timeoutId);
     }, []);
 
+    useEffect(() => {
+        if (teamId !== null) {
+            const randomOpponentTeamId = getRandomTeamIdExceptCurrent(teamId, Object.keys(teamData).length);
+            setOpponentTeamId(randomOpponentTeamId);
+        }
+    }, [teamId]);
 
     useEffect(() => {
         let timerId;
@@ -57,35 +55,44 @@ export const PvpPage = () => {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
             }, 1000);
-        } else if (timer === 0 && !gameOver) {
-            handleRoundEnd();
+        } else if (timer === 0 && playerChoice !== null) {
+            const randomOpponentChoice = getRandomOption();
+            setOpponentChoice(randomOpponentChoice);
+            showGifSequence();
+            setTimeout(() => {
+                updateScores(playerChoice, randomOpponentChoice);
+            }, 1000);
         }
-
         return () => clearTimeout(timerId);
-    }, [isLoading, timer, gameOver]);
-
-    useEffect(() => {
-        if (teamId !== null) {
-            const randomOpponentTeamId = getRandomTeamIdExceptCurrent(teamId, Object.keys(teamData).length);
-            setOpponentTeamId(randomOpponentTeamId);
-        }
-    }, [teamId, teamData]);
+    }, [timer, gameOver, playerChoice, isLoading]);
 
     const handlePlayerChoice = (choice) => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        if (gameOver) return;
-
+        if (gameOver || playerChoice !== null || isLoading) return;
         setPlayerChoice(choice);
-        const randomOpponentChoice = getRandomOption();
-        setOpponentChoice(randomOpponentChoice);
-        setRound(prev => prev + 1);
-        const playerMove = gameOptions[choice].name;
-        const opponentMove = gameOptions[randomOpponentChoice].name;
+    };
+
+    const showGifSequence = () => {
+        const timeouts = [];
+        const durations = [0, 1000, 1500];
+        durations.forEach((duration, index) => {
+            timeouts.push(
+                setTimeout(() => {
+                    setVisibleImage(index + 1);
+                }, duration)
+            );
+        });
+        return () => timeouts.forEach(timeout => clearTimeout(timeout));
+    };
+
+    const updateScores = (playerMoveIndex, opponentMoveIndex) => {
+        const playerMove = gameOptions[playerMoveIndex].name;
+        const opponentMove = gameOptions[opponentMoveIndex].name;
 
         if (playerMove === opponentMove) {
-            // Ничья
+           //ничья
         } else if (
             (playerMove === 'paper' && opponentMove === 'rock') ||
             (playerMove === 'rock' && opponentMove === 'scis') ||
@@ -94,13 +101,11 @@ export const PvpPage = () => {
             setPlayerScore(prev => {
                 const newScore = prev + 1;
                 if (newScore === 3) {
-                    setgameEnded(true);
+                    setGameEnded(true);
                     setTimeout(() => {
                         setGameOver(true);
                         navigate('/');
                     }, 3000);
-                } else {
-                    resetRoundAfterDelay();
                 }
                 return newScore;
             });
@@ -108,47 +113,32 @@ export const PvpPage = () => {
             setOpponentScore(prev => {
                 const newScore = prev + 1;
                 if (newScore === 3) {
-                    setgameEnded(true);
+                    setGameEnded(true);
                     setTimeout(() => {
                         setGameOver(true);
                         navigate('/');
                     }, 3000);
-                } else {
-                    resetRoundAfterDelay();
                 }
                 return newScore;
             });
         }
-    };
-
-    const handleRoundEnd = () => {
-        if (playerChoice === null) {
-            const randomOpponentChoice = getRandomOption();
-            setOpponentChoice(randomOpponentChoice);
-            setOpponentScore(prev => {
-                const newScore = prev + 1;
-                if (newScore === 3) {
-                    setGameOver(true);
-                } else {
-                    resetRoundAfterDelay();
-                }
-                return newScore;
-            });
-        } else {
-            resetRoundAfterDelay();
-        }
+        resetRoundAfterDelay();
     };
 
     const resetRoundAfterDelay = () => {
-        setTimeout(() => {
-            setPlayerChoice(3);
-            setOpponentChoice(3);
-            resetTimer();
-        }, 1500);
-    };
+        if (!isRoundUpdating) {
+            setIsRoundUpdating(true);
 
-    const resetTimer = () => {
-        setTimer(10);
+            setTimeout(() => {
+                setPlayerChoice(null);
+                setOpponentChoice(null);
+                setTimer(10);
+                setVisibleImage(0);
+
+                setRound(prev => prev + 1);
+                setIsRoundUpdating(false);
+            }, 1500);
+        }
     };
 
     return (
@@ -162,11 +152,70 @@ export const PvpPage = () => {
                 </div>
                 <div className={styles.container}>
                     <div className={styles.optionBg}>
-                        {opponentChoice !== null && <img
-                            className={styles.choose}
-                            src={gameOptions[opponentChoice].logo}
-                            alt={gameOptions[opponentChoice].name}
-                        />}
+                        {visibleImage === 0 && (
+                            <img
+                                className={styles.choose}
+                                src={gameOptions[3].logo}
+                                alt="First"
+                            />
+                        )}
+                        {visibleImage === 1 && (
+                            <img
+                                className={styles.choose}
+                                src={start}
+                                alt="Second"
+                            />
+                        )}
+                        {visibleImage === 2 && (
+                            <>
+                                {opponentChoice === 0 && (
+                                    <img
+                                        className={styles.choose}
+                                        src={rockAnim}
+                                        alt="Third"
+                                    />
+                                )}
+                                {opponentChoice === 1 && (
+                                    <img
+                                        className={styles.choose}
+                                        src={papAnim}
+                                        alt="Third"
+                                    />
+                                )}
+                                {opponentChoice === 2 && (
+                                    <img
+                                        className={styles.choose}
+                                        src={scisAnim}
+                                        alt="Third"
+                                    />
+                                )}
+                            </>
+                        )}
+                        {visibleImage === 3 && (
+                            <>
+                                {opponentChoice === 0 && (
+                                    <img
+                                        className={styles.choose}
+                                        src={gameOptions[0].logo}
+                                        alt="Third"
+                                    />
+                                )}
+                                {opponentChoice === 1 && (
+                                    <img
+                                        className={styles.choose}
+                                        src={gameOptions[1].logo}
+                                        alt="Third"
+                                    />
+                                )}
+                                {opponentChoice === 2 && (
+                                    <img
+                                        className={styles.choose}
+                                        src={gameOptions[2].logo}
+                                        alt="Third"
+                                    />
+                                )}
+                            </>
+                        )}
                     </div>
                     <VictoryCounter score={opponentScore} />
                     <IconButton image={teamData[teamId].logo} alt={'gang'} />
@@ -176,11 +225,70 @@ export const PvpPage = () => {
                     <IconButton image={teamData[opponentTeamId].logo} alt={'gang'} />
                     <VictoryCounter score={playerScore} />
                     <div className={styles.optionBg}>
-                        {playerChoice !== null && <img
-                            className={styles.mychoose}
-                            src={gameOptions[playerChoice].logo}
-                            alt={gameOptions[playerChoice].name}
-                        />}
+                        {visibleImage === 0 && (
+                            <img
+                                className={styles.mychoose}
+                                src={gameOptions[3].logo}
+                                alt="First"
+                            />
+                        )}
+                        {visibleImage === 1 && (
+                            <img
+                                className={styles.mychoose}
+                                src={start}
+                                alt="Second"
+                            />
+                        )}
+                        {visibleImage === 2 && (
+                            <>
+                                {playerChoice === 0 && (
+                                    <img
+                                        className={styles.mychoose}
+                                        src={rockAnim}
+                                        alt="Third"
+                                    />
+                                )}
+                                {playerChoice === 1 && (
+                                    <img
+                                        className={styles.mychoose}
+                                        src={papAnim}
+                                        alt="Third"
+                                    />
+                                )}
+                                {playerChoice === 2 && (
+                                    <img
+                                        className={styles.mychoose}
+                                        src={scisAnim}
+                                        alt="Third"
+                                    />
+                                )}
+                            </>
+                        )}
+                        {visibleImage === 3 && (
+                            <>
+                                {playerChoice === 0 && (
+                                    <img
+                                        className={styles.mychoose}
+                                        src={gameOptions[0].logo}
+                                        alt="Third"
+                                    />
+                                )}
+                                {playerChoice === 1 && (
+                                    <img
+                                        className={styles.mychoose}
+                                        src={gameOptions[1].logo}
+                                        alt="Third"
+                                    />
+                                )}
+                                {playerChoice === 2 && (
+                                    <img
+                                        className={styles.mychoose}
+                                        src={gameOptions[2].logo}
+                                        alt="Third"
+                                    />
+                                )}
+                            </>
+                        )}
                     </div>
                 </div>
                 <div className={styles.round}>
@@ -211,50 +319,34 @@ export const PvpPage = () => {
                 </div>
             </div>
         </>
-
     );
 }
-
-// Функция для выбора случайного номера от 1 до 3
 function getRandomOption() {
-    const min = 0;
-    const max = 2;
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * 3);
 }
-
-// Функция для выбора случайного ID команды, отличный от текущего
 function getRandomTeamIdExceptCurrent(currentTeamId, totalTeams = 3) {
     const teamIds = Array.from({ length: totalTeams }, (_, i) => i + 1);
     const filteredTeamIds = teamIds.filter(id => id !== currentTeamId);
     const randomIndex = Math.floor(Math.random() * filteredTeamIds.length);
     return filteredTeamIds[randomIndex];
 }
-
 // eslint-disable-next-line react/prop-types
-const VictoryCounter = ({ score }) => {
-    return (
-        <div className={styles.counter}>
-            <img className={styles.containerBorder} src={pgborder} alt={''} />
-            <div className={score >= 3 ? styles.lampOn : styles.lampOff}>
-            </div>
-            <div className={score >= 2 ? styles.lampOn : styles.lampOff}>
-            </div>
-            <div className={score >= 1 ? styles.lampOn : styles.lampOff}>
-            </div>
+const VictoryCounter = ({ score }) => (
+    <div className={styles.counter}>
+        <img className={styles.containerBorder} src={pgborder} alt={''} />
+        <div className={score >= 3 ? styles.lampOn : styles.lampOff}></div>
+        <div className={score >= 2 ? styles.lampOn : styles.lampOff}></div>
+        <div className={score >= 1 ? styles.lampOn : styles.lampOff}></div>
+    </div>
+);
+// eslint-disable-next-line react/prop-types
+const WinningScreen = ({ userName, playerScore }) => (
+    <div className={styles.winbg}>
+        <div className={styles.winContainer}>
+            <div className={styles.winnerName}>{playerScore === 3 ? userName : 'Opponent'}</div>
+            <img className={styles.winsImage} src={wins} alt={'wins'} />
+            <p className={styles.winnerName}>+5% FaRM RaTE </p>
         </div>
-    );
-};
+    </div>
+);
 
-
-// eslint-disable-next-line no-unused-vars,react/prop-types
-const WinningScreen = ({userName, playerScore}) => {
-    return(
-        <div className={styles.winbg}>
-            <div className={styles.winContainer}>
-                <div className={styles.winnerName}>{playerScore === 3 ? {userName} : 'Opponent'}</div>
-                <img className={styles.winsImage} src={wins}  alt={'wins'}/>
-                <p className={styles.winnerName}>+5% FaRM RaTE </p>
-            </div>
-        </div>
-    )
-}
