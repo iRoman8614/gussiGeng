@@ -18,14 +18,19 @@ export const preloadAssets = () => {
         '/gussiGeng/main-buttons/upgrades.png',
         '/gussiGeng/main-buttons/wallet.png',
         '/gussiGeng/claimBTN.png',
-        '/gussiGeng/progress.png',
+        '/gussiGeng/claimBTNclicked.png',
         '/gussiGeng/farm_border.png',
+        '/gussiGeng/lampOnBG.png',
+        '/gussiGeng/paperActiveBG.png',
+        '/gussiGeng/progress.png',
+        '/gussiGeng/rockActiveBG.png',
+        '/gussiGeng/scisActiveBG.png',
         "/gussiGeng/timer.png",
         "/gussiGeng/totalbar.png",
         "/gussiGeng/winPBborder.png",
         "/gussiGeng/wins.png",
         "/gussiGeng/winsBG.png",
-        '/gussiGeng/claimBTNclicked.png'
+        //'/gussiGeng/',
     ];
     return Promise.all(
         images.map((src) => {

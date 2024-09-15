@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-// import { useGetProfileQuery } from "./store/apiSlice.js";
+import { useGetProfileQuery } from "./store/apiSlice.js";
 import {preloadAssets } from './utils/preloadAssets';
 import { MainPage } from "./pages/main-page/MainPage.jsx";
 import {PvpPage} from "./pages/pvp-page/PvpPage.jsx";
@@ -54,7 +54,7 @@ function App() {
             ) : (
                 <HashRouter>
                     <Routes>
-                        <Route path='/' element={<MainPageWrapper setIsLoadingProfile={setIsLoadingProfile} />} />
+                        <Route path='/' element={<MainPageWrapper setIsLoadingProfile={setIsLoadingProfile} userId={userId}  />} />
                         <Route path='/pvp' element={<PvpPage />} />
                     </Routes>
                 </HashRouter>
@@ -64,10 +64,16 @@ function App() {
 }
 
 // eslint-disable-next-line react/prop-types
-function MainPageWrapper() {
-    // const { data: profile, error: profileError } = useGetProfileQuery(userId, {
-    //     skip: !userId,
-    // });
+function MainPageWrapper({userId}) {
+    const [totalCoins, setTotalCoins] = useState(0);
+    const [rate, setRate] = useState(3);
+
+    console.log('totalCoins' , totalCoins)
+    console.log('rate', rate)
+
+    const { data: profile, error: profileError } = useGetProfileQuery(userId, {
+        skip: !userId,
+    });
 
     useEffect(() => {
         const savedTeamId = localStorage.getItem('teamId') || Math.floor(Math.random() * 4) + 1;
@@ -81,23 +87,23 @@ function MainPageWrapper() {
         localStorage.setItem('startFarmTime', savedStartFarmTime);
     }, []);
 
-    // useEffect(() => {
-    //     if (!profileError) {
-    //         console.log(`Sending request to https://supavpn.lol/farm/start?profileId=${profile.Id}`);
-    //         fetch(`https://supavpn.lol/farm/start?profileId=${profile.Id}`)
-    //             .then(response => response.json())
-    //             .then(farmData => {
-    //                 setRate(farmData.rate);
-    //                 setTotalCoins(profile.Balance);
-    //                 console.log("Farm start response:", farmData);
-    //             })
-    //             .catch((error) => {
-    //                 setRate(3);
-    //                 setTotalCoins(profile.Balance);
-    //                 console.error("Error during farm start request:", error);
-    //             });
-    //     }
-    // }, [profile, profileError]);
+    useEffect(() => {
+        if (!profileError) {
+            console.log(`Sending request to https://supavpn.lol/farm/start?profileId=${profile.Id}`);
+            fetch(`https://supavpn.lol/farm/start?profileId=${profile.Id}`)
+                .then(response => response.json())
+                .then(farmData => {
+                    setRate(farmData.rate);
+                    setTotalCoins(profile.Balance);
+                    console.log("Farm start response:", farmData);
+                })
+                .catch((error) => {
+                    setRate(3);
+                    setTotalCoins(profile.Balance);
+                    console.error("Error during farm start request:", error);
+                });
+        }
+    }, [profile, profileError]);
 
     return <MainPage />;
 }
