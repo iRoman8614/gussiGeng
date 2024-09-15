@@ -4,8 +4,6 @@ import { gameOptions } from '../../mock/optionData';
 import { IconButton } from "../../components/buttons/icon-btn/IconButton.jsx";
 import {LoaderGif} from "../../components/loader/LoaderGif.jsx";
 
-import border from '/farm_border.png';
-import pgborder from "/winPBborder.png";
 import wins from '/wins.png';
 import start from '/public/game-icons/animation_hand_start.gif';
 import rockAnim from '/public/game-icons/animation_hand_rock.gif';
@@ -32,7 +30,6 @@ export const PvpPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [opponentTeamId, setOpponentTeamId] = useState(() => Math.floor(Math.random() * 3) + 1);
     const [userName, setUserName] = useState('you');
-    const [isRoundUpdating, setIsRoundUpdating] = useState(false);
 
     // useEffect(() => {
     //     const search = window.Telegram.WebApp.initData
@@ -301,26 +298,9 @@ export const PvpPage = () => {
                     round {round}
                 </div>
                 <div className={styles.buttonSet}>
-                    <button className={playerChoice === 1 ? styles.paperBtnActive : styles.btn} onClick={() => handlePlayerChoice(1)}>
-                        {playerChoice !== 1 && <>
-                            <img className={styles.icon} src={'/gussiGeng/game-icons/paperIcon.png'} alt={'paper'} />
-                            <p>Paper</p>
-                        </>}
-                    </button>
-                    <button className={playerChoice === 0 ? styles.rockBtnActive : styles.btn} onClick={() => handlePlayerChoice(0)}>
-                        {playerChoice !== 0 && <>
-                            <img className={styles.icon} src={'/gussiGeng/game-icons/rockIcon.png'} alt={'Rock'} />
-                            <p>Rock</p>
-                        </>}
-                    </button>
-                    <button className={playerChoice === 2 ? styles.scicBtnActive : styles.btn} onClick={() => handlePlayerChoice(2)}>
-                        {playerChoice !== 2 &&
-                            <>
-                                <img className={styles.icon} src={'/gussiGeng/game-icons/scissorsIcon.png'} alt={'Scissors'}/>
-                                <p>Scissors</p>
-                            </>
-                        }
-                    </button>
+                    <button className={playerChoice === 1 ? styles.paperBtnActive : styles.paperBtn} onClick={() => handlePlayerChoice(1)}></button>
+                    <button className={playerChoice === 0 ? styles.rockBtnActive : styles.rockBtn} onClick={() => handlePlayerChoice(0)}></button>
+                    <button className={playerChoice === 2 ? styles.scicBtnActive : styles.scicBtn} onClick={() => handlePlayerChoice(2)}></button>
                 </div>
             </div>
         </>
