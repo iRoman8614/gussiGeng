@@ -16,6 +16,10 @@ function App() {
     const [isLoadingProfile, setIsLoadingProfile] = useState(false);
 
     useEffect(() => {
+        if (window.Telegram?.WebApp) {
+            window.Telegram.WebApp.setHeaderColor('#183256');
+            window.Telegram.WebApp.expand();
+        }
         function setTelegramHeight() {
             const availableHeight = window.innerHeight;
             document.body.style.height = `${availableHeight}px`;
