@@ -7,15 +7,14 @@ import {Loader} from "../../components/loader/Loader.jsx";
 import border from '/farm_border.png';
 import pgborder from "/winPBborder.png";
 import wins from '/wins.png';
-
-import teamData from '../../mock/teamsData.js';
-
-import styles from './PvpPage.module.scss';
-
 import start from '/public/game-icons/animation_hand_start.gif';
 import rockAnim from '/public/game-icons/animation_hand_rock.gif';
 import scisAnim from '/public/game-icons/animation_hand_sci.gif';
 import papAnim from '/public/game-icons/animation_hand_pap.gif';
+
+import teamData from '../../mock/teamsData.js';
+
+import styles from './PvpPage.module.scss';
 
 export const PvpPage = () => {
     const navigate = useNavigate();
@@ -34,6 +33,16 @@ export const PvpPage = () => {
     const [opponentTeamId, setOpponentTeamId] = useState(() => Math.floor(Math.random() * 3) + 1);
     const [userName, setUserName] = useState('you');
     const [isRoundUpdating, setIsRoundUpdating] = useState(false);
+
+    useEffect(() => {
+        const search = window.Telegram.WebApp.initData
+        const urlParams = new URLSearchParams(search);
+        const userParam = urlParams.get('user');
+        const decodedUserParam = decodeURIComponent(userParam);
+        const userObject = JSON.parse(decodedUserParam);
+        const userTG = userObject.username
+        setUserName(userTG)
+    }, [])
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
