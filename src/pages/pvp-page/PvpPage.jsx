@@ -25,7 +25,7 @@ export const PvpPage = () => {
     const [opponentScore, setOpponentScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [round, setRound] = useState(1);
-    const [timer, setTimer] = useState(10);
+    const [timer, setTimer] = useState(5);
     const [playerChoice, setPlayerChoice] = useState(null);
     const [opponentChoice, setOpponentChoice] = useState(3);
     const [gameEnded, setGameEnded] = useState(false);
@@ -141,7 +141,7 @@ export const PvpPage = () => {
             setTimeout(() => {
                 setPlayerChoice(null);
                 setOpponentChoice(null);
-                setTimer(10);
+                setTimer(5);
                 setVisibleImage(0);
 
                 setRound(prev => prev + 1);
