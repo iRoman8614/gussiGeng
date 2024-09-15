@@ -142,10 +142,10 @@
 
     .icon {
         position: absolute;
-        left: 15px;
+        left: 25px;
         top: 6px;
-        width: 60px;
-        height: 60px;
+        width: 40px;
+        height: 40px;
     }
 
     p {
@@ -250,7 +250,7 @@
     z-index: 100;
     top: -10px;
     width: 100%;
-    height: 100vh;
+    height: 110%;
     filter: blur(0px);
     background: rgba(18, 22, 38, 0.92);
     display: flex;
@@ -305,6 +305,7 @@
     .choose, .mychoose {
         height: 110px;
         object-fit: contain;
+        transform: scale(1.55);
     }
     .optionBg {
         height: 130px;
@@ -314,15 +315,16 @@
     .paperBtnActive, .scicBtnActive, .rockBtnActive {
         height: 70px;
         width: 70px;
+        margin-top: 4px;
     }
     .btn {
         height: 70px;
         width: 70px;
 
         .icon {
-            width: 40px;
-            height: 40px;
-            left: 10px;
+            width: 32px;
+            height: 32px;
+            left: 14px;
         }
 
         img {
@@ -358,9 +360,14 @@
     .choose, .mychoose {
         height: 130px;
         object-fit: contain;
+        border-radius: 6px;
+        transform: scale(1.5);
     }
     .optionBg {
         height: 150px;
         width: 115px;
+    }
+    .paperBtnActive, .scicBtnActive, .rockBtnActive {
+        margin-top: 6px;
     }
 }
