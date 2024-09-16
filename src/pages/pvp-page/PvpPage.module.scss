@@ -13,7 +13,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 5px 15px;
+    padding: 15px;
 }
 
 .container {
@@ -123,6 +123,9 @@
     margin: 0;
     width: 90px;
     height: 90px;
+    stroke-width: 2px;
+    stroke: rgba(0, 0, 0, 0.39);
+    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.8)
 }
 
 .scicBtnActive {
@@ -136,7 +139,6 @@
     padding: 0;
     margin: 0;
     border: 0;
-    margin-top: 8px;
 }
 
 .rockBtn {
@@ -150,6 +152,9 @@
     margin: 0;
     width: 90px;
     height: 90px;
+    stroke-width: 2px;
+    stroke: rgba(0, 0, 0, 0.39);
+    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.8)
 }
 
 .rockBtnActive {
@@ -163,7 +168,6 @@
     padding: 0;
     margin: 0;
     border: 0;
-    margin-top: 8px;
 }
 
 .paperBtn {
@@ -177,6 +181,9 @@
     margin: 0;
     width: 90px;
     height: 90px;
+    stroke-width: 2px;
+    stroke: rgba(0, 0, 0, 0.39);
+    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.8)
 }
 
 .paperBtnActive {
@@ -190,7 +197,6 @@
     padding: 0;
     margin: 0;
     border: 0;
-    margin-top: 6px;
 }
 
 .counter {
@@ -291,32 +297,9 @@
         width: 100px;
         border-radius: 18px;
     }
-    .paperBtnActive, .scicBtnActive, .rockBtnActive {
+    .paperBtnActive, .scicBtnActive, .rockBtnActive, .scicBtn, .rockBtn, .paperBtn {
         height: 70px;
         width: 70px;
-        margin-top: 4px;
-    }
-    .btn {
-        height: 70px;
-        width: 70px;
-
-        .icon {
-            width: 32px;
-            height: 32px;
-            left: 14px;
-        }
-
-        img {
-            width: 60px;
-            height: 60px;
-        }
-
-        p {
-            margin-bottom: 8px;
-            left: 5px;
-            font-size: 14px;
-            width: 50px;
-        }
     }
     .lampOff {
         max-width: 30px;
@@ -351,16 +334,6 @@
     .optionBg {
         height: 150px;
         width: 115px;
-    }
-    .paperBtnActive, .scicBtnActive, .rockBtnActive {
-        margin-top: 4px;
-    }
-    .btn {
-        .icon {
-            width: 44px;
-            height: 44px;
-            left: 20px;
-        }
     }
     .lampOff {
         max-width: 40px;
