@@ -1,17 +1,12 @@
 export const preloadAssets = () => {
     const images = [
-        //загрузочные
         '/gussiGeng/loading.gif',
-        //папка backgrounds 1
         '/gussiGeng/backgrounds/nightcity.png',
-        //папка characters 1
         '/gussiGeng/characters/purpleChar.png',
-        //папка logos 4
         '/gussiGeng/gangs-logos/green-logo.png',
         '/gussiGeng/gangs-logos/purple-logo.png',
         '/gussiGeng/gangs-logos/red-logo.png',
         '/gussiGeng/gangs-logos/yellow-logo.png',
-        //папка main-buttons 9
         '/gussiGeng/main-buttons/account.png',
         '/gussiGeng/main-buttons/bag.png',
         '/gussiGeng/main-buttons/boards.png',
@@ -21,7 +16,6 @@ export const preloadAssets = () => {
         '/gussiGeng/main-buttons/settings.png',
         '/gussiGeng/main-buttons/upgrades.png',
         '/gussiGeng/main-buttons/wallet.png',
-        // public 11
         '/gussiGeng/claimBTN.png',
         '/gussiGeng/claimBTNclicked.png',
         '/gussiGeng/farm_border.png',
@@ -33,7 +27,6 @@ export const preloadAssets = () => {
         "/gussiGeng/winPBborder.png",
         "/gussiGeng/wins.png",
         "/gussiGeng/winsBG.png",
-        //'/gussiGeng/',
     ];
     return Promise.all(
         images.map((src) => {
@@ -66,9 +59,7 @@ export const preloadLoaders = () => {
 
 export const preloadPvp = () => {
     const images = [
-        //папка backgrounds 1
         '/gussiGeng/backgrounds/backalley.png',
-        //папка game-icons 7
         '/gussiGeng/game-icons/animation_hand_pap.gif',
         '/gussiGeng/game-icons/animation_hand_rock.gif',
         '/gussiGeng/game-icons/animation_hand_sci.gif',
@@ -76,7 +67,6 @@ export const preloadPvp = () => {
         '/gussiGeng/game-icons/hand_pap.png',
         '/gussiGeng/game-icons/hand_rock.png',
         '/gussiGeng/game-icons/hand_sci.png',
-        // public 8
         '/gussiGeng/lampOnBG.png',
         '/gussiGeng/oppNickNameContainer.png',
         '/gussiGeng/paperActiveBG.png',
