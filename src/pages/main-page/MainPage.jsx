@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {IconButton} from "../../components/buttons/icon-btn/IconButton.jsx";
 import {NavBar} from "../../components/nav-bar/NavBar.jsx";
-import {CollectBar} from "../../components/bars/collect-bar/CollectBar.jsx";
+import {CollectBar} from "../../components/bars/CollectBar.jsx";
 
 import account from "/main-buttons/account.png";
 import settings from "/main-buttons/settings.png";
