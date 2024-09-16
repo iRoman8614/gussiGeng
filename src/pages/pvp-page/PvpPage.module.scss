@@ -58,14 +58,18 @@
     height: 184px;
     object-fit: contain;
     rotate: 180deg;
-    transform: scale(1.6);
+    transform: scale(2.1);
+    padding-top: 10px;
+    padding-left: 5px;
 }
 
 .mychoose{
     width: 92px;
     height: 184px;
     object-fit: contain;
-    transform: scale(1.6);
+    transform: scale(2.3);
+    padding-top: 10px;
+    padding-left: 5px;
 }
 
 .roundTimer {
@@ -290,7 +294,7 @@
     .choose, .mychoose {
         height: 110px;
         object-fit: contain;
-        transform: scale(1.55);
+        transform: scale(1.6);
     }
     .optionBg {
         height: 130px;
@@ -329,11 +333,12 @@
         height: 130px;
         object-fit: contain;
         border-radius: 6px;
-        transform: scale(1.5);
+        transform: scale(1.7);
     }
     .optionBg {
         height: 150px;
         width: 115px;
+        border-radius: 18px;
     }
     .lampOff {
         max-width: 40px;

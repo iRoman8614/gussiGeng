@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { gameOptions } from '../../mock/optionData';
 import { IconButton } from "../../components/buttons/icon-btn/IconButton.jsx";
 import {LoaderGif} from "../../components/loader/LoaderGif.jsx";
+import {preloadPvp} from '../../utils/preloadAssets';
 
 import wins from '/wins.png';
 import start from '/public/game-icons/animation_hand_start.gif';
@@ -16,7 +17,6 @@ import styles from './PvpPage.module.scss';
 
 export const PvpPage = () => {
     const navigate = useNavigate();
-
     const teamId = localStorage.getItem('teamId');
     const [visibleImage, setVisibleImage] = useState(0);
     const [playerScore, setPlayerScore] = useState(0);
@@ -27,9 +27,10 @@ export const PvpPage = () => {
     const [playerChoice, setPlayerChoice] = useState(null);
     const [opponentChoice, setOpponentChoice] = useState(3);
     const [gameEnded, setGameEnded] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
     const [opponentTeamId, setOpponentTeamId] = useState(() => Math.floor(Math.random() * 3) + 1);
     const [userName, setUserName] = useState('you');
+
+    const [isLoadingPvp, setIsLoadingPvp] = useState(true);
 
     // useEffect(() => {
     //     const search = window.Telegram.WebApp.initData
@@ -42,10 +43,14 @@ export const PvpPage = () => {
     // }, [])
 
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
-        return () => clearTimeout(timeoutId);
+        preloadPvp()
+            .then(() => {
+                setIsLoadingPvp(false);
+            })
+            .catch((error) => {
+                console.error('Error loading assets', error);
+                // setIsLoadingPvp(false);
+            })
     }, []);
 
     useEffect(() => {
@@ -57,7 +62,7 @@ export const PvpPage = () => {
 
     useEffect(() => {
         let timerId;
-        if (!isLoading && timer > 0 && !gameOver) {
+        if (timer > 0 && !gameOver) {
             timerId = setTimeout(() => {
                 setTimer(timer - 1);
             }, 1000);
@@ -70,7 +75,7 @@ export const PvpPage = () => {
             }, 1000);
         }
         return () => clearTimeout(timerId);
-    }, [timer, gameOver, playerChoice, isLoading]);
+    }, [timer, gameOver, playerChoice]);
 
     const showGifSequence = () => {
         const timeouts = [];
@@ -89,7 +94,7 @@ export const PvpPage = () => {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
         }
-        if (gameOver || playerChoice !== null || isLoading) return;
+        if (gameOver || playerChoice !== null) return;
         setPlayerChoice(choice);
     };
 
@@ -147,164 +152,169 @@ export const PvpPage = () => {
 
     return (
         <>
-            {isLoading && <LoaderGif />}
-            {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
-            <div className={styles.root}>
-                <div className={styles.oppNickname}>
-                    biggie smalls
-                </div>
-                <div className={styles.container}>
-                    <div className={styles.optionBg}>
-                        {visibleImage === 0 && (
-                            <img
-                                className={styles.choose}
-                                src={gameOptions[3].logo}
-                                alt="First"
-                            />
-                        )}
-                        {visibleImage === 1 && (
-                            <img
-                                className={styles.choose}
-                                src={start}
-                                alt="Second"
-                            />
-                        )}
-                        {visibleImage === 2 && (
-                            <>
-                                {opponentChoice === 0 && (
-                                    <img
-                                        className={styles.choose}
-                                        src={rockAnim}
-                                        alt="Third"
-                                    />
-                                )}
-                                {opponentChoice === 1 && (
-                                    <img
-                                        className={styles.choose}
-                                        src={papAnim}
-                                        alt="Third"
-                                    />
-                                )}
-                                {opponentChoice === 2 && (
-                                    <img
-                                        className={styles.choose}
-                                        src={scisAnim}
-                                        alt="Third"
-                                    />
-                                )}
-                            </>
-                        )}
-                        {visibleImage === 3 && (
-                            <>
-                                {opponentChoice === 0 && (
-                                    <img
-                                        className={styles.choose}
-                                        src={gameOptions[0].logo}
-                                        alt="Third"
-                                    />
-                                )}
-                                {opponentChoice === 1 && (
-                                    <img
-                                        className={styles.choose}
-                                        src={gameOptions[1].logo}
-                                        alt="Third"
-                                    />
-                                )}
-                                {opponentChoice === 2 && (
-                                    <img
-                                        className={styles.choose}
-                                        src={gameOptions[2].logo}
-                                        alt="Third"
-                                    />
-                                )}
-                            </>
-                        )}
+            {isLoadingPvp ? (
+                <LoaderGif />
+            ) : (
+                <>
+                    {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
+                    <div className={styles.root}>
+                    <div className={styles.oppNickname}>
+                        biggie smalls
                     </div>
-                    <VictoryCounter score={opponentScore} />
-                    <IconButton image={teamData[teamId].logo} alt={'gang'} />
-                    <div className={styles.roundTimer}>
-                        <div className={styles.time}>{timer}</div>
+                    <div className={styles.container}>
+                        <div className={styles.optionBg}>
+                            {visibleImage === 0 && (
+                                <img
+                                    className={styles.choose}
+                                    src={gameOptions[3].logo}
+                                    alt="First"
+                                />
+                            )}
+                            {visibleImage === 1 && (
+                                <img
+                                    className={styles.choose}
+                                    src={start}
+                                    alt="Second"
+                                />
+                            )}
+                            {visibleImage === 2 && (
+                                <>
+                                    {opponentChoice === 0 && (
+                                        <img
+                                            className={styles.choose}
+                                            src={rockAnim}
+                                            alt="Third"
+                                        />
+                                    )}
+                                    {opponentChoice === 1 && (
+                                        <img
+                                            className={styles.choose}
+                                            src={papAnim}
+                                            alt="Third"
+                                        />
+                                    )}
+                                    {opponentChoice === 2 && (
+                                        <img
+                                            className={styles.choose}
+                                            src={scisAnim}
+                                            alt="Third"
+                                        />
+                                    )}
+                                </>
+                            )}
+                            {visibleImage === 3 && (
+                                <>
+                                    {opponentChoice === 0 && (
+                                        <img
+                                            className={styles.choose}
+                                            src={gameOptions[0].logo}
+                                            alt="Third"
+                                        />
+                                    )}
+                                    {opponentChoice === 1 && (
+                                        <img
+                                            className={styles.choose}
+                                            src={gameOptions[1].logo}
+                                            alt="Third"
+                                        />
+                                    )}
+                                    {opponentChoice === 2 && (
+                                        <img
+                                            className={styles.choose}
+                                            src={gameOptions[2].logo}
+                                            alt="Third"
+                                        />
+                                    )}
+                                </>
+                            )}
+                        </div>
+                        <VictoryCounter score={opponentScore} />
+                        <IconButton image={teamData[teamId].logo} alt={'gang'} />
+                        <div className={styles.roundTimer}>
+                            <div className={styles.time}>{timer}</div>
+                        </div>
+                        <IconButton image={teamData[opponentTeamId].logo} alt={'gang'} />
+                        <VictoryCounter score={playerScore} />
+                        <div className={styles.optionBg}>
+                            {visibleImage === 0 && (
+                                <img
+                                    className={styles.mychoose}
+                                    src={gameOptions[3].logo}
+                                    alt="First"
+                                />
+                            )}
+                            {visibleImage === 1 && (
+                                <img
+                                    className={styles.mychoose}
+                                    src={start}
+                                    alt="Second"
+                                />
+                            )}
+                            {visibleImage === 2 && (
+                                <>
+                                    {playerChoice === 0 && (
+                                        <img
+                                            className={styles.mychoose}
+                                            src={rockAnim}
+                                            alt="Third"
+                                        />
+                                    )}
+                                    {playerChoice === 1 && (
+                                        <img
+                                            className={styles.mychoose}
+                                            src={papAnim}
+                                            alt="Third"
+                                        />
+                                    )}
+                                    {playerChoice === 2 && (
+                                        <img
+                                            className={styles.mychoose}
+                                            src={scisAnim}
+                                            alt="Third"
+                                        />
+                                    )}
+                                </>
+                            )}
+                            {visibleImage === 3 && (
+                                <>
+                                    {playerChoice === 0 && (
+                                        <img
+                                            className={styles.mychoose}
+                                            src={gameOptions[0].logo}
+                                            alt="Third"
+                                        />
+                                    )}
+                                    {playerChoice === 1 && (
+                                        <img
+                                            className={styles.mychoose}
+                                            src={gameOptions[1].logo}
+                                            alt="Third"
+                                        />
+                                    )}
+                                    {playerChoice === 2 && (
+                                        <img
+                                            className={styles.mychoose}
+                                            src={gameOptions[2].logo}
+                                            alt="Third"
+                                        />
+                                    )}
+                                </>
+                            )}
+                        </div>
                     </div>
-                    <IconButton image={teamData[opponentTeamId].logo} alt={'gang'} />
-                    <VictoryCounter score={playerScore} />
-                    <div className={styles.optionBg}>
-                        {visibleImage === 0 && (
-                            <img
-                                className={styles.mychoose}
-                                src={gameOptions[3].logo}
-                                alt="First"
-                            />
-                        )}
-                        {visibleImage === 1 && (
-                            <img
-                                className={styles.mychoose}
-                                src={start}
-                                alt="Second"
-                            />
-                        )}
-                        {visibleImage === 2 && (
-                            <>
-                                {playerChoice === 0 && (
-                                    <img
-                                        className={styles.mychoose}
-                                        src={rockAnim}
-                                        alt="Third"
-                                    />
-                                )}
-                                {playerChoice === 1 && (
-                                    <img
-                                        className={styles.mychoose}
-                                        src={papAnim}
-                                        alt="Third"
-                                    />
-                                )}
-                                {playerChoice === 2 && (
-                                    <img
-                                        className={styles.mychoose}
-                                        src={scisAnim}
-                                        alt="Third"
-                                    />
-                                )}
-                            </>
-                        )}
-                        {visibleImage === 3 && (
-                            <>
-                                {playerChoice === 0 && (
-                                    <img
-                                        className={styles.mychoose}
-                                        src={gameOptions[0].logo}
-                                        alt="Third"
-                                    />
-                                )}
-                                {playerChoice === 1 && (
-                                    <img
-                                        className={styles.mychoose}
-                                        src={gameOptions[1].logo}
-                                        alt="Third"
-                                    />
-                                )}
-                                {playerChoice === 2 && (
-                                    <img
-                                        className={styles.mychoose}
-                                        src={gameOptions[2].logo}
-                                        alt="Third"
-                                    />
-                                )}
-                            </>
-                        )}
+                    <div className={styles.round}>
+                        round {round}
+                    </div>
+                    <div className={styles.buttonSet}>
+                        <button className={playerChoice === 1 ? styles.paperBtnActive : styles.paperBtn} onClick={() => handlePlayerChoice(1)}></button>
+                        <button className={playerChoice === 0 ? styles.rockBtnActive : styles.rockBtn} onClick={() => handlePlayerChoice(0)}></button>
+                        <button className={playerChoice === 2 ? styles.scicBtnActive : styles.scicBtn} onClick={() => handlePlayerChoice(2)}></button>
                     </div>
                 </div>
-                <div className={styles.round}>
-                    round {round}
-                </div>
-                <div className={styles.buttonSet}>
-                    <button className={playerChoice === 1 ? styles.paperBtnActive : styles.paperBtn} onClick={() => handlePlayerChoice(1)}></button>
-                    <button className={playerChoice === 0 ? styles.rockBtnActive : styles.rockBtn} onClick={() => handlePlayerChoice(0)}></button>
-                    <button className={playerChoice === 2 ? styles.scicBtnActive : styles.scicBtn} onClick={() => handlePlayerChoice(2)}></button>
-                </div>
-            </div>
+                </>
+            )}
         </>
-    );
+    )
 }
 function getRandomOption() {
     return Math.floor(Math.random() * 3);
@@ -334,3 +344,157 @@ const WinningScreen = ({ userName, playerScore }) => (
     </div>
 );
 
+
+
+// import { useEffect, useState } from "react";
+// import { useNavigate } from 'react-router-dom';
+// import { gameOptions } from '../../mock/optionData';
+// import { IconButton } from "../../components/buttons/icon-btn/IconButton.jsx";
+// import {LoaderGif} from "../../components/loader/LoaderGif.jsx";
+// import { useStartGameQuery, useSendAnswerMutation } from '../../store/gameSlice';
+//
+// import wins from '/wins.png';
+// import start from '/public/game-icons/animation_hand_start.gif';
+// import rockAnim from '/public/game-icons/animation_hand_rock.gif';
+// import scisAnim from '/public/game-icons/animation_hand_sci.gif';
+// import papAnim from '/public/game-icons/animation_hand_pap.gif';
+//
+// import teamData from '../../mock/teamsData.js';
+//
+// import styles from './PvpPage.module.scss';
+//
+// export const PvpPage = () => {
+//     const navigate = useNavigate();
+//     const profileId = localStorage.getItem('teamId');
+//
+//     const [sessionId, setSessionId] = useState(null);
+//     const [visibleImage, setVisibleImage] = useState(0);
+//     const [playerScore, setPlayerScore] = useState(0);
+//     const [opponentScore, setOpponentScore] = useState(0);
+//     const [gameOver, setGameOver] = useState(false);
+//     const [round, setRound] = useState(1);
+//     const [timer, setTimer] = useState(5);
+//     const [playerChoice, setPlayerChoice] = useState(null);
+//     const [opponentChoice, setOpponentChoice] = useState(3);
+//     const [gameEnded, setGameEnded] = useState(false);
+//     const [isLoading, setIsLoading] = useState(true);
+//     const [opponentTeamId, setOpponentTeamId] = useState(() => Math.floor(Math.random() * 3) + 1);
+//     const [userName, setUserName] = useState('you');
+//
+//     // Fetch session id by starting the game
+//     const { data: startData, isFetching: isFetchingSession } = useStartGameQuery(profileId);
+//     const [sendAnswer, { data: answerData }] = useSendAnswerMutation();
+//
+//     useEffect(() => {
+//         if (startData) {
+//             setSessionId(startData.sessionId);  // Получаем sessionId
+//             setIsLoading(false);  // Отключаем лоадер, когда сессия готова
+//         }
+//     }, [startData]);
+//
+//     useEffect(() => {
+//         let timerId;
+//         if (!isLoading && timer > 0 && !gameOver) {
+//             timerId = setTimeout(() => {
+//                 setTimer(timer - 1);
+//             }, 1000);
+//         } else if (timer === 0 && playerChoice !== null) {
+//             // Когда время вышло, отправляем ответ игрока на сервер
+//             sendAnswer({ profileId, sessionId, answer: playerChoice });
+//         }
+//         return () => clearTimeout(timerId);
+//     }, [timer, gameOver, playerChoice, isLoading]);
+//
+//     useEffect(() => {
+//         if (answerData) {
+//             const { player1, player2, result, victory } = answerData;
+//             const opponentMove = player1.id !== profileId ? player1.answer : player2.answer;
+//             const playerMove = player1.id === profileId ? player1.answer : player2.answer;
+//
+//             setOpponentChoice(opponentMove);
+//             setPlayerChoice(playerMove);
+//             showGifSequence();
+//
+//             setTimeout(() => {
+//                 updateScores(playerMove, opponentMove, result);
+//             }, 1000);
+//         }
+//     }, [answerData]);
+//
+//     const showGifSequence = () => {
+//         const timeouts = [];
+//         const durations = [0, 1000, 1000];
+//         durations.forEach((duration, index) => {
+//             timeouts.push(
+//                 setTimeout(() => {
+//                     setVisibleImage(index + 1);
+//                 }, duration)
+//             );
+//         });
+//         return () => timeouts.forEach(timeout => clearTimeout(timeout));
+//     };
+//
+//     const handlePlayerChoice = (choice) => {
+//         if (window.Telegram?.WebApp?.HapticFeedback) {
+//             window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+//         }
+//         if (gameOver || playerChoice !== null || isLoading) return;
+//         setPlayerChoice(choice);
+//     };
+//
+//     const updateScores = (playerMove, opponentMove, result) => {
+//         if (result === 0) {
+//             // Ничья — обновляем раунд сразу после анимации
+//         } else if (result === 1) {
+//             setPlayerScore(prev => {
+//                 const newScore = prev + 1;
+//                 if (newScore === 3) {
+//                     setTimeout(() => handleGameEnd(), 3000);
+//                 }
+//                 return newScore;
+//             });
+//         } else if (result === 2) {
+//             setOpponentScore(prev => {
+//                 const newScore = prev + 1;
+//                 if (newScore === 3) {
+//                     setTimeout(() => handleGameEnd(), 3000);
+//                 }
+//                 return newScore;
+//             });
+//         }
+//
+//         if (!gameEnded) {
+//             setTimeout(() => {
+//                 resetRoundAfterDelay();
+//             }, 2000);
+//         }
+//     };
+//
+//     const handleGameEnd = () => {
+//         setGameEnded(true);
+//         setTimeout(() => {
+//             setGameOver(true);
+//         }, 3000);
+//         setTimeout(() => {
+//             navigate('/');
+//         }, 2000);
+//     };
+//
+//     const resetRoundAfterDelay = () => {
+//         setPlayerChoice(null);
+//         setOpponentChoice(null);
+//         setTimer(5);
+//         setVisibleImage(0);
+//         setRound(prev => prev + 1);
+//     };
+//
+//     return (
+//         <>
+//             {isFetchingSession && <LoaderGif />}
+//             {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
+//             <div className={styles.root}>
+//                 {/* Все остальное содержание */}
+//             </div>
+//         </>
+//     );
+// };
