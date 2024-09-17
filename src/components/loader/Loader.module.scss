@@ -18,10 +18,13 @@
 }
 
 .loading {
+  width: 200px;
+  margin: auto;
   font-size: 50px;
   color: #FFFFFF;
   position: absolute;
   bottom: 60px;
-  left: 40px;
+  left: 50%;
+  transform: translate(-50%, 0);
   z-index: 10;
 }
