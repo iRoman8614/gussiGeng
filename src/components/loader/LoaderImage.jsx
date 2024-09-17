@@ -1,5 +1,5 @@
 import styles from './Loader.module.scss'
-import loader from '/loadingImg.png'
+import loader from '/loadingImg.jpg'
 import {useEffect, useState} from "react";
 
 export const LoaderImage = () => {

@@ -4,6 +4,9 @@ import { gameOptions } from '../../mock/optionData';
 import { IconButton } from "../../components/buttons/icon-btn/IconButton.jsx";
 import {LoaderGif} from "../../components/loader/LoaderGif.jsx";
 import {preloadPvp} from '../../utils/preloadAssets';
+import {PaperPVPbtn} from "../../components/buttons/paperPVPbtn/PaperPVPbtn.jsx";
+import {RockPvpBtn} from "../../components/buttons/rockPvpBtn/RockPvpBtn.jsx";
+import {ScicPvpBtn} from "../../components/buttons/scicPVPbtn/ScicPVPbtn.jsx";
 
 import wins from '/wins.png';
 import start from '/public/game-icons/animation_hand_start.gif';
@@ -11,9 +14,28 @@ import rockAnim from '/public/game-icons/animation_hand_rock.gif';
 import scisAnim from '/public/game-icons/animation_hand_sci.gif';
 import papAnim from '/public/game-icons/animation_hand_pap.gif';
 
+//кадры лампочки
+import scale000 from '/public/roundLightUp/scale00.png'
+import scale001 from '/public/roundLightUp/scale01.png'
+import scale002 from '/public/roundLightUp/scale02.png'
+import scale003 from '/public/roundLightUp/scale03.png'
+import scale004 from '/public/roundLightUp/scale04.png'
+import scale005 from '/public/roundLightUp/scale05.png'
+import scale006 from '/public/roundLightUp/scale06.png'
+import scale007 from '/public/roundLightUp/scale07.png'
+import scale008 from '/public/roundLightUp/scale08.png'
+import scale009 from '/public/roundLightUp/scale09.png'
+import scale010 from '/public/roundLightUp/scale10.png'
+import scale011 from '/public/roundLightUp/scale11.png'
+import scale012 from '/public/roundLightUp/scale12.png'
+import scale013 from '/public/roundLightUp/scale13.png'
+import scale014 from '/public/roundLightUp/scale14.png'
+import scale015 from '/public/roundLightUp/scale15.png'
+
 import teamData from '../../mock/teamsData.js';
 
 import styles from './PvpPage.module.scss';
+
 
 export const PvpPage = () => {
     const navigate = useNavigate();
@@ -90,13 +112,13 @@ export const PvpPage = () => {
         return () => timeouts.forEach(timeout => clearTimeout(timeout));
     };
 
-    const handlePlayerChoice = (choice) => {
-        if (window.Telegram?.WebApp?.HapticFeedback) {
-            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
-        }
-        if (gameOver || playerChoice !== null) return;
-        setPlayerChoice(choice);
-    };
+    // const handlePlayerChoice = (choice) => {
+    //     if (window.Telegram?.WebApp?.HapticFeedback) {
+    //         window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+    //     }
+    //     if (gameOver || playerChoice !== null) return;
+    //     setPlayerChoice(choice);
+    // };
 
     const updateScores = (playerMoveIndex, opponentMoveIndex) => {
         const playerMove = gameOptions[playerMoveIndex].name;
@@ -142,12 +164,15 @@ export const PvpPage = () => {
         }, 2000);
     };
 
+    const [resetSequence, setResetSequence] = useState(false);
+
     const resetRoundAfterDelay = () => {
         setPlayerChoice(null);
         setOpponentChoice(null);
         setTimer(5);
         setVisibleImage(0);
         setRound(prev => prev + 1);
+        setResetSequence(!resetSequence);
     };
 
     return (
@@ -158,10 +183,10 @@ export const PvpPage = () => {
                 <>
                     {gameEnded && <WinningScreen userName={userName} playerScore={playerScore} />}
                     <div className={styles.root}>
-                    <div className={styles.oppNickname}>
-                        biggie smalls
-                    </div>
                     <div className={styles.container}>
+                        <div className={styles.oppNickname}>
+                            biggie smalls
+                        </div>
                         <div className={styles.optionBg}>
                             {visibleImage === 0 && (
                                 <img
@@ -301,14 +326,17 @@ export const PvpPage = () => {
                                 </>
                             )}
                         </div>
-                    </div>
-                    <div className={styles.round}>
-                        round {round}
-                    </div>
-                    <div className={styles.buttonSet}>
-                        <button className={playerChoice === 1 ? styles.paperBtnActive : styles.paperBtn} onClick={() => handlePlayerChoice(1)}></button>
-                        <button className={playerChoice === 0 ? styles.rockBtnActive : styles.rockBtn} onClick={() => handlePlayerChoice(0)}></button>
-                        <button className={playerChoice === 2 ? styles.scicBtnActive : styles.scicBtn} onClick={() => handlePlayerChoice(2)}></button>
+                        <div className={styles.round}>
+                            round {round}
+                        </div>
+                        <div className={styles.buttonSet}>
+                            {/*<button className={playerChoice === 1 ? styles.paperBtnActive : styles.paperBtn} onClick={() => handlePlayerChoice(1)}></button>*/}
+                            <PaperPVPbtn onClick={() => setPlayerChoice(1)} reset={resetSequence} />
+                            {/*<button className={playerChoice === 0 ? styles.rockBtnActive : styles.rockBtn} onClick={() => handlePlayerChoice(0)}></button>*/}
+                            <RockPvpBtn onClick={() => setPlayerChoice(0)} reset={resetSequence} />
+                            {/*<button className={playerChoice === 2 ? styles.scicBtnActive : styles.scicBtn} onClick={() => handlePlayerChoice(2)}></button>*/}
+                            <ScicPvpBtn onClick={() => setPlayerChoice(2)} reset={resetSequence} />
+                        </div>
                     </div>
                 </div>
                 </>
@@ -328,9 +356,9 @@ function getRandomTeamIdExceptCurrent(currentTeamId, totalTeams = 3) {
 // eslint-disable-next-line react/prop-types
 const VictoryCounter = ({ score }) => (
     <div className={styles.counter}>
-        <div className={score >= 3 ? styles.lampOn : styles.lampOff}></div>
-        <div className={score >= 2 ? styles.lampOn : styles.lampOff}></div>
-        <div className={score >= 1 ? styles.lampOn : styles.lampOff}></div>
+        {(score >= 3) ? (<LightOnSequence />) : <div className={styles.lampOff}></div>}
+        {(score >= 2) ? (<LightOnSequence />) : <div className={styles.lampOff}></div>}
+        {(score >= 1) ? (<LightOnSequence />) : <div className={styles.lampOff}></div>}
     </div>
 );
 // eslint-disable-next-line react/prop-types
@@ -343,6 +371,49 @@ const WinningScreen = ({ userName, playerScore }) => (
         </div>
     </div>
 );
+
+const LightOnSequence = () => {
+    const initialImages = [
+        scale000,
+        scale001,
+        scale002,
+        scale003,
+        scale004,
+        scale005,
+        scale006,
+        scale007,
+        scale008,
+        scale009,
+        scale010,
+        scale011,
+        scale012,
+        scale013,
+        scale014,
+        scale015,
+    ];
+    const [currentImage, setCurrentImage] = useState(0);
+    useEffect(() => {
+        if (currentImage < (initialImages.length - 1)) {
+            const interval = setInterval(() => {
+                setCurrentImage((prevImage) => prevImage + 1);
+            }, 100);
+            return () => clearInterval(interval);
+        }
+    }, [currentImage, initialImages.length]);
+    return (
+        <div className={styles.lampOnBg}>
+            <img
+                className={styles.lampOn}
+                src={initialImages[currentImage]}
+                alt="on"
+            />
+        </div>
+    );
+};
+
+
+
+
 
 
 

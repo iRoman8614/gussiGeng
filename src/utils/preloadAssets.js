@@ -42,7 +42,7 @@ export const preloadAssets = () => {
 
 export const preloadLoaders = () => {
     const images = [
-        '/gussiGeng/loadingImg.png',
+        '/gussiGeng/loadingImg.jpg',
     ];
     return Promise.all(
         images.map((src) => {
@@ -69,12 +69,32 @@ export const preloadPvp = () => {
         '/gussiGeng/game-icons/hand_sci.png',
         '/gussiGeng/lampOnBG.png',
         '/gussiGeng/oppNickNameContainer.png',
-        '/gussiGeng/paperActiveBG.png',
-        '/gussiGeng/paperBtn.png',
-        '/gussiGeng/rockActiveBG.png',
-        '/gussiGeng/rockBtn.png',
-        '/gussiGeng/scicBtn.png',
-        '/gussiGeng/scisActiveBG.png',
+
+        '/gussiGeng/buttonScissors/scis00.png',
+        '/gussiGeng/buttonScissors/scis01.png',
+        '/gussiGeng/buttonScissors/scis03.png',
+        '/gussiGeng/buttonScissors/scis06.png',
+        '/gussiGeng/buttonScissors/scis09.png',
+        '/gussiGeng/buttonRock/rock00.png',
+        '/gussiGeng/buttonRock/rock01.png',
+        '/gussiGeng/buttonRock/rock03.png',
+        '/gussiGeng/buttonRock/rock06.png',
+        '/gussiGeng/buttonRock/rock09.png',
+        '/gussiGeng/buttonPaper/paper00.png',
+        '/gussiGeng/buttonPaper/paper01.png',
+        '/gussiGeng/buttonPaper/paper03.png',
+        '/gussiGeng/buttonPaper/paper06.png',
+        '/gussiGeng/buttonPaper/paper09.png',
+
+        '/gussiGeng/roundLightUp/scale00.png',
+        '/gussiGeng/roundLightUp/scale02.png',
+        '/gussiGeng/roundLightUp/scale04.png',
+        '/gussiGeng/roundLightUp/scale06.png',
+        '/gussiGeng/roundLightUp/scale08.png',
+        '/gussiGeng/roundLightUp/scale10.png',
+        '/gussiGeng/roundLightUp/scale12.png',
+        '/gussiGeng/roundLightUp/scale14.png',
+        '/gussiGeng/roundLightUp/scale15.png',
     ];
     return Promise.all(
         images.map((src) => {
@@ -82,12 +102,9 @@ export const preloadPvp = () => {
                 const img = new Image();
                 img.src = src;
                 img.onload = () => {
-                    console.log(`Successfully loaded: ${src}`);
                     resolve();
                 };
-
                 img.onerror = (error) => {
-                    console.error(`Failed to load: ${src}`, error);
                     reject(error);
                 };
             });

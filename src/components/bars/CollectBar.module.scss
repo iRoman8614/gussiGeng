@@ -5,8 +5,8 @@
   backdrop-filter: blur(7px);
   background: rgba(21, 25, 62, 0.63);
   overflow: hidden;
-  width: 100%;
-  height: 100%;
+  width: 224px;
+  height: 74px;
 }
 
 .progressBar {
@@ -47,50 +47,45 @@
 
 @media (max-width: 360px) {
   .root {
-    width: 204px;
-    height: 74px;
+    width: 174px;
+    height: 54px;
+    border-radius: 16px;
   }
   .progressBar {
     top: 1px;
+    height: 38px;
+    border-radius: 12px;
   }
   .image {
-    width: 198px;
-    height: 64px;
-    object-fit: contain;
+    width: 168px;
+    height: 44px;
+    object-fit: fill;
   }
   .title {
-    width: 204px;
-    height: 74px;
-    top: 18px;
+    width: 174px;
+    height: 54px;
+    top: 8px;
   }
 }
 
 @media (min-width: 361px) and (max-width: 400px) {
   .root {
-    width: 214px;
-    height: 74px;
+    width: 204px;
+    height: 64px;
+    border-radius: 18px;
   }
   .progressBar {
     top: 1px;
+    height: 48px;
   }
   .image {
-    width: 208px;
-    height: 64px;
-    object-fit: contain;
+    width: 198px;
+    height: 54px;
+    object-fit: fill;
   }
   .title {
-    width: 214px;
-    height: 74px;
-    top: 18px;
-  }
-}
-
-@media (min-width: 401px) {
-  .root {
-    width: 224px;
-    height: 74px;
-  }
-  .progressBar {
-    top: 2px;
+    width: 204px;
+    height: 64px;
+    top: 12px;
   }
 }

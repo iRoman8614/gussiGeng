@@ -82,6 +82,10 @@ export const MainPage = () => {
     };
     const total = localStorage.getItem('totalCoins')
 
+    function formatNumberFromEnd(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1 ');
+    }
+
     return (
         <div className={styles.root}>
             <div className={styles.item1}>
@@ -98,7 +102,7 @@ export const MainPage = () => {
             </div>
             <div className={styles.item5}>
                 <img src={border} alt={'border'} className={styles.totalBarRoot}/>
-                <div className={styles.totalText}>{total}</div>
+                <div className={styles.totalText}>{formatNumberFromEnd(total)}</div>
             </div>
             <div className={styles.item6}>
                 <IconButton image={wallet} alt={'wallet'} title={'wallet'}/>
@@ -107,7 +111,7 @@ export const MainPage = () => {
                 <img className={styles.char} alt={'character'} src={purpleChar}/>
             </div>
             <div className={styles.item8}>
-                <CollectBar currentCoins={currentFarmCoins} maxCoins={3500} />
+                <CollectBar currentCoins={formatNumberFromEnd(currentFarmCoins)} maxCoins={formatNumberFromEnd(3500)} />
             </div>
             <div className={styles.item9}>
                 <img className={styles.claimRoot} src={isClaimClicked ? claimClicked : claim} alt={'claim'} onClick={handleClaimClick}/>

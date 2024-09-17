@@ -1,6 +1,6 @@
 .root {
     background-color: black;
-    background-image: url("/backgrounds/backalley.png");
+    background-image: url("/public/backgrounds/backalley.png");
     background-repeat: no-repeat;
     height: 100vh;
     min-width: 319px;
@@ -13,14 +13,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding: 5px;
 }
 
 .container {
     width: 100%;
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
-    grid-template-rows: 4fr 3fr 4fr;
+    grid-template-rows: 2fr 5fr 4fr 5fr 2fr 3fr;
     align-items: center;
     justify-items: center;
 }
@@ -38,10 +39,12 @@
 }
 
 .oppNickname {
+    grid-row-start: 1;
+    grid-column-start: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url("/oppNickNameContainer.png") no-repeat;
+    background: url("/public/oppNickNameContainer.png") no-repeat;
     background-size: 100%;
     max-width: 202px;
     width: 100%;
@@ -75,7 +78,7 @@
 .roundTimer {
     width: 144px;
     height: 144px;
-    background: url("/timer.png") no-repeat;
+    background: url("/public/timer.png") no-repeat;
     background-size: contain;
     display: flex;
     justify-content: center;
@@ -94,7 +97,9 @@
 }
 
 .round {
-    background: url("/roundContainer.png") no-repeat;
+    grid-row-start: 5;
+    grid-column-start: 2;
+    background: url("/public/roundContainer.png") no-repeat;
     max-width: 120px;
     max-height: 52px;
     background-size: 100%;
@@ -109,98 +114,13 @@
 }
 
 .buttonSet {
+    grid-row-start: 6;
+    grid-column: 1/4;
     height: 94px;
     padding: 2px;
     width: 100%;
     display: flex;
     justify-content: space-around;
-}
-
-.scicBtn {
-    background: linear-gradient(360deg, #1d002f 0%, #4f5e85 50.5%, rgba(255, 206, 204, 0.83) 100%);
-    background-size: 100%;
-    border-radius: 11px;
-    border: none;
-    background-image: url("/scicBtn.png");
-    background-repeat: no-repeat;
-    padding: 0;
-    margin: 0;
-    width: 90px;
-    height: 90px;
-    stroke-width: 2px;
-    stroke: rgba(0, 0, 0, 0.39);
-    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.8)
-}
-
-.scicBtnActive {
-    position: relative;
-    border-radius: 11px;
-    width: 90px;
-    height: 90px;
-    background: url("/scisActiveBG.png") no-repeat;
-    background-size: contain;
-    box-shadow: 0 0 20px 10px rgba(199, 102, 8, 1);
-    padding: 0;
-    margin: 0;
-    border: 0;
-}
-
-.rockBtn {
-    background: linear-gradient(360deg, #1d002f 0%, #4f5e85 50.5%, rgba(255, 206, 204, 0.83) 100%);
-    background-size: 100%;
-    border-radius: 11px;
-    border: none;
-    background-image: url("/rockBtn.png");
-    background-repeat: no-repeat;
-    padding: 0;
-    margin: 0;
-    width: 90px;
-    height: 90px;
-    stroke-width: 2px;
-    stroke: rgba(0, 0, 0, 0.39);
-    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.8)
-}
-
-.rockBtnActive {
-    position: relative;
-    border-radius: 11px;
-    width: 90px;
-    height: 90px;
-    background: url("/rockActiveBG.png") no-repeat;
-    background-size: contain;
-    box-shadow: 0 0 20px 10px rgba(199, 102, 8, 1);
-    padding: 0;
-    margin: 0;
-    border: 0;
-}
-
-.paperBtn {
-    background: linear-gradient(360deg, #1d002f 0%, #4f5e85 50.5%, rgba(255, 206, 204, 0.83) 100%);
-    background-size: 100%;
-    border-radius: 11px;
-    border: none;
-    background-image: url("/paperBtn.png");
-    background-repeat: no-repeat;
-    padding: 0;
-    margin: 0;
-    width: 90px;
-    height: 90px;
-    stroke-width: 2px;
-    stroke: rgba(0, 0, 0, 0.39);
-    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.8)
-}
-
-.paperBtnActive {
-    position: relative;
-    border-radius: 11px;
-    width: 90px;
-    height: 90px;
-    background: url("/paperActiveBG.png") no-repeat;
-    background-size: contain;
-    box-shadow: 0 0 20px 10px rgba(199, 102, 8, 1);
-    padding: 0;
-    margin: 0;
-    border: 0;
 }
 
 .counter {
@@ -209,29 +129,37 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background: url("/progressBar.png") no-repeat;
+    background: url("/public/progressBar.png") no-repeat;
     background-size: contain;
     background-position: center;
     max-height: 200px;
     max-width: 67px;
     width: 100%;
     height: 100%;
-    padding: 15px 10px;
+    padding: 14px 10px;
     justify-self: center;
 }
 
 .lampOn {
-    max-width: 45px;
+    max-width: 42px;
+    width: 100%;
+    height: 100%;
+    border-radius: 11px;
+    object-fit: fill;
+    scale: 1.5;
+    background: url("/public/roundLightUp/scale00.png");
+}
+
+.lampOnBg {
+    max-width: 42px;
     width: 100%;
     height: 30%;
     border-radius: 11px;
-    background: url("/lampOnBG.png") no-repeat;
-    background-size: contain;
-    background-position: center;
+    background: #1AF1FF;
 }
 
 .lampOff {
-    max-width: 45px;
+    max-width: 42px;
     width: 100%;
     height: 30%;
     border-radius: 11px;
@@ -259,7 +187,7 @@
     border-radius: 22px;
     width: 271px;
     height: 391px;
-    background: url("/winsBG.png") no-repeat;
+    background: url("/public/winsBG.png") no-repeat;
     background-size: contain;
     padding: 40px 10px 40px 10px;
 }
@@ -289,7 +217,7 @@
         line-height: 24px;
     }
     .counter {
-        padding: 8px;
+        padding: 9px;
     }
     .choose, .mychoose {
         height: 110px;
@@ -301,15 +229,9 @@
         width: 100px;
         border-radius: 18px;
     }
-    .paperBtnActive, .scicBtnActive, .rockBtnActive, .scicBtn, .rockBtn, .paperBtn {
-        height: 70px;
-        width: 70px;
-    }
-    .lampOff {
-        max-width: 30px;
-    }
-    .lampOn {
-        max-width: 30px;
+    .lampOff, .lampOn {
+        max-width: 31px;
+        border-radius: 7px;
     }
 }
 
@@ -318,7 +240,7 @@
         height: 80px;
     }
     .counter {
-        padding: 5px;
+        padding: 10px;
     }
     .roundTimer {
         width: 120px;
@@ -340,11 +262,9 @@
         width: 115px;
         border-radius: 18px;
     }
-    .lampOff {
-        max-width: 40px;
-    }
-    .lampOn {
-        max-width: 40px;
-        height: 27%;
+    .lampOff, .lampOn {
+        max-width: 35px;
+        height: 30%;
+        border-radius: 9px;
     }
 }
