@@ -24,6 +24,27 @@ export const MainPage = () => {
     const [startFarmTime, setStartFarmTime] = useState(Date.now());
     const [teamId, setTeamId] = useState(1)
     const [isClaimClicked, setIsClaimClicked] = useState(false);
+    const [isGifLoaded, setIsGifLoaded] = useState(false);
+
+    const loadImage = (src) => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = () => resolve();
+            img.onerror = (error) => reject(error);
+        });
+    };
+
+    useEffect(() => {
+        loadImage('/gussiGeng/backgrounds/nightcity.gif')
+            .then(() => {
+                setIsGifLoaded(true);
+                console.log('git загружен')
+            })
+            .catch((error) => {
+                console.error('Ошибка загрузки изображения:', error);
+            });
+    }, []);
 
     useEffect(() => {
         const savedTeamId = localStorage.getItem('teamId') || Math.floor(Math.random() * 4) + 1;
@@ -87,7 +108,7 @@ export const MainPage = () => {
     }
 
     return (
-        <div className={styles.root}>
+        <div className={isGifLoaded ? styles.rootGif : styles.root}>
             <div className={styles.item1}>
                 <IconButton image={account} alt={'account'} title={'account'}/>
             </div>
