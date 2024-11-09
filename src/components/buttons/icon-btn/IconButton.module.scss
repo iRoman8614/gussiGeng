@@ -1,13 +1,30 @@
-.root {
+.root, .hidderRoot {
   border-radius: 11px;
   background:
-          linear-gradient(359.95deg, rgba(29, 0, 47, 0.8) 0.34%, rgba(79, 94, 133, 0.8) 50.67%, rgba(255, 200, 198, 0.656) 100%),
-          rgba(104, 110, 166, 0.6);
-  background-blend-mode: overlay;
+          linear-gradient(359.95deg, #120431 0.34%, #443664 50.67%, #7E709F 100%),
+          rgba(79, 94, 133, 0.7);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  transform: scale(0.5);
+  animation: zoom-in 0.5s forwards ease-out;
+
+  @keyframes zoom-in {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+.hidderRoot {
+  filter: grayscale(100%);
 }
 
 .image {
@@ -21,7 +38,7 @@
 
 .title {
   color: #FFFFFF;
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
   background: rgba(104, 110, 166, 0.6);
   border-radius: 5px;
@@ -29,7 +46,7 @@
 }
 
 @media (max-width: 360px) {
-  .root {
+  .root, .hidderRoot {
     width: 50px;
     height: 50px;
     padding: 1px 3px 1px 3px;
@@ -40,13 +57,13 @@
   .title {
     height: 14px;
     width: 40px;
-    font-size: 10px;
+    font-size: 14px;
     line-height: 14px;
   }
 }
 
 @media (min-width: 361px) and (max-width: 400px) {
-  .root {
+  .root, .hidderRoot {
     width: 55px;
     height: 55px;
     padding: 1px 4px 2px 4px;
@@ -57,13 +74,13 @@
   .title {
     height: 15px;
     width: 47px;
-    font-size: 11px;
+    font-size: 16px;
     line-height: 15px;
   }
 }
 
 @media (min-width: 401px) {
-  .root {
+  .root, .hidderRoot {
     width: 60px;
     height: 60px;
     padding: 1px 4px 3px 4px;
@@ -74,7 +91,7 @@
   .title {
     height: 16px;
     width: 51px;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 15px;
   }
 }

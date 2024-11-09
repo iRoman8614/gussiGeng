@@ -1,4 +1,4 @@
-import border from '../../../public/farm_border.png';
+import border from '/gussiGeng/public/farm_border.png';
 import styles from './CollectBar.module.scss';
 
 // eslint-disable-next-line react/prop-types

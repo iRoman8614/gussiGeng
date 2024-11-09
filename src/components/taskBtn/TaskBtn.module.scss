@@ -1,0 +1,78 @@
+@import "../../_utils.scss";
+
+.root {
+  width: 100%;
+  background: linear-gradient(180deg, #5c498f 0%, #47347d 100%);
+  display: flex;
+  padding: auto-clamp(10, 16);
+  border-radius: 11px;
+  margin-bottom: 5px;
+  align-items: center;
+  gap: auto-clamp(5, 12);
+  cursor: pointer;
+}
+
+.rootReady {
+  width: 100%;
+  background: linear-gradient(180deg, #5c498f 0%, #47347d 100%);
+  display: flex;
+  padding: auto-clamp(10, 16);
+  border-radius: 11px;
+  margin-bottom: 5px;
+  align-items: center;
+  gap: auto-clamp(5, 12);
+  cursor: pointer;
+  border: 3px solid #FF9740;
+  animation: vibrate 0.5s infinite;
+}
+
+@keyframes vibrate {
+  0% { transform: translate(0); }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(-1px, -1px); }
+  60% { transform: translate(1px, 1px); }
+  80% { transform: translate(1px, -1px); }
+  100% { transform: translate(0); }
+}
+
+.container {
+  width: 100%;
+}
+
+.title {
+  font-size: auto-clamp(16, 22);
+  line-height: auto-clamp(18, 28);
+  color: #fff;
+}
+
+.subtitle {
+  font-size: auto-clamp(16, 22);
+  line-height: auto-clamp(16, 22);
+  color: #fff;
+  width: auto-clamp(70, 170);
+  text-overflow: ellipsis;
+}
+
+.icon {
+  width: auto-clamp(40, 60);
+  height: auto-clamp(40, 60);
+}
+
+.desc {
+  font-size: auto-clamp(14, 18);
+  line-height: auto-clamp(18, 24);
+  color: #fff;
+  width: auto-clamp(50, 70);
+  white-space: nowrap;
+}
+
+.reward {
+  line-height: 16px;
+  color: #00FF29;
+  font-size: auto-clamp(16, 20);
+  padding-bottom: 3px;
+}
+
+.money {
+  padding-top: 5px;
+}

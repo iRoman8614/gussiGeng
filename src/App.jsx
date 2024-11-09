@@ -1,19 +1,27 @@
 import { useEffect, useState } from "react";
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from './store/store';
-import { useGetProfileQuery } from "./store/apiSlice.js";
 import {preloadAssets, preloadLoaders} from './utils/preloadAssets';
-import { MainPage } from "./pages/main-page/MainPage.jsx";
-import {PvpPage} from "./pages/pvp-page/PvpPage.jsx";
-import {LoaderImage} from "./components/loader/LoaderImage.jsx";
+import {PvpPage} from "./pages/pvp/index.jsx";
 
-import './App.css';
+import './App.scss';
+import {InitProvider} from "./context/InitContext.jsx";
+import {ToastContainer} from "react-toastify";
+import {LobbyPage} from "./pages/lobby/index.jsx";
+import {HomePage} from "./pages/main/index.jsx";
+import {LoaderPage} from "./pages/loading/index.jsx";
+import {AccountPage} from "./pages/account/index.jsx";
+import {SettingsPage} from "./pages/settings/index.jsx";
+import {PvpBotPage} from "./pages/pvpbot/index.jsx";
+import {FaqHomePage} from "./pages/faq/home/index.jsx";
+import {FaqPvpPage} from "./pages/faq/pvp/index.jsx";
+import {FriendsPage} from "./pages/friends/index.jsx";
+import {UpgradesPage} from "./pages/upgrades/index.jsx";
+import {BoardPage} from "./pages/boards/index.jsx";
+import {RandomPage} from "./pages/getRandom/index.jsx";
+import {ChangePage} from "./pages/change/index.jsx";
 
 function App() {
-    const [userId, setUserId] = useState(1);
-    const [isLoadingAssets, setIsLoadingAssets] = useState(true);
-    const [isLoadingProfile, setIsLoadingProfile] = useState(false);
+    const [ ,setIsLoadingAssets] = useState(true);
 
     useEffect(() => {
         if (window.Telegram?.WebApp) {
@@ -36,7 +44,6 @@ function App() {
                 const userObject = JSON.parse(decodedUserParam);
                 console.log("Telegram userObject:", userObject);
                 console.log("User ID from Telegram:", userObject.id);
-                setUserId(userObject.id);
             }
         }
         preloadLoaders().then(() => {
@@ -55,67 +62,40 @@ function App() {
 
     }, []);
 
-    //надо прокидывать {userId} в MainPageWrapper
     return (
-        <Provider store={store}>
-            {isLoadingAssets || isLoadingProfile ? (
-                <LoaderImage />
-            ) : (
-                <HashRouter>
-                    <Routes>
-                        <Route path='/' element={<MainPageWrapper setIsLoadingProfile={setIsLoadingProfile} />} />
-                        <Route path='/pvp' element={<PvpPage />} />
-                    </Routes>
-                </HashRouter>
-            )}
-        </Provider>
+        <InitProvider>
+            <HashRouter>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
+                <Routes>
+                    <Route path='/' element={<LoaderPage />} />
+                    <Route path='/main' element={<HomePage />} />
+                    <Route path='/lobby' element={<LobbyPage />} />
+                    <Route path='/pvp' element={<PvpPage />} />
+                    <Route path='/account' element={<AccountPage />} />
+                    <Route path='/settings' element={<SettingsPage />} />
+                    <Route path='/pvpbot' element={<PvpBotPage />} />
+                    <Route path='/faq/home' element={<FaqHomePage />} />
+                    <Route path='/faq/pvp' element={<FaqPvpPage />} />
+                    <Route path='/friends' element={<FriendsPage />} />
+                    <Route path='/upgrades' element={<UpgradesPage />} />
+                    <Route path='/boards' element={<BoardPage />} />
+                    <Route path='/getRandom' element={<RandomPage />} />
+                    <Route path='/change' element={<ChangePage />} />
+                </Routes>change
+            </HashRouter>
+        </InitProvider>
     );
 }
 
-// eslint-disable-next-line react/prop-types
-function MainPageWrapper() {
-    // надо прокидывать {userId}
-    const [totalCoins, setTotalCoins] = useState(0);
-    const [rate, setRate] = useState(3);
-
-    console.log('totalCoins' , totalCoins)
-    console.log('rate', rate)
-
-    // const { data: profile, error: profileError } = useGetProfileQuery(userId, {
-    //     skip: !userId,
-    // });
-
-    useEffect(() => {
-        const savedTeamId = localStorage.getItem('teamId') || Math.floor(Math.random() * 4) + 1;
-        const savedTotalCoins = localStorage.getItem('totalCoins') || 0;
-        const savedRate = localStorage.getItem('rate') || 3;
-        const savedStartFarmTime = localStorage.getItem('startFarmTime') || Date.now();
-
-        localStorage.setItem('teamId', savedTeamId);
-        localStorage.setItem('totalCoins', savedTotalCoins);
-        localStorage.setItem('rate', savedRate);
-        localStorage.setItem('startFarmTime', savedStartFarmTime);
-    }, []);
-
-    // useEffect(() => {
-    //     if (!profileError) {
-    //         console.log(`Sending request to https://supavpn.lol/farm/start?profileId=${profile.Id}`);
-    //         fetch(`https://supavpn.lol/farm/start?profileId=${profile.Id}`)
-    //             .then(response => response.json())
-    //             .then(farmData => {
-    //                 setRate(farmData.rate);
-    //                 setTotalCoins(profile.Balance);
-    //                 console.log("Farm start response:", farmData);
-    //             })
-    //             .catch((error) => {
-    //                 setRate(3);
-    //                 setTotalCoins(profile.Balance);
-    //                 console.error("Error during farm start request:", error);
-    //             });
-    //     }
-    // }, [profile, profileError]);
-
-    return <MainPage />;
-}
 
 export default App;
