@@ -109,15 +109,13 @@ export const BoardPage = () => {
             </div>
             <div className={styles.navigation}>
                 <button className={styles.navLeft} onClick={handleSlidePrev}>
-                    {/*<img src={'/ArrowWhite.png'} alt={''} width={15} height={15} />*/}
-                    <svg fill="#ffffff" width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" transform="matrix(1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="m4.431 12.822 13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645z"></path></g></svg>
+                    <img src={'/ArrowWhite.png'} alt={''} width={15} height={15} />
                 </button>
                 <div className={styles.caption}>
                     <span>{ligsNames[activeIndex]}</span>
                 </div>
                 <button className={styles.navRight} onClick={handleSlideNext}>
-                    <svg fill="#ffffff" width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="m4.431 12.822 13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645z"></path></g></svg>
-                    {/*<img src={'/ArrowWhite.png'} alt={''} width={15} height={15} />*/}
+                    <img src={'/ArrowWhite.png'} alt={''} width={15} height={15} />
                 </button>
             </div>
             <div className={styles.progressBar}>

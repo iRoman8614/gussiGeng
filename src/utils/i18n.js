@@ -31,7 +31,7 @@ i18n
         lng: getAndSetInitialLanguage(),
         debug: true,
         backend: {
-            loadPath: '/gussiGeng/locales/{{lng}}/translation.json',
+            loadPath: '/locales/{{lng}}/translation.json',
         },
         react: {
             useSuspense: false,
