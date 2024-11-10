@@ -11,26 +11,28 @@ import { gameOptions } from '../../mock/optionData';
 import styles from '../pvp/Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
-const wins = '/gussiGeng/public/wins.png';
-const lose = '/gussiGeng/public/lose.png'
-const background = '/gussiGeng/public/backgrounds/backalley.png'
-const timerBG = '/gussiGeng/public/timer.png'
-const heart = '/gussiGeng/public/game-icons/heart.png'
-const cross = '/gussiGeng/public/game-icons/lose.png'
+const wins = '/wins.png';
+const lose = '/lose.png'
+const background = '/backgrounds/backalley.png'
+const timerBG = '/timer.png'
+const heart = '/game-icons/heart.png'
+const cross = '/game-icons/lose.png'
 const gifPaths = {
-    rockAnim: '/gussiGeng/public/game-icons/animation_hand_rock.gif',
-    scisAnim: '/gussiGeng/public/game-icons/animation_hand_sci.gif',
-    papAnim: '/gussiGeng/public/game-icons/animation_hand_pap.gif',
+    rockAnim: '/game-icons/animation_hand_rock.gif',
+    scisAnim: '/game-icons/animation_hand_sci.gif',
+    papAnim: '/game-icons/animation_hand_pap.gif',
 };
-const rock = '/gussiGeng/public/game-icons/rock.png'
-const paper = '/gussiGeng/public/game-icons/paper.png'
-const scis = '/gussiGeng/public/game-icons/scissors.png'
-const changerF = '/gussiGeng/public/game-icons/roundAnimFront.png'
-const changerB = '/gussiGeng/public/game-icons/roundAnimBack.png'
+const rock = '/game-icons/rock.png'
+const paper = '/game-icons/paper.png'
+const scis = '/game-icons/scissors.png'
+const changerF = '/game-icons/roundAnimFront.png'
+const changerB = '/game-icons/roundAnimBack.png'
 
 export const PvpBotPage = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const { groupId, updateContext } = useInit();
     const { triggerBotGame } = useTriggerBotGame();
     const [visibleImage, setVisibleImage] = useState(0);
@@ -292,12 +294,12 @@ export const PvpBotPage = () => {
                         />
                     </div>
                     <div className={styles.round}>
-                        round {playerScore+opponentScore+1}
+                        {t('PVP.rounds')} {playerScore+opponentScore+1}
                     </div>
                     <div className={styles.buttonSet}>
-                        <PvpBtn title={'rock'} img={rock} value={1} onClick={() => setPlayerChoice(1)} choose={playerChoice} />
-                        <PvpBtn title={'paper'} img={paper} value={2} onClick={() => setPlayerChoice(2)} choose={playerChoice} />
-                        <PvpBtn title={'scissons'} img={scis} value={3} onClick={() => setPlayerChoice(3)} choose={playerChoice} />
+                        <PvpBtn title={t('PVP.rock')} img={rock} value={1} onClick={() => setPlayerChoice(1)} choose={playerChoice} />
+                        <PvpBtn title={t('PVP.paper')} img={paper} value={2} onClick={() => setPlayerChoice(2)} choose={playerChoice} />
+                        <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => setPlayerChoice(3)} choose={playerChoice} />
                     </div>
                 </div>
             </div>
@@ -351,12 +353,15 @@ const WinningScreen = ({ userName, playerScore  }) => (
 
 
 // eslint-disable-next-line react/prop-types
-const RoundChanger = ({round}) => (
-    <div className={styles.changerRoot}>
-        <div className={styles.changerContainer}>
-            <img className={styles.animF} src={changerF} alt={''} width={700} height={150} />
-            <img className={styles.animB} src={changerB} alt={''} width={700} height={150} />
-            <div className={styles.changerText}>round {round}</div>
+const RoundChanger = ({round}) => {
+    const {t} = useTranslation();
+    return (
+        <div className={styles.changerRoot}>
+            <div className={styles.changerContainer}>
+                <img className={styles.animF} src={changerF} alt={''} width={700} height={150}/>
+                <img className={styles.animB} src={changerB} alt={''} width={700} height={150}/>
+                <div className={styles.changerText}>{t('PVP.rounds')} {round}</div>
+            </div>
         </div>
-    </div>
-)
+    )
+}

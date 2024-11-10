@@ -1,95 +1,76 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import i18n from '../utils/i18n.js';
 
 const InitContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const InitProvider = ({ children }) => {
     const [groupId, setGroupId] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
-            return savedInit.groupId || 0;
-        }
-        return 0;
+        const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+        return savedInit.groupId || 0;
     });
 
     const [liga, setLiga] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
-            return savedInit.liga || 0;
-        }
-        return 0;
+        const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+        return savedInit.liga || 0;
     });
 
     const [lang, setLang] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
-            return savedInit.lang || 'en';
-        }
-        return 'en';
+        const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+        return savedInit.lang || 'en';
     });
 
-    const [limit, setLimit] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
-            return savedFarm.farmLimit || 0;
+    useEffect(() => {
+        if (i18n.isInitialized && lang) {
+            i18n.changeLanguage(lang);
         }
-        return 0;
+    }, [lang]);
+
+    const [limit, setLimit] = useState(() => {
+        const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
+        return savedFarm.farmLimit || 0;
     });
 
     const [rate, setRate] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
-            return savedFarm.farmRate || 1;
-        }
-        return 1;
+        const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
+        return savedFarm.farmRate || 1;
     });
 
     const [coins, setCoins] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
-            return savedFarm.coins || 0;
-        }
-        return 0;
+        const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
+        return savedFarm.coins || 0;
     });
 
     const [totalCoins, setTotalCoins] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
-            return savedFarm.totalCoins || 0;
-        }
-        return 0;
+        const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
+        return savedFarm.totalCoins || 0;
     });
 
     const [dailyEntries, setDailyEntries] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
-            return savedInit.dailyEntries || 0;
-        }
-        return 0;
+        const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+        return savedInit.dailyEntries || 0;
     });
 
     const updateContext = () => {
-        if (typeof window !== 'undefined') {
-            const savedInit = JSON.parse(localStorage.getItem('init')) || {};
-            setGroupId(savedInit.groupId || 0);
-            setLiga(savedInit.liga || 0);
-            setLang(savedInit.lang || 'en');
-            setDailyEntries(savedInit.dailyEntries || 0);
+        const savedInit = JSON.parse(localStorage.getItem('init')) || {};
+        setGroupId(savedInit.groupId || 0);
+        setLiga(savedInit.liga || 0);
+        setLang(savedInit.lang || 'en');
+        setDailyEntries(savedInit.dailyEntries || 0);
 
-            const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
-            setLimit(savedFarm.farmLimit || 0);
-            setRate(savedFarm.farmRate || 1);
-            setCoins(savedFarm.coins || 0);
-            setTotalCoins(savedFarm.totalCoins || 0);
-        }
+        const savedFarm = JSON.parse(localStorage.getItem('farm')) || {};
+        setLimit(savedFarm.farmLimit || 0);
+        setRate(savedFarm.farmRate || 1);
+        setCoins(savedFarm.coins || 0);
+        setTotalCoins(savedFarm.totalCoins || 0);
     };
 
     useEffect(() => {
         const initData = {
-            groupId,
-            liga,
-            lang,
-            dailyEntries,
+            groupId: groupId,
+            liga: liga,
+            lang: lang,
+            dailyEntries: dailyEntries,
         };
         localStorage.setItem('init', JSON.stringify(initData));
     }, [groupId, liga, lang, dailyEntries]);
@@ -98,8 +79,8 @@ export const InitProvider = ({ children }) => {
         const farmData = {
             farmLimit: limit,
             farmRate: rate,
-            coins,
-            totalCoins,
+            coins: coins,
+            totalCoins: totalCoins,
         };
         localStorage.setItem('farm', JSON.stringify(farmData));
     }, [limit, rate]);
@@ -131,6 +112,7 @@ export const InitProvider = ({ children }) => {
     );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useInit = () => {
     return useContext(InitContext);
 };

@@ -6,15 +6,17 @@ import teamData from '../../mock/teamsData'
 import { useNavigate } from 'react-router-dom';
 
 import styles from './Change.module.scss'
+import {useTranslation} from "react-i18next";
 
-const bg = '/gussiGeng/public/backgrounds/randomBG.png'
-const dialog = '/gussiGeng/public/random/dialog.png'
-const person = '/gussiGeng/public/random/person.png'
-const hand = '/gussiGeng/public/random/hand.png'
-const money = '/gussiGeng/public/money.png'
+const bg = '/backgrounds/randomBG.png'
+const dialog = '/random/dialog.png'
+const person = '/random/person.png'
+const hand = '/random/hand.png'
+const money = '/money.png'
 
 export const ChangePage = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const { groupId, coins, updateContext } = useInit();
     const[showPopUp, setShowPopUp] = useState(false)
     const[choose, setChoose] = useState(null)
@@ -62,7 +64,7 @@ export const ChangePage = () => {
     }
     const changeClan = async () => {
         if (coins < 1000000) {
-            toast.error("You do not have enough money");
+            toast.error(t('change.noMoney'));
             return;
         }
         try {
@@ -92,7 +94,7 @@ export const ChangePage = () => {
             <div className={styles.container}>
                 <div className={styles.dialog}>
                     <img className={styles.dialogImage} src={dialog} alt={''} width={240} height={120} />
-                    <div className={styles.dialogText}>You wanna change your destiny?</div>
+                    <div className={styles.dialogText}>{t('change.destiny')}</div>
                 </div>
                 <img className={styles.person} src={person} alt={''} width={450} height={968} />
                 <div className={styles.cardSet}>
@@ -117,17 +119,17 @@ export const ChangePage = () => {
                 <img className={styles.myClan} src={cards[userTeam-1]?.logo} alt={''} width={200} height={340} />
             </div>
             {showPopUp && <div className={styles.popUp}>
-                <div className={styles.popUpTitle}>are you sure?</div>
+                <div className={styles.popUpTitle}>{t('change.sure')}</div>
                 <div className={styles.popUpClose} onClick={closePopUp}>x</div>
                 <div className={styles.popUpContainer}>
-                    <div className={styles.popUpLabel}>wanna join the <p>&quot;{teamData[choose].Name}&quot;?</p></div>
+                    <div className={styles.popUpLabel}>{t('change.join')} <p>&quot;{teamData[choose].Name}&quot;?</p></div>
                     <img className={styles.popUpIcon} src={teamData[choose]?.logo} alt={''} width={100} height={100}/>
                     <div className={styles.popUpSum}>
                         - 1 000 000
                         {' '}<img src={money} alt={''} width={21} height={21}/>
                     </div>
                 </div>
-                <button className={styles.popUpConfirm} onClick={changeClan}>confirm</button>
+                <button className={styles.popUpConfirm} onClick={changeClan}>{t('change.confirm')}</button>
             </div>}
         </div>
     )

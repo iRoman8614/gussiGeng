@@ -13,25 +13,27 @@ import { gameOptions } from '../../mock/optionData';
 import styles from './Pvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
-const wins = '/gussiGeng/public/wins.png';
-const background = '/gussiGeng/public/backgrounds/backalley.png'
-const timerBG = '/gussiGeng/public/timer.png'
-const heart = '/gussiGeng/public/game-icons/heart.png'
-const cross = '/gussiGeng/public/game-icons/lose.png'
+const wins = '/wins.png';
+const background = '/backgrounds/backalley.png'
+const timerBG = '/timer.png'
+const heart = '/game-icons/heart.png'
+const cross = '/game-icons/lose.png'
 const gifPaths = {
-    rockAnim: '/gussiGeng/public/game-icons/animation_hand_rock.gif',
-    scisAnim: '/gussiGeng/public/game-icons/animation_hand_sci.gif',
-    papAnim: '/gussiGeng/public/game-icons/animation_hand_pap.gif',
+    rockAnim: '/game-icons/animation_hand_rock.gif',
+    scisAnim: '/game-icons/animation_hand_sci.gif',
+    papAnim: '/game-icons/animation_hand_pap.gif',
 };
-const rock = '/gussiGeng/public/game-icons/rock.png'
-const paper = '/gussiGeng/public/game-icons/paper.png'
-const scis = '/gussiGeng/public/game-icons/scissors.png'
-const changerF = '/gussiGeng/public/game-icons/roundAnimFront.png'
-const changerB = '/gussiGeng/public/game-icons/roundAnimBack.png'
+const rock = '/game-icons/rock.png'
+const paper = '/game-icons/paper.png'
+const scis = '/game-icons/scissors.png'
+const changerF = '/game-icons/roundAnimFront.png'
+const changerB = '/game-icons/roundAnimBack.png'
 
 export const PvpPage = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [visibleImage, setVisibleImage] = useState(0);
     const [playerScore, setPlayerScore] = useState(0);
     const [opponentScore, setOpponentScore] = useState(0);
@@ -276,6 +278,9 @@ export const PvpPage = () => {
                 const newOpponentScore = roundResult.opponentVictory;
                 setPlayerScore(newPlayerScore);
                 setOpponentScore(newOpponentScore);
+                if (playerChoice !== opponentChoice) {
+                    setShowChanger(true)
+                }
 
                 if (roundResult.finished === true) {
                     handleGameEnd();
@@ -292,7 +297,6 @@ export const PvpPage = () => {
     const resetRoundAfterDelay = () => {
         if (playerChoice !== opponentChoice) {
             setRound(prev => prev + 1);
-            setShowChanger(true)
             console.log("Обновляем раунд");
         }
         setRoundResult(null);
@@ -399,12 +403,12 @@ export const PvpPage = () => {
                                 />
                             </div>
                             <div className={styles.round}>
-                                round {round}
+                                {t('PVP.rounds')} {round}
                             </div>
                             <div className={styles.buttonSet}>
-                                <PvpBtn title={'rock'} img={rock} value={1} onClick={() => handlePlayerChoice(1)} choose={playerChoice} />
-                                <PvpBtn title={'paper'} img={paper} value={2} onClick={() => handlePlayerChoice(2)} choose={playerChoice} />
-                                <PvpBtn title={'scissons'} img={scis} value={3} onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
+                                <PvpBtn title={t('PVP.rock')} img={rock} value={1} onClick={() => handlePlayerChoice(1)} choose={playerChoice} />
+                                <PvpBtn title={t('PVP.paper')} img={paper} value={2} onClick={() => handlePlayerChoice(2)} choose={playerChoice} />
+                                <PvpBtn title={t('PVP.scissors')} img={scis} value={3} onClick={() => handlePlayerChoice(3)} choose={playerChoice} />
                             </div>
                         </div>
                     </div>
@@ -440,12 +444,14 @@ const WinningScreen = ({ userName, playerScore, opponentName  }) => (
 );
 
 // eslint-disable-next-line react/prop-types
-const RoundChanger = ({round}) => (
-    <div className={styles.changerRoot}>
-        <div className={styles.changerContainer}>
-            <img className={styles.animF} src={changerF} alt={''} width={700} height={150} />
-            <img className={styles.animB} src={changerB} alt={''} width={700} height={150} />
-            <div className={styles.changerText}>round {round}</div>
-        </div>
-    </div>
-)
+const RoundChanger = ({round}) => {
+    const {t} = useTranslation();
+    return (
+        <div className={styles.changerRoot}>
+            <div className={styles.changerContainer}>
+                <img className={styles.animF} src={changerF} alt={''} width={700} height={150}/>
+                <img className={styles.animB} src={changerB} alt={''} width={700} height={150}/>
+                <div className={styles.changerText}>{t('PVP.rounds')} {round}</div>
+            </div>
+        </div>)
+}

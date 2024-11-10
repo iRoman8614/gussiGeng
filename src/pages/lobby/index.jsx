@@ -7,24 +7,25 @@ import styles from './Lobby.module.scss'
 import {IconButton} from "../../components/buttons/icon-btn/IconButton";
 import {useLastGames, useProfileStats} from "../../utils/api";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
-const bg = '/gussiGeng/public/backgrounds/Lobby.png'
-const hands = '/gussiGeng/public/main-buttons/hand2.png';
-const rich = '/gussiGeng/public/main-buttons/rich.png';
-const FAQ = '/gussiGeng/public/main-buttons/FAQ.png'
+const bg = '/backgrounds/Lobby.png'
+const hands = '/main-buttons/hand2.png';
+const rich = '/main-buttons/rich.png';
+const FAQ = '/main-buttons/FAQ.png'
 
 const gameIconsAssets = [
-    '/gussiGeng/public/game-icons/animation_hand_pap.gif',
-    '/gussiGeng/public/game-icons/animation_hand_rock.gif',
-    '/gussiGeng/public/game-icons/animation_hand_sci.gif',
-    '/gussiGeng/public/game-icons/hand_pap.png',
-    '/gussiGeng/public/game-icons/hand_rock.png',
-    '/gussiGeng/public/game-icons/hand_sci.png',
-    '/gussiGeng/public/game-icons/heart.png',
-    '/gussiGeng/public/game-icons/lose.png',
-    '/gussiGeng/public/game-icons/paper.png',
-    '/gussiGeng/public/game-icons/rock.png',
-    '/gussiGeng/public/game-icons/scissors.png'
+    '/game-icons/animation_hand_pap.gif',
+    '/game-icons/animation_hand_rock.gif',
+    '/game-icons/animation_hand_sci.gif',
+    '/game-icons/hand_pap.png',
+    '/game-icons/hand_rock.png',
+    '/game-icons/hand_sci.png',
+    '/game-icons/heart.png',
+    '/game-icons/lose.png',
+    '/game-icons/paper.png',
+    '/game-icons/rock.png',
+    '/game-icons/scissors.png'
 ];
 
 export const LobbyPage = () => {
@@ -35,6 +36,7 @@ export const LobbyPage = () => {
     const [sessionsCount, setSessionsCount] = useState(0)
 
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const { fetchProfileStats, data: stats } = useProfileStats();
     const { data: lastGamesData } = useLastGames()
@@ -129,7 +131,7 @@ export const LobbyPage = () => {
                     <div>
                         <div className={styles.card}>
                             <div className={styles.icon} onClick={handlePvpClick}>
-                                <div>battle</div>
+                                <div>{t('PVP.battle')}</div>
                                 <p className={styles.hiddenText}>free</p>
                                 <img className={styles.logo} src={hands} alt={''} width={150} height={75} />
                             </div>
@@ -142,12 +144,12 @@ export const LobbyPage = () => {
                                     {sessionsCount < 5 ? (
                                         <>
                                             <div>{5 - sessionsCount}</div>
-                                            <p>games left</p>
+                                            <p>{t('PVP.left')}</p>
                                         </>
                                     ) : (
                                         <>
                                             <div>{stats.pass}</div>
-                                            <p>extra games</p>
+                                            <p>{t('PVP.extra')}</p>
                                         </>)
                                     }
                                 </div>
@@ -160,8 +162,8 @@ export const LobbyPage = () => {
                             }}>?</div>
                         </div>
                         {hintOne && <div className={styles.hint}>
-                            Battle against others, earn rewards, and climb the ranks.
-                            <p>no luck, just skill!</p>
+                            {t('PVP.skill')}
+                            <p>{t('PVP.luck')}</p>
                         </div>}
                     </div>
                     <div>
@@ -169,7 +171,7 @@ export const LobbyPage = () => {
                             <div className={styles.card}>
                                 <a href={'/lobby'} className={styles.icon}>
                                     <div>ton</div>
-                                    <p>battle</p>
+                                    <p>{t('PVP.battle')}</p>
                                     <img className={styles.logo} src={rich} alt={''} width={150} height={75} />
                                 </a>
                                 <div className={styles.lable}>
@@ -179,11 +181,13 @@ export const LobbyPage = () => {
                                         {/*<p>ton</p>*/}
                                     </div>
                                 </div>
-                                <div className={styles.btn} onClick={() => {
-                                    if (window.Telegram?.WebApp?.HapticFeedback) {
-                                        window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
-                                    }
-                                    setHintTwo(!hintTwo)}}>?</div>
+                                <div className={styles.btn}
+                                    //  onClick={() => {
+                                    // if (window.Telegram?.WebApp?.HapticFeedback) {
+                                    //     window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+                                    // }
+                                    // setHintTwo(!hintTwo)}}
+                                >?</div>
                             </div>
                         </div>
                         {hintTwo && <div className={styles.hint}>

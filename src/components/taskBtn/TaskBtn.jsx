@@ -1,12 +1,12 @@
 import styles from './TaskBtn.module.scss'
 
-const Arrow = '/gussiGeng/public/Tasks/TaskArrow.png'
-const Complite = '/gussiGeng/public/Tasks/TaskComplited.png'
-const money = '/gussiGeng/public/Tasks/money2.png'
-const Icon1 = '/gussiGeng/public/Tasks/referal.png'
-const Icon3 = '/gussiGeng/public/Tasks/pvp.png'
-const IconTG = '/gussiGeng/public/Tasks/telegram.png'
-const IconX = '/gussiGeng/public/Tasks/twitter.png'
+const Arrow = '/Tasks/TaskArrow.png'
+const Complite = '/Tasks/TaskComplited.png'
+const money = '/Tasks/money2.png'
+const Icon1 = '/Tasks/referal.png'
+const Icon3 = '/Tasks/pvp.png'
+const IconTG = '/Tasks/telegram.png'
+const IconX = '/Tasks/twitter.png'
 
 
 // eslint-disable-next-line react/prop-types

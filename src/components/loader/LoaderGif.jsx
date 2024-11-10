@@ -3,8 +3,9 @@ import {useEffect, useState} from "react";
 import styles from './Loader.module.scss'
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
-const loader = '/gussiGeng/public/loadingImg.jpg'
+const loader = '/loadingImg.jpg'
 export const LoaderGif = () => {
     return(
         <div className={styles.root}>
@@ -16,6 +17,7 @@ export const LoaderGif = () => {
 
 const LoadingText = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [dots, setDots] = useState(0);
     const [timer, setTimer] = useState(0);
 
@@ -37,7 +39,7 @@ const LoadingText = () => {
 
     useEffect(() => {
         if(timer === 20) {
-            toast.error("Pair not found");
+            toast.error(t('PVP.you'));
         }
         if(timer === 22) {
             navigate('/main');
@@ -53,10 +55,10 @@ const LoadingText = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.hint}>Expected time: 20 sec</div>
+            <div className={styles.hint}>{t('PVP.expected')}</div>
             <div className={styles.timer}>{formatTime(timer)}</div>
             <div className={styles.loading}>
-                Loading{'.'.repeat(dots)}
+                {t('loading')}{'.'.repeat(dots)}
             </div>
         </div>
     );

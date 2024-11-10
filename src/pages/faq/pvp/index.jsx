@@ -7,20 +7,22 @@ import teamData from '../../../mock/teamsData.js';
 import styles from './faqPvp.module.scss';
 import "react-toastify/dist/ReactToastify.css";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
-const background = '/gussiGeng/public/backgrounds/backalley.png'
-const timerBG = '/gussiGeng/public/timer.png'
-const heart = '/gussiGeng/public/game-icons/heart.png'
-const cross = '/gussiGeng/public/game-icons/lose.png'
-const rock = '/gussiGeng/public/game-icons/rock.png'
-const paper = '/gussiGeng/public/game-icons/paper.png'
-const scis = '/gussiGeng/public/game-icons/scissors.png'
-const hand1 = '/gussiGeng/public/faq/faqHand1.png'
-const hand2 = '/gussiGeng/public/faq/faqHand2.png'
-const trio = '/gussiGeng/public/faq/trio.png'
+const background = '/backgrounds/backalley.png'
+const timerBG = '/timer.png'
+const heart = '/game-icons/heart.png'
+const cross = '/game-icons/lose.png'
+const rock = '/game-icons/rock.png'
+const paper = '/game-icons/paper.png'
+const scis = '/game-icons/scissors.png'
+const hand1 = '/faq/faqHand1.png'
+const hand2 = '/faq/faqHand2.png'
+const trio = '/faq/trio.png'
 
 export const FaqPvpPage = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [slide, setSlide] = useState(0)
 
     useEffect(() => {
@@ -57,27 +59,27 @@ export const FaqPvpPage = () => {
 
     const slideContent = [
         <div className={styles.slideContent1} key={'slideContent1'}>
-            <div>Battle against others, earn rewards, and climb the ranks.</div>
-            <div><a className={styles.yellow}>No luck, Just skill!</a></div>
+            <div>{t('PVP.skill')}</div>
+            <div><a className={styles.yellow}>{t('PVP.luck')}</a></div>
         </div>,
         <div className={styles.slideContent2} key={'slideContent2'}>
-            <div>This is your <a className={styles.yellow}>opponent</a></div>
-            <div>This is <a className={styles.green}>you</a></div>
+            <div>{t('PVP.this')} <a className={styles.yellow}>{t('PVP.opponent')}</a></div>
+            <div>{t('PVP.this')} <a className={styles.green}>{t('PVP.you')}</a></div>
         </div>,
         <div className={styles.slideContent3} key={'slideContent3'}>
-            <div>Your HP</div>
-            <div>Opponents HP</div>
+            <div>{t('PVP.hp')}</div>
+            <div>{t('PVP.opphp')}</div>
         </div>,
         <div className={styles.slideContent4} key={'slideContent4'}>
-            <div>Make your move! Pick one! Rock/Paper/Scissors</div>
+            <div>{t('PVP.move')}</div>
         </div>,
         <div className={styles.slideContent5} key={'slideContent5'}>
-            <div><a className={styles.green}>Time left</a></div>
-            <div><a className={styles.yellow}>Round count</a></div>
+            <div><a className={styles.green}>{t('PVP.time')}</a></div>
+            <div><a className={styles.yellow}>{t('PVP.round')}</a></div>
         </div>,
         <div className={styles.slideContent6} key={'slideContent6'}>
-            <div>First to <a className={styles.yellow}>3</a> wins the match <br/>
-                Good luck player</div>
+            <div>{t('PVP.3wins.first')} <a className={styles.yellow}>{t('PVP.3wins.3')}</a> {t('PVP.3wins.wins')} <br/>
+                {t('PVP.gl')}</div>
         </div>,
         <div className={styles.slideContent6} key={'slideContent7'}>
             <img src={trio} alt={''} width={200} height={180} />
@@ -88,9 +90,9 @@ export const FaqPvpPage = () => {
     return (
         <>
             <div className={styles.root}>
-                <img className={styles.background} src={background} width={300} height={1000} alt={'bg'} priority />
+                <img className={styles.background} src={background} width={300} height={1000} alt={'bg'} />
                 <div className={styles.container}>
-                    <div className={slide === 1 ? `${styles.oppNickname} ${styles.visible}` : styles.oppNickname}>opponent</div>
+                    <div className={slide === 1 ? `${styles.oppNickname} ${styles.visible}` : styles.oppNickname}>{t('PVP.opp')}</div>
                     <div className={slide === 1 ? `${styles.optionBg} ${styles.visible}` : styles.optionBg}>
                         <img
                             width={90}
@@ -118,12 +120,12 @@ export const FaqPvpPage = () => {
                         />
                     </div>
                     <div className={slide === 1 ? `${styles.round2} ${styles.visible}` : (slide === 4 ? `${styles.round4} ${styles.visible}` : styles.round)}>
-                        {slide === 1 ? 'your side' : 'round 3'}
+                        {slide === 1 ? `${t('PVP.your')}` : `${t('PVP.rounds')} 3`}
                     </div>
                     <div className={slide === 3 ? `${styles.buttonSet2} ${styles.visible}` : styles.buttonSet}>
-                        <PvpBtn title={'rock'} img={rock} value={1} />
-                        <PvpBtn title={'paper'} img={paper} value={2} />
-                        <PvpBtn title={'scissons'} img={scis} value={3} />
+                        <PvpBtn title={t('PVP.rock')} img={rock} value={1} />
+                        <PvpBtn title={t('PVP.paper')} img={paper} value={2} />
+                        <PvpBtn title={t('PVP.scissors')} img={scis} value={3} />
                     </div>
                 </div>
             </div>
@@ -132,7 +134,7 @@ export const FaqPvpPage = () => {
                     <div className={styles.col}>
                         <div className={styles.dot}>1</div>
                         <div className={styles.navLeft} onClick={prevSlide}>
-                            <img src={'/ArrowWhite.png'} alt={''} width={24} height={24} />
+                            <img src={'/gussiGeng/public/ArrowWhite.png'} alt={''} width={24} height={24} />
                         </div>
                         <div className={styles.dot}>1</div>
                     </div>
@@ -142,7 +144,7 @@ export const FaqPvpPage = () => {
                     <div className={styles.col}>
                         <div className={styles.dot}>1</div>
                         <div className={styles.navRight} onClick={nextSlide}>
-                            <img src={'/ArrowWhite.png'} alt={''} width={24} height={24} />
+                            <img src={'/gussiGeng/public/ArrowWhite.png'} alt={''} width={24} height={24} />
                         </div>
                         <div className={styles.pagination}>{slide+1}/7</div>
                     </div>

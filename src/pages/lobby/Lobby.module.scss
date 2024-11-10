@@ -121,7 +121,7 @@
 }
 
 .hint {
-  height: auto-clamp(118, 134);
+  height: fit-content;
   border-radius: 11px;
   width: 100%;
   background: #4c3981;

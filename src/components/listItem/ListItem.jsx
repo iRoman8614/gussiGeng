@@ -6,10 +6,10 @@ export const ListItem = ({item, index, teamId}) => {
     const[userId, setUserId] = useState(null)
 
     const teamData = {
-        1: { avatar: '/gussiGeng/public/listItemsBG/avaG.png', image: '/gussiGeng/public/listItemsBG/1grbg.png' },
-        2: { avatar: '/gussiGeng/public/listItemsBG/avaB.png', image: '/gussiGeng/public/listItemsBG/2bvbg.png' },
-        3: { avatar: '/gussiGeng/public/listItemsBG/avaY.png', image: '/gussiGeng/public/listItemsBG/3yfbg.png' },
-        4: { avatar: '/gussiGeng/public/listItemsBG/avaR.png', image: '/gussiGeng/public/listItemsBG/4rrbg.png' }
+        1: { avatar: '/listItemsBG/avaG.png', image: '/listItemsBG/1grbg.png' },
+        2: { avatar: '/listItemsBG/avaB.png', image: '/listItemsBG/2bvbg.png' },
+        3: { avatar: '/listItemsBG/avaY.png', image: '/listItemsBG/3yfbg.png' },
+        4: { avatar: '/listItemsBG/avaR.png', image: '/listItemsBG/4rrbg.png' }
     };
 
     const { avatar, image } = teamData[teamId] || {};

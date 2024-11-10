@@ -14,18 +14,19 @@ import {toast} from "react-toastify";
 import {useInit} from "../../context/InitContext.jsx";
 import {useFarmCollect} from "../../utils/api";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
-const money = '/gussiGeng/public/money.png'
+const money = '/money.png'
 
 export const UpgradesPage = () => {
     const navigate = useNavigate();
-    const { coins, updateContext, limit, rate, setRate, setLimit } = useInit();
+    const { t } = useTranslation();
+    const { coins, updateContext, limit, rate, setRate, setLimit, setCoins } = useInit();
     const { tab } = navigate;
     const [activeTab, setActiveTab] = useState(tab || '1');
     const { collectAndStart } = useFarmCollect();
 
     const swiperRef = useRef(null);
-    const [balance, setBalance] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [limitLevels, setLimitLevels] = useState([]);
@@ -57,8 +58,8 @@ export const UpgradesPage = () => {
     ]
 
     const upgradesList = [
-        'speed upgrades',
-        'limits upgrades'
+        t('EXP.speeds'),
+        t('EXP.limits')
     ]
 
     useEffect(() => {
@@ -165,7 +166,7 @@ export const UpgradesPage = () => {
             ));
             const collectData = await collectAndStart();
             const updatedBalance = collectData.totalCoins;
-            setBalance(updatedBalance);
+            setCoins(updatedBalance);
             closeUpgradeModal();
             fetchLevels();
             updateContext()
@@ -183,7 +184,7 @@ export const UpgradesPage = () => {
             ));
             const collectData = await collectAndStart();
             const updatedBalance = collectData.totalCoins;
-            setBalance(updatedBalance);
+            setCoins(updatedBalance);
             closeUpgradeModal();
             fetchLevels();
             updateContext()
@@ -266,7 +267,7 @@ export const UpgradesPage = () => {
         if (typeof window !== "undefined") {
             const start = JSON.parse(localStorage.getItem("start"));
             if (start) {
-                setBalance(start.coins);
+                setCoins(start.coins);
             }
         }
     }, []);
@@ -340,7 +341,7 @@ export const UpgradesPage = () => {
                              onClick={() => {
                                  handleTab('1')
                                  setIsModalOpen(false)
-                             }}>upgrades</div>
+                             }}>{t('EXP.upgrades')}</div>
                         <div
                             className={styles.folderBtnSkins}
                             style={{
@@ -351,13 +352,14 @@ export const UpgradesPage = () => {
                                 handleTab('2')
                                 setIsModalOpen(false)
                             }}
-                        >tasks</div>
+                        >{t('EXP.tasks')}</div>
                     </div>
                     {activeTab === '1' && <div className={styles.personalContainer}>
                         <div className={styles.list}>
                             <div className={styles.containerSwiper}>
                                 <button className={styles.navLeft} onClick={handleSlidePrev}>
-                                    <img src={'/Arrow.png'} alt={''} width={15} height={15} />
+                                    {/*<img src={'/gussiGeng/public/Arrow.png'} alt={''} width={15} height={15} />*/}
+                                    <svg fill="#ffffff" width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" transform="matrix(1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="m4.431 12.822 13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645z"></path></g></svg>
                                 </button>
                                 <Swiper
                                     modules={[Navigation, Controller]}
@@ -390,18 +392,19 @@ export const UpgradesPage = () => {
                                     ))}
                                 </Swiper>
                                 <button className={styles.navRight} onClick={handleSlideNext}>
-                                    <img src={'/Arrow.png'} alt={''} width={15} height={15} />
+                                    {/*<img src={'/Arrow.png'} alt={''} width={15} height={15} />*/}
+                                    <svg fill="#ffffff" width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="m4.431 12.822 13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645z"></path></g></svg>
                                 </button>
                             </div>
                             {activeIndex === 0 && <>
                                 {rateLevels.length !== 0 ? <div className={styles.itemsList}>{rateLevels.map((item, index) => (
                                     <ItemPlaceholder img={rateImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
-                                ))}</div> : <div className={styles.warning}>No available rate upgrades</div>}
+                                ))}</div> : <div className={styles.warning}>{t('EXP.noups')}</div>}
                             </>}
                             {activeIndex === 1 && <>
                                 {limitLevels.length !== 0 ? <div className={styles.itemsList}>{limitLevels.map((item, index) => (
                                     <ItemPlaceholder img={limitImages[index]} item={item} key={index} onClick={() => openUpgradeModal(item)} />
-                                ))}</div> : <div className={styles.warning}>No available limit upgrades</div>}
+                                ))}</div> : <div className={styles.warning}>{t('EXP.noups')}</div>}
                             </>}
                         </div>
                     </div>}
@@ -413,7 +416,7 @@ export const UpgradesPage = () => {
                             {/*        <TaskBtn title={task.name} desc={task.desc} complite={task.complite} key={index} onClick={() => handleTaskClick(task)} />*/}
                             {/*    )*/}
                             {/*})}*/}
-                            <div className={styles.label}>main tasks</div>
+                            <div className={styles.label}>{t('EXP.main')}</div>
                             {tasks.map((task, index) => {
                                 return(
                                     <>
@@ -442,10 +445,10 @@ export const UpgradesPage = () => {
                         <div className={styles.modalBorder}>
                             <div className={styles.modalUpgrades}>
                                 <h3>
-                                    {selectedItem.type === 'limit' ? `limit +${selectedItem.Name}%` : `rate +${selectedItem.Name}%`}
+                                    {selectedItem.type === 'limit' ? `${t('EXP.limit')} +${selectedItem.Name}%` : `${t('EXP.rate')} +${selectedItem.Name}%`}
                                 </h3>
-                                <p>Card level: {selectedItem.Level}</p>
-                                <p>Cost: {selectedItem.Cost}</p>
+                                <p>{t('EXP.lvl')}: {selectedItem.Level}</p>
+                                <p>{t('EXP.cost')}: {selectedItem.Cost}</p>
                                 <p>
                                     <a>
                                         {selectedItem.type === 'limit' ?
@@ -482,10 +485,10 @@ export const UpgradesPage = () => {
                             }}
                             disabled={selectedItem && coins < selectedItem.Cost}
                         >
-                            <div className={styles.modalBtn}>Upgrade</div>
+                            <div className={styles.modalBtn}>{t('EXP.upgrade')}</div>
                         </button>
                         <div className={styles.modalBorder} onClick={closeUpgradeModal}>
-                            <div className={styles.modalBtn}>Close</div>
+                            <div className={styles.modalBtn}>{t('EXP.close')}</div>
                         </div>
                     </div>
                 )}

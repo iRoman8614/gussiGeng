@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from "react-toastify";
 import { useInit } from '../../context/InitContext.jsx';
@@ -7,8 +6,9 @@ import CryptoJS from 'crypto-js';
 
 import styles from './Loader.module.scss';
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
-const loaderImage = '/gussiGeng/public/loadingImg.jpg';
+const loaderImage = '/loadingImg.jpg';
 
 const newPlayerAssets = [
     '/backgrounds/backalley.png', '/backgrounds/leaderboardBG.png',
@@ -164,13 +164,14 @@ export const LoaderPage = () => {
 
 const LoadingText = () => {
     const [dots, setDots] = useState(0);
+    const { t } = useTranslation();
     useEffect(() => {
         const interval = setInterval(() => { setDots(prevDots => (prevDots + 1) % 4); }, 500);
         return () => clearInterval(interval);
     }, []);
     return (
         <div className={styles.loading}>
-            Loading{'.'.repeat(dots)}
+            {t('loading')}{'.'.repeat(dots)}
         </div>
     );
 };

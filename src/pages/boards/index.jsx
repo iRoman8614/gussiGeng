@@ -10,11 +10,13 @@ import { useNavigate } from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from './Boards.module.scss'
+import {useTranslation} from "react-i18next";
 
-const bg = '/gussiGeng/public/backgrounds/leaderboardBG.png'
+const bg = '/backgrounds/leaderboardBG.png'
 
 export const BoardPage = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const { groupId, updateContext } = useInit();
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -107,25 +109,27 @@ export const BoardPage = () => {
             </div>
             <div className={styles.navigation}>
                 <button className={styles.navLeft} onClick={handleSlidePrev}>
-                    <img src={'/ArrowWhite.png'} alt={''} width={15} height={15} />
+                    {/*<img src={'/ArrowWhite.png'} alt={''} width={15} height={15} />*/}
+                    <svg fill="#ffffff" width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" transform="matrix(1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="m4.431 12.822 13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645z"></path></g></svg>
                 </button>
                 <div className={styles.caption}>
                     <span>{ligsNames[activeIndex]}</span>
                 </div>
                 <button className={styles.navRight} onClick={handleSlideNext}>
-                    <img src={'/ArrowWhite.png'} alt={''} width={15} height={15} />
+                    <svg fill="#ffffff" width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="m4.431 12.822 13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645z"></path></g></svg>
+                    {/*<img src={'/ArrowWhite.png'} alt={''} width={15} height={15} />*/}
                 </button>
             </div>
             <div className={styles.progressBar}>
                 <div className={styles.progress} style={{width: `${length}%`}}></div>
             </div>
-            <div className={styles.winsCounter}>{`wins ${stats?.victory}/${ligsLimits[activeIndex]}+`}</div>
+            <div className={styles.winsCounter}>{`${t('boards.wins')} ${stats?.victory}/${ligsLimits[activeIndex]}+`}</div>
             <img src={bg} alt={''} className={styles.bg} width={450} height={1000} />
             <div className={styles.container}>
                 {leaderData && leaderData.length === 0 ? (
                     <div className={styles.emptyState}>
-                        <p>Nobody has reached this league yet.</p>
-                        <p>Be the first!</p>
+                        <p>{t('boards.nobody')}</p>
+                        <p>{t('boards.first')}</p>
                     </div>
                 ) : leaderData ? (
                     leaderData.map((user, index) => (

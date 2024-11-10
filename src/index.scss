@@ -2,12 +2,12 @@
 
 @font-face {
     font-family: 'Pricedown';
-    src: url("/gussiGeng/public/fonts/pricedownbl.ttf");
+    src: url("/fonts/pricedownbl.ttf");
 }
 
 @font-face {
     font-family: 'Oswald';
-    src: url("/gussiGeng/public/fonts/Oswald.ttf");
+    src: url("/fonts/Oswald.ttf");
 }
 
 html, body {
@@ -42,7 +42,7 @@ html, body {
 }
 
 .Toastify__toast-body {
-    color: #fff; /* Белый текст */
+    color: #fff;
 }
 
 html, body {

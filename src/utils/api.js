@@ -60,8 +60,8 @@ export const useFarmStart = () => {
             const initData = JSON.parse(localStorage.getItem('farm')) || {};
             const updatedInitData = {
                 ...initData,
-                coins,
-                totalCoins,
+                coins: coins,
+                totalCoins: totalCoins,
                 farmRate: rate,
                 farmLimit: limit,
             };

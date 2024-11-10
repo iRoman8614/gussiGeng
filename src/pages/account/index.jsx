@@ -6,11 +6,13 @@ import teamData from "../../mock/teamsData";
 import { useNavigate } from 'react-router-dom';
 
 import styles from './Account.module.scss'
+import {useTranslation} from "react-i18next";
 
-const money = '/gussiGeng/public/money.png'
+const money = '/money.png'
 
 export const AccountPage = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const { groupId, liga, dailyEntries, coins, totalCoins, updateContext } = useInit();
     const [activeTab, setActiveTab] = useState(1);
     const [userName, setUserName] = useState(null);
@@ -64,7 +66,7 @@ export const AccountPage = () => {
             <div className={styles.container}>
                 <div className={styles.seasonBlock}>
                     <div className={styles.season}>
-                        season 1 <br/><br />
+                        {t('account.season')} <br/><br />
                         {userName}
                     </div>
                     <div className={styles.avatarContainer}>
@@ -81,7 +83,7 @@ export const AccountPage = () => {
                                  borderRight:  activeTab === 1 ? '2px solid #3842a4' : 'none',
                              }}
                              onClick={() => handleTab(1)}
-                        >stats</div>
+                        >{t('account.stats')}</div>
                         {/*<div*/}
                         {/*    className={styles.folderBtnSkins}*/}
                         {/*    style={{*/}
@@ -93,32 +95,32 @@ export const AccountPage = () => {
                     </div>
                     {activeTab === 1 &&<div className={styles.personalContainer}>
                         <div className={styles.stats}>
-                            <div className={styles.nickname}>league {stats?.liga}</div>
+                            <div className={styles.nickname}>{t('account.league')} {stats?.liga}</div>
                             <div className={styles.stat}>
-                                total <p>{stats?.count}</p>
+                                {t('account.total')} <p>{stats?.count}</p>
                             </div>
                             <div className={styles.stat}>
-                                wins <p>{stats?.victory}</p>
+                                {t('account.wins')} <p>{stats?.victory}</p>
                             </div>
                             <div className={styles.stat}>
-                                defeats <p>{stats?.lost}</p>
+                                {t('account.defeats')} <p>{stats?.lost}</p>
                             </div>
                             <div className={styles.stat}>
-                                winrate <p>{stats?.count === 0 ? '0%' : `${((stats?.victory / stats?.count) * 100).toFixed(2)}%`}</p>
+                                {t('account.winRate')} <p>{stats?.count === 0 ? '0%' : `${((stats?.victory / stats?.count) * 100).toFixed(2)}%`}</p>
                             </div>
                         </div>
                         <div className={styles.barBlock}>
-                            <div className={styles.barItem}>total coins earned</div>
+                            <div className={styles.barItem}>{t('account.Total')}</div>
                             <div className={styles.barItemStats}>{formatNumberFromEnd(totalCoins)}</div>
                             {/*<div className={styles.barItem}>total skins owned</div>*/}
                             {/*<div className={styles.barItemStats}>1/11</div>*/}
-                            <div className={styles.barItem}>friends invited</div>
+                            <div className={styles.barItem}>{t('account.friends')}</div>
                             <div className={styles.barItemStats}>{friends.length}</div>
-                            <div className={styles.barItem}>login streak</div>
+                            <div className={styles.barItem}>{t('account.login')}</div>
                             <div className={styles.barItemStats}>{dailyEntries}</div>
                         </div>
                         <div>
-                            <div className={styles.barItem}>current balance</div>
+                            <div className={styles.barItem}>{t('account.balance')}</div>
                             <div className={styles.balance}>{formatNumberFromEnd(coins)}{' '}<img src={money} alt={''} /></div>
                         </div>
                     </div>}

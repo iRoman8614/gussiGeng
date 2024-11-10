@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import {preloadAssets, preloadLoaders} from './utils/preloadAssets';
 import {PvpPage} from "./pages/pvp/index.jsx";
+import './utils/i18n.js';
 
 import './App.scss';
 import {InitProvider} from "./context/InitContext.jsx";
@@ -19,10 +19,9 @@ import {UpgradesPage} from "./pages/upgrades/index.jsx";
 import {BoardPage} from "./pages/boards/index.jsx";
 import {RandomPage} from "./pages/getRandom/index.jsx";
 import {ChangePage} from "./pages/change/index.jsx";
+import {QrPage} from "./pages/qr/index.jsx";
 
 function App() {
-    const [ ,setIsLoadingAssets] = useState(true);
-
     useEffect(() => {
         if (window.Telegram?.WebApp) {
             window.Telegram.WebApp.setHeaderColor('#183256');
@@ -46,20 +45,9 @@ function App() {
                 console.log("User ID from Telegram:", userObject.id);
             }
         }
-        preloadLoaders().then(() => {
-            preloadAssets()
-                .then(() => {
-                    setIsLoadingAssets(false);
-                })
-                .catch((error) => {
-                    console.error('Error loading assets', error);
-                });
-
-            return () => {
-                window.removeEventListener('resize', setTelegramHeight);
-            };
-        })
-
+        return () => {
+            window.removeEventListener('resize', setTelegramHeight);
+        };
     }, []);
 
     return (
@@ -91,6 +79,7 @@ function App() {
                     <Route path='/boards' element={<BoardPage />} />
                     <Route path='/getRandom' element={<RandomPage />} />
                     <Route path='/change' element={<ChangePage />} />
+                    <Route path='/qr' element={<QrPage />} />
                 </Routes>change
             </HashRouter>
         </InitProvider>

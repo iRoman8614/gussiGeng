@@ -7,22 +7,24 @@ import styles from "./faqHome.module.scss";
 import {BigButton} from "../../../components/buttons/big-btn/BigButton";
 import { useInit } from '../../../context/InitContext.jsx';
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
-const account = "/gussiGeng/public/main-buttons/account.png";
-const settings = "/gussiGeng/public/main-buttons/settings.png";
-const boards = "/gussiGeng/public/main-buttons/boards.png";
-const wallet = "/gussiGeng/public/main-buttons/wallet.png";
-const claim = '/gussiGeng/public/claimBTN.png'
-const border = '/gussiGeng/public/totalbar.png'
-const background = '/gussiGeng/public/backgrounds/nightcity.png'
-const upgrades = '/gussiGeng/public/main-buttons/upgrades.png';
-const hands = '/gussiGeng/public/main-buttons/hands.png';
-const friends = '/gussiGeng/public/main-buttons/friends.png';
-const bag = '/gussiGeng/public/main-buttons/bag.png';
-const FAQ = '/gussiGeng/public/main-buttons/FAQ.png'
+const account = "/main-buttons/account.png";
+const settings = "/main-buttons/settings.png";
+const boards = "/main-buttons/boards.png";
+const wallet = "/main-buttons/wallet.png";
+const claim = '/claimBTN.png'
+const border = '/totalbar.png'
+const background = '/backgrounds/nightcity.png'
+const upgrades = '/main-buttons/upgrades.png';
+const hands = '/main-buttons/hands.png';
+const friends = '/main-buttons/friends.png';
+const bag = '/main-buttons/bag.png';
+const FAQ = '/main-buttons/FAQ.png'
 
 export const FaqHomePage = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [slide, setSlide] = useState(0)
     const { groupId, liga } = useInit();
 
@@ -66,34 +68,34 @@ export const FaqHomePage = () => {
 
     const slideContent = [
         <div className={styles.slideContent1} key={'slideContent1'}>
-            <div>This is your <br/> current <a className={styles.green}>balance</a></div>
-            <div>and that is your <br/> limited farm <a className={styles.yellow}>pool</a></div>
+            <div>{t('FAQ.1.current')} <br/><a className={styles.green}>{t('FAQ.1.balance')}</a></div>
+            <div>{t('FAQ.1.farmPool')} <a className={styles.yellow}> {t('FAQ.1.pool')}</a> {t('FAQ.1.end')}</div>
         </div>,
         <div className={styles.slideContent2} key={'slideContent2'}>
-            <div>This is your claim button. Use it to <a className={styles.yellow}>claim</a> money from the limited <a className={styles.yellow}>farm pool</a> and add it to your current <a className={styles.green}>balance</a> </div>
+            <div>{t('FAQ.2.btn')} <a className={styles.yellow}>{t('FAQ.2.claim')}</a>{t('FAQ.2.money')} <a className={styles.yellow}>{t('FAQ.2.farm')}</a> {t('FAQ.2.add')} <a className={styles.green}>{t('FAQ.2.balance')}</a> </div>
         </div>,
         <div className={styles.slideContent3} key={'slideContent3'}>
-            <div><a className={styles.green}>Account</a> - check your stats and customise your profile</div>
-            <div><a className={styles.green}>Ganglogo</a> - swap your gang here</div>
-            <div><a className={styles.green}>Settings</a> - change your language and ui preferences</div>
+            <div><a className={styles.green}>{t('FAQ.3.account')}</a> - {t('FAQ.3.check')}</div>
+            <div><a className={styles.green}>{t('FAQ.3.gl')}</a> - {t('FAQ.3.swap')}</div>
+            <div><a className={styles.green}>{t('FAQ.3.settings')}</a> - {t('FAQ.3.change')}</div>
         </div>,
         <div className={styles.slideContent4} key={'slideContent4'}>
-            <div><a className={styles.green}>Leaderboard</a> - check out your  rank and leaderboard standings</div>
-            <div><a className={styles.yellow}>Wallet</a> - link your cryptowallet</div>
+            <div><a className={styles.green}>{t('FAQ.4.boards')}</a> - {t('FAQ.4.check')}</div>
+            <div><a className={styles.yellow}>{t('FAQ.4.wallet')}</a> - {t('FAQ.4.link')}</div>
         </div>,
         <div className={styles.slideContent5} key={'slideContent5'}>
-            <div>PVP - <a className={styles.yellow}>battle</a> your way to the top of the <a className={styles.yellow}>ranks</a> or test your skills for <a className={styles.yellow}>ton</a></div>
+            <div>{t('FAQ.5.pvp')} <a className={styles.yellow}>{t('FAQ.5.battle')}</a> {t('FAQ.5.way')} <a className={styles.yellow}>{t('FAQ.5.ranks')}</a> {t('FAQ.5.test')} <a className={styles.yellow}>{t('FAQ.5.ton')}</a> {t('FAQ.5.soon')}</div>
         </div>,
         <div className={styles.slideContent6} key={'slideContent6'}>
             <div>
-                Items - bling out your <a className={styles.yellow}>battle avatar</a> with earned and bought items
+                {t('FAQ.6.items')} <a className={styles.yellow}>{t('FAQ.6.ava')}</a> {t('FAQ.6.earned')}
             </div>
             <div>
-                Exp -  upgrade your <a className={styles.yellow}>farming rate</a> and <a className={styles.green}>farming limit</a></div>
+                {t('FAQ.6.exp')} <a className={styles.yellow}>{t('FAQ.6.rate')}</a> {t('FAQ.6.and')} <a className={styles.green}>{t('FAQ.6.limit')}</a></div>
         </div>,
         <div className={styles.slideContent7} key={'slideContent7'}>
-            <div>Friends - <a className={styles.yellow}>invite</a> your friends and <a className={styles.green}>gain</a> bonuses</div>
-            <div>FAQ - wouldn&apos;t be here without it</div>
+            <div>{t('FAQ.7.friends')} <a className={styles.yellow}>{t('FAQ.7.invite')}</a> {t('FAQ.7.yur')} <a className={styles.green}>{t('FAQ.7.gain')}</a> {t('FAQ.7.bonuses')}</div>
+            <div>{t('FAQ.7.faq')}</div>
         </div>
     ];
 
@@ -144,7 +146,7 @@ export const FaqHomePage = () => {
                     <div className={styles.col}>
                         <div className={styles.dot}>.</div>
                         <div className={styles.navLeft} onClick={prevSlide}>
-                            <img src={'/ArrowWhite.png'} alt={''} width={24} height={24} />
+                            <img src={'/gussiGeng/public/ArrowWhite.png'} alt={''} width={24} height={24} />
                         </div>
                         <div className={styles.dot}>.</div>
                     </div>
@@ -154,7 +156,7 @@ export const FaqHomePage = () => {
                     <div className={styles.col}>
                         <div className={styles.dot}>.</div>
                         <div className={styles.navRight} onClick={nextSlide}>
-                            <img src={'/ArrowWhite.png'} alt={''} width={24} height={24} />
+                            <img src={'/gussiGeng/public/ArrowWhite.png'} alt={''} width={24} height={24} />
                         </div>
                         <div className={styles.pagination}>{slide+1}/7</div>
                     </div>

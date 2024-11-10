@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://iRoman8614.github.io/gussiGeng/#/",
+  "homepage": "https://iRoman8614.github.io/#/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

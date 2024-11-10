@@ -11,18 +11,20 @@ import skinData from '../../mock/skinsData'
 
 import styles from "./Home.module.scss";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
-const account = "/gussiGeng/public/main-buttons/account.png";
-const settings = "/gussiGeng/public/main-buttons/settings.png";
-const boards = "/gussiGeng/public/main-buttons/boards.png";
-const wallet = "/gussiGeng/public/main-buttons/wallet.png";
-const claim = '/gussiGeng/public/claimBTN.png'
-const border = '/gussiGeng/public/totalbar.png'
-const claimClicked = '/gussiGeng/public/claimBTNclicked.png'
-const background = '/gussiGeng/public/backgrounds/nightcity.png'
+const account = "/main-buttons/account.png";
+const settings = "/main-buttons/settings.png";
+const boards = "/main-buttons/boards.png";
+const wallet = "/main-buttons/wallet.png";
+const claim = '/claimBTN.png'
+const border = '/totalbar.png'
+const claimClicked = '/claimBTNclicked.png'
+const background = '/backgrounds/nightcity.png'
 
 export const HomePage = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const { groupId, liga, rate, limit, updateContext, coins } = useInit();
     const [balance, setBalance] = useState(0)
     const [currentFarmCoins, setCurrentFarmCoins] = useState(0);
@@ -123,23 +125,23 @@ export const HomePage = () => {
         <div className={styles.root}>
             <img className={styles.background} src={background} width={300} height={1000}  alt={'bg'}/>
             <div className={styles.item1}>
-                <IconButton image={account} alt={'account'} title={'account'}  onClick={() => {navigate('/account')}}/>
+                <IconButton image={account} alt={'account'} title={t('main.account')}  onClick={() => {navigate('/account')}}/>
             </div>
             <div className={styles.item2}>
                 <IconButton image={teamData[groupId]?.logo} alt={'gang'} onClick={() => {navigate('/change')}}/>
             </div>
             <div className={styles.item3}>
-                <IconButton image={settings} alt={'settings'} title={'settings'} onClick={() => {navigate('/settings');}}/>
+                <IconButton image={settings} alt={'settings'} title={t('main.settings')} onClick={() => {navigate('/settings');}}/>
             </div>
             <div className={styles.item4}>
-                <IconButton image={boards} alt={'boards'} title={'board'} onClick={() => {navigate('/boards');}}/>
+                <IconButton image={boards} alt={'boards'} title={t('main.boards')} onClick={() => {navigate('/boards');}}/>
             </div>
             <div className={styles.item5}>
                 <img src={border} width={600} height={200} alt={'border'} className={styles.totalBarRoot}/>
                 <div className={styles.totalText}>{formatNumberFromEnd(balance)}</div>
             </div>
             <div className={styles.item6}>
-                <IconButton image={wallet} alt={'wallet'} title={'wallet'} hidden={true} onClick={() => {navigate('/getRandom')}}/>
+                <IconButton image={wallet} alt={'wallet'} title={t('main.wallet')} hidden={true} onClick={() => {navigate('/getRandom')}}/>
             </div>
             <div className={styles.item7}>
                 <img width={1000} height={1000} className={styles.char} alt={'character'} src={skinData[groupId]?.[liga]?.icon}/>
